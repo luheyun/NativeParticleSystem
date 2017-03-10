@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\UnityPluginInterface.h" />
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\GfxDeviceD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxDevice.h" />
     <ClInclude Include="..\..\Src\Graphics\Renderer.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystem.h" />
@@ -72,6 +73,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy ..\..\..\Debug\NativeParticleSystem.dll ..\..\..\Assets\Plugins\NativeParticleSystem.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

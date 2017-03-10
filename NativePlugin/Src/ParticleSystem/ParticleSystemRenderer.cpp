@@ -4,3 +4,8 @@ void ParticleSystemRenderer::Render()
 {
 
 }
+
+void ParticleSystemRenderer::RenderMultiple()
+{
+
+}

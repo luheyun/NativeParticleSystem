@@ -6,4 +6,5 @@ class ParticleSystemRenderer : Renderer
 {
 public:
 	virtual void Render() override;
+	static void RenderMultiple();
 };

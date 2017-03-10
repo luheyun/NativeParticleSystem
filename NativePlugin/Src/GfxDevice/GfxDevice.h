@@ -10,3 +10,11 @@ public:
 	GfxDevice();
 	GFX_API ~GfxDevice();
 };
+
+class GfxThreadableDevice : public GfxDevice
+{
+public:
+};
+
+GfxDevice& GetGfxDevice();
+void SetGfxDevice(GfxDevice* device);
