@@ -163,5 +163,8 @@ GfxDevice& GetGfxDevice()
 
 void SetGfxDevice(GfxDevice* device)
 {
+	if (gfxDevice != nullptr)
+		delete gfxDevice;
+
 	gfxDevice = device;
 }

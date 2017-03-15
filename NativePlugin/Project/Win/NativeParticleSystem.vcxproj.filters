@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Src\GfxDevice">
+      <UniqueIdentifier>{167b6449-bca0-4268-89b3-d33a35460659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\ParticleSystem">
+      <UniqueIdentifier>{4fcad079-127a-4035-a403-a4fc6c5835a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Graphics">
+      <UniqueIdentifier>{7a22fcb2-2fee-4a0e-b4cf-859cbc0e4d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Src\GfxDevice\d3d">
+      <UniqueIdentifier>{81538d85-c806-4e21-a693-1cbe194dded6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\Precomplie">
+      <UniqueIdentifier>{1fe18086-9d89-47bd-8b71-cf4cc19a3153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Utilities">
+      <UniqueIdentifier>{b55cbc17-bd5f-4e1b-84ce-835f9b369dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Allocator">
+      <UniqueIdentifier>{385e9d93-86f6-45ff-9e20-ac9e8a873b7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Math">
+      <UniqueIdentifier>{396d6fda-0541-436e-83be-845fcf5eddb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Math\Simd">
+      <UniqueIdentifier>{b300d897-5cf4-457a-bbab-a099da36eca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Shaders">
+      <UniqueIdentifier>{2b435b30-3b1b-4100-ad48-003867afa86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Graphics\Mesh">
+      <UniqueIdentifier>{a2e7e78c-8536-40cc-8ea7-6f13177ef013}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

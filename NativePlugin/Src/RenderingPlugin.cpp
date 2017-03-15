@@ -17,15 +17,10 @@ extern "C"
 {
 	void(_stdcall*debugLog)(char*) = nullptr;
 
-	__declspec(dllexport) void LinkDebug(void(_stdcall*d)(char*))
+	__declspec(dllexport) void StartUp(void(_stdcall*d)(char*))
 	{
 		debugLog = d;
-	}
-
-	__declspec(dllexport) void StartUp()
-	{
 		DebugLog("Plugin Start Up!");
-		SetGfxDevice(new GfxDeviceD3D9());
 	}
 }
 
@@ -50,6 +45,7 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 		DebugLog("Set D3D9 graphics device\n");
 		g_DeviceType = deviceType;
 		SetD3DDevice((IDirect3DDevice9*)device, (GfxDeviceEventType)eventType);
+		SetGfxDevice(new GfxDeviceD3D9());
 		GfxBuffer* gfxBuf = GetGfxDevice().CreateVertexBuffer();
 		GetGfxDevice().UpdateBuffer(gfxBuf, kGfxBufferModeDynamic, kGfxBufferLabelDefault, 1024, nullptr, 0);
 	}
@@ -122,26 +118,26 @@ void DoRender()
 		0, 0, 0, 1,
 	};
 
-	{
-		Matrix4x4f worldMatrix(worldMatrixArray);
-		GetGfxDevice().SetWorldMatrix(worldMatrix);
-	}
+	//{
+	//	Matrix4x4f worldMatrix(worldMatrixArray);
+	//	GetGfxDevice().SetWorldMatrix(worldMatrix);
+	//}
 
-	{
-		Matrix4x4f viewMatrix(viewMatrixArray);
-		GetGfxDevice().SetViewMatrix(viewMatrix);
-	}
+	//{
+	//	Matrix4x4f viewMatrix(viewMatrixArray);
+	//	GetGfxDevice().SetViewMatrix(viewMatrix);
+	//}
 
-	{
-		Matrix4x4f projectionMatrix(projectionMatrixArray);
-		GetGfxDevice().SetProjectionMatrix(projectionMatrix);
-	}
+	//{
+	//	Matrix4x4f projectionMatrix(projectionMatrixArray);
+	//	GetGfxDevice().SetProjectionMatrix(projectionMatrix);
+	//}
 
-	DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
-	DynamicVBOChunkHandle meshVBOChunk;
-	vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk); 
-	ChannelAssigns* channel = new ChannelAssigns();
-	memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
-	//vbo.DrawChunk(meshVBOChunk, channel);
-	vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
+	//DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
+	//DynamicVBOChunkHandle meshVBOChunk;
+	//vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk); 
+	//ChannelAssigns* channel = new ChannelAssigns();
+	//memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
+	//vbo.DrawChunk(meshVBOChunk, *channel, 0, nullptr);
+	//vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
 }

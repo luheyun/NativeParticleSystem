@@ -8,10 +8,7 @@ public class NativeParticleSystem : MonoBehaviour
     private const string PluginName = "NativeParticleSystem";
 
     [DllImport(PluginName)]
-    private static extern void LinkDebug([MarshalAs(UnmanagedType.FunctionPtr)]IntPtr debugCal);
-
-    [DllImport(PluginName)]
-    private static extern void StartUp();
+    private static extern void StartUp([MarshalAs(UnmanagedType.FunctionPtr)]IntPtr debugCal);
 
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     private delegate void DebugLog(string log);
@@ -22,15 +19,19 @@ public class NativeParticleSystem : MonoBehaviour
     private static void DebugWrapper(string log) { Debug.Log(log); }
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
-        StartUp();
-        LinkDebug(functionPointer);
+        StartUp(functionPointer);
 	}
-	
+
+    int count = 0;
+
 	// Update is called once per frame
 	void Update () 
     {
-        GL.IssuePluginEvent(1);
+        if (count <= 0)
+            GL.IssuePluginEvent(1);
+
+        count = 1;
 	}
 }
