@@ -43,4 +43,218 @@
       <UniqueIdentifier>{a2e7e78c-8536-40cc-8ea7-6f13177ef013}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Include\Precomplie\PluginPrefix.h">
+      <Filter>Include\Precomplie</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Precomplie\PrefixConfigure.h">
+      <Filter>Include\Precomplie</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Precomplie\VisualStudioPrefix.h">
+      <Filter>Include\Precomplie</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\UnityPluginInterface.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Allocator\MemoryMacros.h">
+      <Filter>Src\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParams.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParamsNames.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\ChannelAssigns.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\GfxBuffer.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\GfxDevice.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\GfxDeviceResources.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\GfxDeviceTypes.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\TransformState.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\VertexDeclaration.h">
+      <Filter>Src\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Context.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Enumeration.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Includes.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Utils.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\GfxDeviceD3D9.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Renderer.h">
+      <Filter>Src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\DynamicVBO.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\GenericDynamicVBO.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\Mesh.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\MeshVertexFormat.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\SharedMeshData.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\VertexData.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\FloatConversion.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Matrix3x3.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Matrix4x4.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Quaternion.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Vector3.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Vector4.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Simd\RotationOrder.h">
+      <Filter>Src\Math\Simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystem.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Shaders\GraphicsCaps.h">
+      <Filter>Src\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\algorithm_utility.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\BitUtility.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\LinkedList.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\UnionTuple.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\Utility.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\Word.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Src\RenderingPlugin.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParams.cpp">
+      <Filter>Src\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParamsNames.cpp">
+      <Filter>Src\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\ChannelAssigns.cpp">
+      <Filter>Src\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\GfxDevice.cpp">
+      <Filter>Src\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\VertexDeclaration.cpp">
+      <Filter>Src\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\d3d\D3D9Context.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\d3d\D3D9Utils.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\d3d\GfxDeviceD3D9.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Renderer.cpp">
+      <Filter>Src\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Mesh\DynamicVBO.cpp">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Mesh\GenericDynamicVBO.cpp">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Mesh\MeshVertexFormat.cpp">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Matrix3x3.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Matrix4x4.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Matrix4x4_REF.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Quaternion.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Vector3.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystem.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Shaders\GraphicsCaps.cpp">
+      <Filter>Src\Shaders</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
