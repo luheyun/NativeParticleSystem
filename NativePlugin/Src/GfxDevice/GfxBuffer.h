@@ -3,7 +3,7 @@
 #include "Utilities/LinkedList.h"
 #include "GfxDevice/GfxDeviceTypes.h"
 
-class GfxBuffer : public ListElement
+class EXPORT_COREMODULE GfxBuffer : public ListElement
 {
 public:
 	virtual ~GfxBuffer() {}

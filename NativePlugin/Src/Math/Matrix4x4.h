@@ -18,12 +18,12 @@ class Quaternionf;
 
 float ComputeUniformScale (const Matrix4x4f& matrix);
 
-bool InvertMatrix4x4_Full( const float* m, float* out );
-bool InvertMatrix4x4_General3D( const float* m, float* out );
+EXPORT_COREMODULE bool InvertMatrix4x4_Full(const float* m, float* out);
+EXPORT_COREMODULE bool InvertMatrix4x4_General3D(const float* m, float* out);
 
 
 /// Matrices in unity are column major.
-class Matrix4x4f
+class EXPORT_COREMODULE Matrix4x4f
 {
 	public:
 	float m_Data[16];

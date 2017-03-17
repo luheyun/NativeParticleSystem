@@ -24,6 +24,7 @@
     <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Includes.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Utils.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\GfxDeviceD3D9.h" />
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\GraphicsCapsD3D9.cpp" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\Src\Graphics\Mesh\GenericDynamicVBO.h" />
     <ClInclude Include="..\..\Src\Graphics\Mesh\Mesh.h" />
     <ClInclude Include="..\..\Src\Graphics\Mesh\MeshVertexFormat.h" />
+    <ClInclude Include="..\..\Src\Graphics\Mesh\ShaderChannels.h" />
     <ClInclude Include="..\..\Src\Graphics\Mesh\SharedMeshData.h" />
     <ClInclude Include="..\..\Src\Graphics\Mesh\VertexData.h" />
     <ClInclude Include="..\..\Src\Graphics\Renderer.h" />
@@ -72,6 +74,7 @@
     <ClCompile Include="..\..\Src\Graphics\Mesh\DynamicVBO.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\GenericDynamicVBO.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\MeshVertexFormat.cpp" />
+    <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Renderer.cpp" />
     <ClCompile Include="..\..\Src\Math\Matrix3x3.cpp" />

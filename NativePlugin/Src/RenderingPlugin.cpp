@@ -2,10 +2,13 @@
 #include "UnityPluginInterface.h"
 #include "GfxDevice/d3d/D3D9Includes.h"
 #include "GfxDevice/d3d/GfxDeviceD3D9.h"
+#include "Graphics/Mesh/VertexData.h"
+#include "GfxDevice/VertexDeclaration.h"
 #include "GfxDevice/GfxDevice.h"
 #include "Graphics/Mesh/DynamicVBO.h"
 #include "GfxDevice/GfxDeviceTypes.h"
 #include "GfxDevice/ChannelAssigns.h"
+#include "Graphics/Mesh/MeshVertexFormat.h"
 
 
 static inline void DebugLog(char* str);
@@ -39,13 +42,14 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 {
 	g_DeviceType = -1;
 
-#if SUPPORT_D3D9
+#ifdef GFX_SUPPORTS_D3D9
 	if (deviceType == kGfxRendererD3D9)
 	{
 		DebugLog("Set D3D9 graphics device\n");
 		g_DeviceType = deviceType;
 		SetD3DDevice((IDirect3DDevice9*)device, (GfxDeviceEventType)eventType);
 		SetGfxDevice(new GfxDeviceD3D9());
+		InitializeMeshVertexFormatManager();
 		GfxBuffer* gfxBuf = GetGfxDevice().CreateVertexBuffer();
 		GetGfxDevice().UpdateBuffer(gfxBuf, kGfxBufferModeDynamic, kGfxBufferLabelDefault, 1024, nullptr, 0);
 	}
@@ -62,7 +66,7 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 		g_DeviceType = deviceType;
 	}
 
-#if SUPPORT_D3D11
+#if GFX_SUPPORTS_D3D11
 	if (deviceType == kGfxRendererD3D11)
 	{
 		DebugLog("Set D3D11 graphics device, but not supported yet\n");
@@ -80,6 +84,8 @@ struct MyVertex {
 	float x, y, z;
 	unsigned int color;
 };
+
+static DefaultMeshVertexFormat gVertexFormat(VERTEX_FORMAT2(Vertex, Color));
 
 void DoRender()
 {
@@ -118,26 +124,29 @@ void DoRender()
 		0, 0, 0, 1,
 	};
 
-	//{
-	//	Matrix4x4f worldMatrix(worldMatrixArray);
-	//	GetGfxDevice().SetWorldMatrix(worldMatrix);
-	//}
+	{
+		Matrix4x4f worldMatrix(worldMatrixArray);
+		GetGfxDevice().SetWorldMatrix(worldMatrix);
+	}
 
-	//{
-	//	Matrix4x4f viewMatrix(viewMatrixArray);
-	//	GetGfxDevice().SetViewMatrix(viewMatrix);
-	//}
+	{
+		Matrix4x4f viewMatrix(viewMatrixArray);
+		GetGfxDevice().SetViewMatrix(viewMatrix);
+	}
 
-	//{
-	//	Matrix4x4f projectionMatrix(projectionMatrixArray);
-	//	GetGfxDevice().SetProjectionMatrix(projectionMatrix);
-	//}
+	{
+		Matrix4x4f projectionMatrix(projectionMatrixArray);
+		GetGfxDevice().SetProjectionMatrix(projectionMatrix);
+	}
 
-	//DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
-	//DynamicVBOChunkHandle meshVBOChunk;
-	//vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk); 
-	//ChannelAssigns* channel = new ChannelAssigns();
-	//memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
-	//vbo.DrawChunk(meshVBOChunk, *channel, 0, nullptr);
-	//vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
+	DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
+	DynamicVBOChunkHandle meshVBOChunk;
+	vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk); 
+	ChannelAssigns* channel = new ChannelAssigns();
+	channel->Bind(kShaderChannelVertex, kVertexCompVertex);
+	channel->Bind(kShaderChannelColor, kVertexCompColor);
+	memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
+	DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
+	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels(), gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);
+	vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
 }

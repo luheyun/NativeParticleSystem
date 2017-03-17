@@ -9,15 +9,36 @@ DynamicVBO::DynamicVBO()
 
 }
 
+bool DynamicVBO::IsHandleValid(const DynamicVBOChunkHandle& chunkHandle) const
+{
+	if (chunkHandle.id == DynamicVBOChunkHandle::kInvalidId)
+		return false;
+
+	// todo
+	// render thread chunks don't use the frame index, and we can only do this test when running on the main thread, otherwise s_FrameIndex might have advanced already
+	//if (!m_RenderThread && !chunkHandle.renderThread)
+	//{
+	//	if (chunkHandle.frame != s_FrameIndex)
+	//		return false;
+	//}
+
+	return true;
+}
+
+DynamicVBOChunkHandle DynamicVBO::AllocateHandle()
+{
+	return DynamicVBOChunkHandle(s_CurrentRenderThreadChunkId++, 0, true);
+}
+
 bool DynamicVBO::GetChunk(UInt32 stride, UInt32 maxVertices, UInt32 maxIndices, GfxPrimitiveType primType, DynamicVBOChunkHandle* outHandle)
 {
 	bool result = true;
 
 	// threaded rendering may have already filled this in
-	//if (IsHandleValid(*outHandle) == false)
-	//{
-	//	*outHandle = AllocateHandle();
-	//}
+	if (IsHandleValid(*outHandle) == false)
+	{
+		*outHandle = AllocateHandle();
+	}
 
 	DynamicVBOChunk* chunk = HandleToChunk(*outHandle);
 	chunk->stride = stride;

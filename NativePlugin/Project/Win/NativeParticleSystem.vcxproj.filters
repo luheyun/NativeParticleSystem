@@ -179,6 +179,12 @@
     <ClInclude Include="..\..\Src\Utilities\Word.h">
       <Filter>Src\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Mesh\ShaderChannels.h">
+      <Filter>Src\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\GraphicsCapsD3D9.cpp">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\RenderingPlugin.cpp">
@@ -255,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Shaders\GraphicsCaps.cpp">
       <Filter>Src\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp">
+      <Filter>Src\Graphics\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

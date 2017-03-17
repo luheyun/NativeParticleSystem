@@ -3,10 +3,11 @@
 #include "GfxDevice/GfxDevice.h"
 #include <map>
 #include "D3D9Includes.h"
+#include "VertexDeclarationD3D9.h"
 
 class ChannelAssigns;
 
-class GfxDeviceD3D9 : public GfxThreadableDevice
+class EXPORT_COREMODULE GfxDeviceD3D9 : public GfxThreadableDevice
 {
 public:
 	struct DeviceBlendStateD3D9 : public DeviceBlendState
@@ -60,6 +61,8 @@ public:
 	GFX_API void EndBufferWrite(GfxBuffer* buffer, size_t bytesWritten);
 	GFX_API void DeleteBuffer(GfxBuffer* buffer);
 
+	GFX_API VertexDeclaration* GetVertexDeclaration(const VertexChannelsInfo& declKey);
+
 	GFX_API void DrawBuffers(GfxBuffer* indexBuf,
 		const VertexStreamSource* vertexStreams, int vertexStreamCount,
 		const DrawBuffersRange* drawRanges, int drawRangeCount,
@@ -73,6 +76,7 @@ private:
 	DeviceDepthStateD3D9*	m_CurrDepthState;
 	const DeviceStencilStateD3D9*	m_CurrStencilState;
 	DeviceRasterState*		m_CurrRasterState;
+	VertexDeclarationCacheD3D9 m_VertDeclCache;
 
 	CachedBlendStates	m_CachedBlendStates;
 	CachedDepthStates	m_CachedDepthStates;

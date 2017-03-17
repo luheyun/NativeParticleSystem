@@ -34,7 +34,7 @@ struct BuiltinShaderParamIndices
 };
 
 
-class BuiltinShaderParamValues
+class EXPORT_COREMODULE BuiltinShaderParamValues
 {
 public:
 	BuiltinShaderParamValues ();

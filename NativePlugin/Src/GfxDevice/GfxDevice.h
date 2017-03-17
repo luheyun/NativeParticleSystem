@@ -16,8 +16,9 @@ class GfxBufferList;
 class DynamicVBO;
 class VertexDeclaration;
 class ChannelAssigns;
+struct VertexChannelsInfo;
 
-class GfxDevice
+class EXPORT_COREMODULE GfxDevice
 {
 public:
 	GfxDevice();
@@ -55,6 +56,8 @@ public:
 	GFX_API void EndBufferWrite(GfxBuffer* buffer, size_t bytesWritten) { }
 	GFX_API void DeleteBuffer(GfxBuffer* buffer) {  }
 
+	GFX_API VertexDeclaration* GetVertexDeclaration(const VertexChannelsInfo& declKey) { return NULL; }
+
 	GFX_API void DrawBuffers(GfxBuffer* indexBuf,
 		const VertexStreamSource* vertexStreams, int vertexStreamCount,
 		const DrawBuffersRange* drawRanges, int drawRangeCount,
@@ -90,5 +93,5 @@ class GfxThreadableDevice : public GfxDevice
 public:
 };
 
-GfxDevice& GetGfxDevice();
-void SetGfxDevice(GfxDevice* device);
+EXPORT_COREMODULE GfxDevice& GetGfxDevice();
+EXPORT_COREMODULE void SetGfxDevice(GfxDevice* device);

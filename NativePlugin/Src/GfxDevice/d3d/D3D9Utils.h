@@ -8,7 +8,7 @@
 const char* GetD3D9Error( HRESULT hr );
 int GetBPPFromD3DFormat( D3DFORMAT format );
 int GetStencilBitsFromD3DFormat (D3DFORMAT fmt);
-D3DMULTISAMPLE_TYPE GetD3DMultiSampleType (int samples);
+EXPORT_COREMODULE D3DMULTISAMPLE_TYPE GetD3DMultiSampleType (int samples);
 
 bool CheckD3D9DebugRuntime (IDirect3DDevice9* dev);
 

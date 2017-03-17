@@ -23,7 +23,7 @@ struct DynamicVBOChunk
 	}
 };
 
-struct DynamicVBOChunkHandle
+struct EXPORT_COREMODULE DynamicVBOChunkHandle
 {
 	enum { kInvalidId = 0xffffffff };
 
@@ -37,7 +37,7 @@ struct DynamicVBOChunkHandle
 	UInt32	renderThread : 1;
 };
 
-class DynamicVBO
+class EXPORT_COREMODULE DynamicVBO
 {
 public:
 	struct DrawParams
@@ -52,7 +52,9 @@ public:
 		UInt32 indexCount;
 	};
 
+public:
 	bool IsHandleValid(const DynamicVBOChunkHandle& chunkHandle) const;
+	DynamicVBOChunkHandle AllocateHandle();
 
 	DynamicVBO();
 	virtual ~DynamicVBO() {}

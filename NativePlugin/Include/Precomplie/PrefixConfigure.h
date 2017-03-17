@@ -19,4 +19,13 @@ typedef UInt64 UIntPtr;
 typedef UInt32 UIntPtr;
 #endif
 
+#define GFX_SUPPORTS_D3D9
+#define BUILDING_COREMODULE
+
+#ifdef BUILDING_COREMODULE
+#define EXPORT_COREMODULE __declspec(dllexport)
+#else
+#define EXPORT_COREMODULE __declspec(dllimport)
+#endif
+
 #endif

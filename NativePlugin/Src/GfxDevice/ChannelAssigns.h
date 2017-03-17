@@ -10,7 +10,7 @@ namespace ShaderLab {
 
 // Tracks which vertex components should be sourced from which shader channels
 // TODO: It gets serialized a lot for multithreading, can we make it more compact?
-class ChannelAssigns {
+class EXPORT_COREMODULE ChannelAssigns {
 public:
 	ChannelAssigns();
 	void FromParsedChannels(const ShaderLab::ParserBindChannels& parsed); // ShaderParser.cpp

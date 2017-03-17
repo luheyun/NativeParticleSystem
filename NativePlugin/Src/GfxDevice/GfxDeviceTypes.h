@@ -1,5 +1,9 @@
 #pragma once
 
+#define VERTEX_FORMAT1(a) (1 << kShaderChannel##a)
+#define VERTEX_FORMAT2(a, b) ((1 << kShaderChannel##a) | (1 << kShaderChannel##b))
+#define VERTEX_FORMAT5(a,b,c,d,e) ((1 << kShaderChannel##a) | (1 << kShaderChannel##b) | (1 << kShaderChannel##c) | (1 << kShaderChannel##d) | (1 << kShaderChannel##e))
+
 enum GfxBufferTarget
 {
 	kGfxBufferTargetVertex, kGfxBufferTargetFirst = kGfxBufferTargetVertex,
@@ -167,6 +171,24 @@ enum ShaderChannel
 	kShaderChannelCount,			// Keep this last!
 };
 
+enum
+{
+#if !GFX_HAS_TWO_EXTRA_TEXCOORDS
+	kMaxTexCoordShaderChannels = 4,
+#else
+	kMaxTexCoordShaderChannels = 6,
+#endif
+	kTexCoordShaderChannelsMask = ((1 << kMaxTexCoordShaderChannels) - 1) << kShaderChannelTexCoord0
+};
+
+enum ShaderChannelMask
+{
+	kShaderChannelsHot = (1 << kShaderChannelVertex) | (1 << kShaderChannelNormal) | (1 << kShaderChannelTangent),
+	kShaderChannelsCold = (1 << kShaderChannelColor) | kTexCoordShaderChannelsMask,
+	kShaderChannelsAll = kShaderChannelsHot | kShaderChannelsCold
+};
+
+
 enum VertexComponent
 {
 	kVertexCompNone = -1,
@@ -202,6 +224,17 @@ enum GfxDefaultVertexBufferType
 	kGfxDefaultVertexBufferBlackWhite,
 	kGfxDefaultVertexBufferRedBlue,
 	kGfxDefaultVertexBufferCount
+};
+
+enum VertexChannelFormat
+{
+	kChannelFormatFirst = 0,
+	kChannelFormatFloat = kChannelFormatFirst,
+	kChannelFormatFloat16,
+	kChannelFormatColor,
+	kChannelFormatByte,
+	kChannelFormatUInt32, // Currently only available on GLES 3.0, used for feeding bone indices for skinning.
+	kChannelFormatCount
 };
 
 #define kMaxVertexStreams 4

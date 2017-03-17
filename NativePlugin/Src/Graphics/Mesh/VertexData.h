@@ -4,6 +4,8 @@
 #include "GfxDevice/GfxDeviceTypes.h"
 #include "Allocator/MemoryMacros.h"
 
+struct ChannelInfo;
+
 class VertexData
 {
 public:
@@ -13,6 +15,11 @@ public:
 
 private:
 	UInt8* m_Data;
+};
+
+struct ALIGN_TYPE(4) VertexStreamsLayout
+{
+	UInt32 channelMasks[kMaxVertexStreams];
 };
 
 typedef struct ALIGN_TYPE(4) ChannelInfo
@@ -26,6 +33,8 @@ typedef struct ALIGN_TYPE(4) ChannelInfo
 
 	ChannelInfo() : stream(0), offset(0), format(0), dimension(kInvalidDimension) {}
 
+	bool IsValid() const { return kInvalidDimension != dimension; }
+
 	bool operator ==(const ChannelInfo& rhs) const { return (stream == rhs.stream) && (offset == rhs.offset) && (format == rhs.format) && (dimension == rhs.dimension); }
 	bool operator !=(const ChannelInfo& rhs) const { return !(*this == rhs); }
 
@@ -37,6 +46,26 @@ struct VertexChannelsInfo
 	VertexChannelsInfo(const ChannelInfoArray& src);
 	bool operator < (const VertexChannelsInfo& rhs) const;
 	ChannelInfoArray channels;
+};
+
+struct ChannelFormatDimension
+{
+	ChannelFormatDimension(const ChannelInfo& src) : format(src.format), dimension(src.dimension) {}
+	ChannelFormatDimension(VertexChannelFormat fmt, int dim) : format(UInt8(fmt)), dimension(UInt8(dim)) {}
+	ChannelFormatDimension() : format(0), dimension(0) {}
+
+	UInt8 format;
+	UInt8 dimension;
+};
+
+struct VertexChannelsLayout
+{
+	ChannelFormatDimension channels[kShaderChannelCount];
+};
+
+namespace VertexLayouts
+{
+	extern VertexChannelsLayout kVertexChannelsDefault;
 };
 
 inline int GetPrimitiveCount(int indexCount, GfxPrimitiveType topology, bool nativeQuads)

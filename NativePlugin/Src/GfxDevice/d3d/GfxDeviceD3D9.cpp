@@ -8,6 +8,7 @@
 #include "Graphics/Mesh/GenericDynamicVBO.h"
 #include "GfxDevice/d3d/VertexDeclarationD3D9.h"
 #include "Graphics/Mesh/VertexData.h"
+#include "Shaders/GraphicsCaps.h"
 
 static const D3DPRIMITIVETYPE kTopologyD3D9[] = // Expected size is kPrimitiveTypeCount
 {
@@ -49,8 +50,6 @@ GfxThreadableDevice* CreateD3D9GfxDevice(bool forceREF)
 	if (!InitializeD3D(forceREF ? D3DDEVTYPE_REF : D3DDEVTYPE_HAL))
 		return NULL;
 
-	//GetGraphicsCaps().InitD3D9();
-
 	GfxDeviceD3D9* device = new GfxDeviceD3D9();
 
 	//ScreenManagerWin& screenMgr = GetScreenManager();
@@ -76,7 +75,7 @@ GfxDeviceD3D9::GfxDeviceD3D9()
 
 GfxDeviceD3D9::~GfxDeviceD3D9()
 {
-
+	m_VertDeclCache.Clear();
 }
 
 GfxBuffer* GfxDeviceD3D9::CreateVertexBuffer()
@@ -92,6 +91,11 @@ void GfxDeviceD3D9::UpdateBuffer(GfxBuffer* buffer, GfxBufferMode mode, GfxBuffe
 	//	static_cast<IndexBufferD3D9*>(buffer)->UpdateIndexBuffer(mode, label, size, data, flags);
 	//else
 		static_cast<VertexBufferD3D9*>(buffer)->Update(mode, label, size, data);
+}
+
+VertexDeclaration* GfxDeviceD3D9::GetVertexDeclaration(const VertexChannelsInfo& declKey)
+{
+	return m_VertDeclCache.GetVertexDecl(declKey);
 }
 
 const DeviceBlendState* GfxDeviceD3D9::CreateBlendState(const GfxBlendState& state)

@@ -10,7 +10,7 @@ public:
 };
 
 // todo
-class VertexDeclarationCache
+class EXPORT_COREMODULE VertexDeclarationCache
 {
 public:
 	virtual ~VertexDeclarationCache() { }
