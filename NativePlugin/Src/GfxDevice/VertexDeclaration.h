@@ -3,7 +3,7 @@
 
 #include "Graphics/Mesh/VertexData.h"
 
-class VertexDeclaration
+class EXPORT_COREMODULE VertexDeclaration
 {
 public:
 	virtual ~VertexDeclaration() {}

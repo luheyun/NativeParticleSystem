@@ -20,6 +20,62 @@ static const D3DPRIMITIVETYPE kTopologyD3D9[] = // Expected size is kPrimitiveTy
 	D3DPT_POINTLIST,
 };
 
+static const D3DBLEND kBlendModeD3D9[] =
+{
+	D3DBLEND_ZERO,
+	D3DBLEND_ONE,
+	D3DBLEND_DESTCOLOR,
+	D3DBLEND_SRCCOLOR,
+	D3DBLEND_INVDESTCOLOR,
+	D3DBLEND_SRCALPHA,
+	D3DBLEND_INVSRCCOLOR,
+	D3DBLEND_DESTALPHA,
+	D3DBLEND_INVDESTALPHA,
+	D3DBLEND_SRCALPHASAT,
+	D3DBLEND_INVSRCALPHA,
+};
+
+static const D3DBLENDOP kBlendOpD3D9[] =
+{
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_SUBTRACT,
+	D3DBLENDOP_REVSUBTRACT,
+	D3DBLENDOP_MIN,
+	D3DBLENDOP_MAX,
+	// this and later all not supported; ADD used as fallback
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+	D3DBLENDOP_ADD,
+};
+
 static const D3DSTENCILOP kStencilOpD3D9[] =
 {
 	D3DSTENCILOP_KEEP,
@@ -87,9 +143,9 @@ GfxBuffer* GfxDeviceD3D9::CreateVertexBuffer()
 
 void GfxDeviceD3D9::UpdateBuffer(GfxBuffer* buffer, GfxBufferMode mode, GfxBufferLabel label, size_t size, const void* data, UInt32 flags)
 {
-	//if (buffer->GetTarget() == kGfxBufferTargetIndex)
-	//	static_cast<IndexBufferD3D9*>(buffer)->UpdateIndexBuffer(mode, label, size, data, flags);
-	//else
+	if (buffer->GetTarget() == kGfxBufferTargetIndex)
+		static_cast<IndexBufferD3D9*>(buffer)->UpdateIndexBuffer(mode, label, size, data, flags);
+	else
 		static_cast<VertexBufferD3D9*>(buffer)->Update(mode, label, size, data);
 }
 
@@ -162,7 +218,29 @@ const DeviceRasterState* GfxDeviceD3D9::CreateRasterState(const GfxRasterState& 
 
 void GfxDeviceD3D9::SetBlendState(const DeviceBlendState* state)
 {
+	DeviceBlendStateD3D9* devState = (DeviceBlendStateD3D9*)state;
 
+	const GfxBlendState& desc = devState->sourceState;
+	const D3DBLEND d3dsrc = kBlendModeD3D9[desc.srcBlend];
+	const D3DBLEND d3ddst = kBlendModeD3D9[desc.dstBlend];
+	const D3DBLEND d3dsrca = kBlendModeD3D9[desc.srcBlendAlpha];
+	const D3DBLEND d3ddsta = kBlendModeD3D9[desc.dstBlendAlpha];
+	const D3DBLENDOP d3dop = kBlendOpD3D9[desc.blendOp];
+	const D3DBLENDOP d3dopa = kBlendOpD3D9[desc.blendOpAlpha];
+
+	const bool blendDisabled = (d3dsrc == D3DBLEND_ONE && d3ddst == D3DBLEND_ZERO && d3dsrca == D3DBLEND_ONE && d3ddsta == D3DBLEND_ZERO);
+
+	IDirect3DDevice9* dev = GetD3DDevice();
+
+	if (blendDisabled)
+	{
+		D3D9_CALL(dev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE));
+	}
+	else
+	{
+		D3D9_CALL(dev->SetRenderState(D3DRS_SRCBLEND, d3dsrc));
+		D3D9_CALL(dev->SetRenderState(D3DRS_DESTBLEND, d3ddst));
+	}
 }
 
 void GfxDeviceD3D9::SetRasterState(const DeviceRasterState* state)
@@ -171,6 +249,10 @@ void GfxDeviceD3D9::SetRasterState(const DeviceRasterState* state)
 
 void GfxDeviceD3D9::SetDepthState(const DeviceDepthState* state) 
 {
+	IDirect3DDevice9* dev = GetD3DDevice();
+	DeviceDepthStateD3D9* devState = (DeviceDepthStateD3D9*)state;
+	D3D9_CALL(dev->SetRenderState(D3DRS_ZFUNC, devState->depthFunc));
+	D3D9_CALL(dev->SetRenderState(D3DRS_ZWRITEENABLE, devState->sourceState.depthWrite ? 1 : 0));
 }
 
 void GfxDeviceD3D9::SetStencilState(const DeviceStencilState* state, int stencilRef)

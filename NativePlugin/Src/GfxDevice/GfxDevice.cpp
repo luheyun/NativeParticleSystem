@@ -3,6 +3,7 @@
 #include "Utilities/LinkedList.h"
 #include "GfxDevice/GfxBuffer.h"
 #include "Shaders/GraphicsCaps.h"
+#include "Graphics/Mesh/DynamicVBO.h"
 
 static GfxDevice* gfxDevice = nullptr;
 

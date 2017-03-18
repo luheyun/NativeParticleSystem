@@ -39,6 +39,8 @@ static void DoRender();
 static int g_DeviceType = -1;
 LPDIRECT3DDEVICE9 g_D3DDevice = NULL;
 
+static IDirect3DVertexBuffer9* g_D3D9DynamicVB;
+
 extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, int eventType)
 {
 	g_DeviceType = -1;
@@ -52,8 +54,12 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 		SetD3DDevice((IDirect3DDevice9*)device, (GfxDeviceEventType)eventType);
 		SetGfxDevice(new GfxDeviceD3D9());
 		InitializeMeshVertexFormatManager();
-		GfxBuffer* gfxBuf = GetGfxDevice().CreateVertexBuffer();
-		GetGfxDevice().UpdateBuffer(gfxBuf, kGfxBufferModeDynamic, kGfxBufferLabelDefault, 1024, nullptr, 0);
+
+		if (!g_D3D9DynamicVB)
+			g_D3DDevice->CreateVertexBuffer(1024, D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC, 0, D3DPOOL_DEFAULT, &g_D3D9DynamicVB, NULL);
+
+		//GfxBuffer* gfxBuf = GetGfxDevice().CreateVertexBuffer();
+		//GetGfxDevice().UpdateBuffer(gfxBuf, kGfxBufferModeDynamic, kGfxBufferLabelDefault, 1024, nullptr, 0);
 	}
 #endif
 
@@ -93,11 +99,13 @@ static void SetDefaultGraphicsState()
 	g_D3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	g_D3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	g_D3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-	GfxDevice& device = GetGfxDevice();
-	GfxDepthState depthState;
-	depthState.depthFunc = kFuncLEqual;
-	depthState.depthWrite = false;
-	device.SetDepthState(device.CreateDepthState(depthState));
+	g_D3DDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+	g_D3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	//GfxDevice& device = GetGfxDevice();
+	//GfxDepthState depthState;
+	//depthState.depthFunc = kFuncLEqual;
+	//depthState.depthWrite = false;
+	//device.SetDepthState(device.CreateDepthState(depthState));
 }
 
 static DefaultMeshVertexFormat gVertexFormat(VERTEX_FORMAT2(Vertex, Color));
@@ -105,6 +113,7 @@ static DefaultMeshVertexFormat gVertexFormat(VERTEX_FORMAT2(Vertex, Color));
 void DoRender()
 {
 	DebugLog("Do Native Render!");
+	//g_D3DDevice->BeginScene();
 	// A colored triangle. Note that colors will come out differently
 	// in D3D9/11 and OpenGL, for example, since they expect color bytes
 	// in different ordering.
@@ -159,21 +168,30 @@ void DoRender()
 	g_D3DDevice->SetTransform(D3DTS_VIEW, (const D3DMATRIX*)viewMatrixArray);
 	g_D3DDevice->SetTransform(D3DTS_PROJECTION, (const D3DMATRIX*)projectionMatrixArray);
 
-	g_D3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-	g_D3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_CURRENT);
-	g_D3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
-	g_D3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_CURRENT);
-	g_D3DDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	g_D3DDevice->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+	//DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
+	//DynamicVBOChunkHandle meshVBOChunk;
+	//vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk);
+	//ChannelAssigns* channel = new ChannelAssigns();
+	//channel->Bind(kShaderChannelVertex, kVertexCompVertex);
+	//channel->Bind(kShaderChannelColor, kVertexCompColor);
+	//memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
+	//DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
+	//vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels(), gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);
+	//vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
 
-	DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
-	DynamicVBOChunkHandle meshVBOChunk;
-	vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk);
-	ChannelAssigns* channel = new ChannelAssigns();
-	channel->Bind(kShaderChannelVertex, kVertexCompVertex);
-	channel->Bind(kShaderChannelColor, kVertexCompColor);
-	memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
-	DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
-	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels(), gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);
-	vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
+	g_D3DDevice->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+
+	// Copy vertex data into our small dynamic vertex buffer. We could have used
+	// DrawPrimitiveUP just fine as well.
+	void* vbPtr;
+	g_D3D9DynamicVB->Lock(0, 0, &vbPtr, D3DLOCK_DISCARD);
+	memcpy(vbPtr, verts, sizeof(verts[0]) * 3);
+	g_D3D9DynamicVB->Unlock();
+	g_D3DDevice->SetStreamSource(0, g_D3D9DynamicVB, 0, sizeof(MyVertex));
+
+	// Draw!
+	g_D3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 1);
+
+	//g_D3DDevice->EndScene();
+	//g_D3DDevice->Present(NULL, NULL, NULL, NULL);
 }

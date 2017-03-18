@@ -209,8 +209,13 @@ static void SetDefaultGraphicsState()
 	g_D3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	g_D3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	g_D3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-	g_D3DDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
-	g_D3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	//g_D3DDevice->SetRenderState(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+	//g_D3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	GfxDevice& device = GetGfxDevice();
+	GfxDepthState depthState;
+	depthState.depthFunc = kFuncLEqual;
+	depthState.depthWrite = false;
+	device.SetDepthState(device.CreateDepthState(depthState));
 }
 
 static void DoRendering(const float* worldMatrix, const float* identityMatrix, float* projectionMatrix, const MyVertex* verts)
@@ -286,7 +291,7 @@ void RenderScene()
 	};
 
 	// Actual functions defined below
-	//SetDefaultGraphicsState();
+	SetDefaultGraphicsState();
 	//DoRendering(worldMatrix, identityMatrix, projectionMatrix, verts);
 	//g_D3DDevice->SetTransform(D3DTS_WORLD, (const D3DMATRIX*)worldMatrix);
 	//g_D3DDevice->SetTransform(D3DTS_VIEW, (const D3DMATRIX*)identityMatrix);

@@ -22,7 +22,7 @@ struct ALIGN_TYPE(4) VertexStreamsLayout
 	UInt32 channelMasks[kMaxVertexStreams];
 };
 
-typedef struct ALIGN_TYPE(4) ChannelInfo
+typedef EXPORT_COREMODULE struct ALIGN_TYPE(4) ChannelInfo
 {
 	UInt8 stream;
 	UInt8 offset;

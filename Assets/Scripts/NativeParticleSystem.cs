@@ -17,21 +17,30 @@ public class NativeParticleSystem : MonoBehaviour
     private static readonly IntPtr functionPointer = Marshal.GetFunctionPointerForDelegate(debugLog);
 
     private static void DebugWrapper(string log) { Debug.Log(log); }
+    private Coroutine m_Coroutine = null;
 
-	// Use this for initialization
-	void Awake ()
+    // Use this for initialization
+    void Awake()
     {
         StartUp(functionPointer);
-	}
+        m_Coroutine = StartCoroutine(NativeUpdate());
+    }
 
-    int count = 0;
-
-	// Update is called once per frame
-	void Update () 
+    void OnDestroy()
     {
-        if (count <= 0)
-            GL.IssuePluginEvent(1);
+        if (m_Coroutine != null)
+            StopCoroutine(m_Coroutine);
 
-        count = 1;
-	}
+        m_Coroutine = null;
+    }
+
+    // Update is called once per frame
+    IEnumerator NativeUpdate()
+    {
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+            GL.IssuePluginEvent(1);
+        }
+    }
 }

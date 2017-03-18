@@ -187,9 +187,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\RenderingPlugin.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParams.cpp">
       <Filter>Src\GfxDevice</Filter>
     </ClCompile>
@@ -264,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp">
       <Filter>Src\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\RenderingPlugin.cpp">
+      <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

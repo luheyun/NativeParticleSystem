@@ -2,7 +2,7 @@
 
 #include "Vector3.h"
 
-class Vector4f
+class EXPORT_COREMODULE Vector4f
 {
 public:
 

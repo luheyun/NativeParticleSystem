@@ -7,6 +7,39 @@
 
 class ChannelAssigns;
 
+struct DeviceStateD3D
+{
+	CompareFunction	depthFunc;
+	int				depthWrite; // 0/1 or -1
+
+	int				blending;
+	int				alphaToMask;
+	int				srcBlend, destBlend, srcBlendAlpha, destBlendAlpha; // D3D modes
+	int				blendOp, blendOpAlpha; // D3D modes
+
+	CullMode		culling;
+	D3DCULL			d3dculling;
+	bool			appBackfaceMode;
+	bool			wireframe;
+	int				scissor;
+
+	bool			requestedSRGBWrite;
+	int				actualSRGBWrite; // 0/1 or -1
+	int				renderTargetsAreLinear; // 0/1 or -1
+
+	// [0] is front, [1] is back, unless invertProjMatrix is true
+	D3DCMPFUNC		stencilFunc[2];
+	D3DSTENCILOP	stencilFailOp[2], depthFailOp[2], depthPassOp[2];
+
+	float offsetFactor, offsetUnits;
+
+	int				colorWriteMask; // ColorWriteMask combinations
+
+	int		m_StencilRef;
+
+	bool		m_DeviceLost;
+};
+
 class EXPORT_COREMODULE GfxDeviceD3D9 : public GfxThreadableDevice
 {
 public:
@@ -72,8 +105,9 @@ protected:
 	GFX_API DynamicVBO*	CreateDynamicVBO();
 
 private:
+	//DeviceStateD3D		m_State;
 	DeviceBlendStateD3D9*	m_CurrBlendState;
-	DeviceDepthStateD3D9*	m_CurrDepthState;
+	//DeviceDepthStateD3D9*	m_CurrDepthState;
 	const DeviceStencilStateD3D9*	m_CurrStencilState;
 	DeviceRasterState*		m_CurrRasterState;
 	VertexDeclarationCacheD3D9 m_VertDeclCache;
