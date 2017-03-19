@@ -47,10 +47,13 @@
     <ClInclude Include="..\..\Src\Math\Matrix4x4.h" />
     <ClInclude Include="..\..\Src\Math\Quaternion.h" />
     <ClInclude Include="..\..\Src\Math\Simd\RotationOrder.h" />
+	<ClInclude Include="..\..\Src\Math\Vector2.h" />
     <ClInclude Include="..\..\Src\Math\Vector3.h" />
     <ClInclude Include="..\..\Src\Math\Vector4.h" />
+	<ClInclude Include="..\..\Src\Math\Color.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystem.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.h" />
+	<ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemParticle.h" />
     <ClInclude Include="..\..\Src\Shaders\GraphicsCaps.h" />
     <ClInclude Include="..\..\Src\Utilities\algorithm_utility.h" />
     <ClInclude Include="..\..\Src\Utilities\BitUtility.h" />
@@ -81,9 +84,11 @@
     <ClCompile Include="..\..\Src\Math\Matrix4x4.cpp" />
     <ClCompile Include="..\..\Src\Math\Matrix4x4_REF.cpp" />
     <ClCompile Include="..\..\Src\Math\Quaternion.cpp" />
+	<ClCompile Include="..\..\Src\Math\Vector2.cpp" />
     <ClCompile Include="..\..\Src\Math\Vector3.cpp" />
     <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystem.cpp" />
     <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.cpp" />
+	<ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemParticle.cpp" />
     <ClCompile Include="..\..\Src\RenderingPlugin.cpp" />
     <ClCompile Include="..\..\Src\Shaders\GraphicsCaps.cpp" />
   </ItemGroup>

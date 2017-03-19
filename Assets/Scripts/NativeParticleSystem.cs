@@ -7,6 +7,9 @@ public class NativeParticleSystem : MonoBehaviour
 {
     private const string PluginName = "NativeParticleSystem";
 
+    [SerializeField]
+    Material m_Material;
+
     [DllImport(PluginName)]
     private static extern void StartUp([MarshalAs(UnmanagedType.FunctionPtr)]IntPtr debugCal);
 

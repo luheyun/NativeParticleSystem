@@ -9,6 +9,7 @@
 #include "GfxDevice/GfxDeviceTypes.h"
 #include "GfxDevice/ChannelAssigns.h"
 #include "Graphics/Mesh/MeshVertexFormat.h"
+#include "ParticleSystem/ParticleSystem.h"
 
 
 static inline void DebugLog(char* str);
@@ -24,6 +25,12 @@ extern "C"
 	{
 		debugLog = d;
 		DebugLog("Plugin Start Up!");
+	}
+
+	__declspec(dllexport) void CreateParticleSystem()
+	{
+		// todo
+		new ParticleSystem();
 	}
 }
 
@@ -52,6 +59,7 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 		SetD3DDevice((IDirect3DDevice9*)device, (GfxDeviceEventType)eventType);
 		SetGfxDevice(new GfxDeviceD3D9());
 		InitializeMeshVertexFormatManager();
+		ParticleSystem::Init();
 		GfxBuffer* gfxBuf = GetGfxDevice().CreateVertexBuffer();
 		GetGfxDevice().UpdateBuffer(gfxBuf, kGfxBufferModeDynamic, kGfxBufferLabelDefault, 1024, nullptr, 0);
 	}
@@ -174,6 +182,11 @@ void DoRender()
 	channel->Bind(kShaderChannelColor, kVertexCompColor);
 	memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
 	DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
-	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels(), gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);
 	vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
+	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels(), gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);
+
+	ParticleSystem::BeginUpdateAll();
+	ParticleSystem::EndUpdateAll();
+	ParticleSystem::Prepare();
+	ParticleSystem::Render();
 }

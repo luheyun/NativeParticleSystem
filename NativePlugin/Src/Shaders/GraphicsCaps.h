@@ -20,6 +20,8 @@ struct GraphicsCaps
 #ifdef GFX_SUPPORTS_D3D9
 	GraphicsCapsD3D9 d3d;
 #endif
+
+	bool hasNativeQuad = false;
 };
 
 GraphicsCaps& GetGraphicsCaps();

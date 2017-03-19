@@ -28,6 +28,7 @@
 #include <functional>
 #include <stdlib.h>
 #include <cmath>
+#include <algorithm>
 
 #if defined(__GNUC__) && !defined(__ARMCC_VERSION) && !defined(__ghs__)
 using std::isfinite;
