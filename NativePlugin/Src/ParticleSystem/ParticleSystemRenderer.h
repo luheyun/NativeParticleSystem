@@ -10,10 +10,10 @@
 struct ParticleSystemVertex
 {
 	Vector3f vert;
-	//Vector3f normal;
+	Vector3f normal;
 	ColorRGBA32 color;
-	//Vector2f uv;
-	//Vector4f tangent;
+	Vector2f uv;
+	Vector4f tangent;
 };
 
 class ParticleSystem;
@@ -37,6 +37,7 @@ public:
 
 private:
 	void GenerateParticleGeometry(ParticleSystemVertex* vbPtr);
+    void GenerateIndicesForBillBoard(UInt16* ibPtr, UInt32 indexCount);
 
     DrawCallData m_DrawCallData;
 };

@@ -2,6 +2,7 @@
 
 #define VERTEX_FORMAT1(a) (1 << kShaderChannel##a)
 #define VERTEX_FORMAT2(a, b) ((1 << kShaderChannel##a) | (1 << kShaderChannel##b))
+#define VERTEX_FORMAT3(a, b, c) ((1 << kShaderChannel##a) | (1 << kShaderChannel##b) | (1 << kShaderChannel##c))
 #define VERTEX_FORMAT5(a,b,c,d,e) ((1 << kShaderChannel##a) | (1 << kShaderChannel##b) | (1 << kShaderChannel##c) | (1 << kShaderChannel##d) | (1 << kShaderChannel##e))
 
 enum GfxBufferTarget
