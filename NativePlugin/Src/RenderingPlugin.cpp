@@ -27,10 +27,22 @@ extern "C"
 		DebugLog("Plugin Start Up!");
 	}
 
+	ParticleSystem* gPs = nullptr;
+
 	__declspec(dllexport) void CreateParticleSystem()
 	{
 		// todo
-		new ParticleSystem();
+		gPs = new ParticleSystem();
+	}
+
+	__declspec(dllexport) void ShutDown()
+	{
+		debugLog = nullptr;
+
+		if (gPs != nullptr)
+			delete gPs;
+
+		gPs = nullptr;
 	}
 }
 
@@ -174,7 +186,7 @@ void DoRender()
 	g_D3DDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
 	g_D3DDevice->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 
-	DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
+	/*DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
 	DynamicVBOChunkHandle meshVBOChunk;
 	vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk);
 	ChannelAssigns* channel = new ChannelAssigns();
@@ -183,7 +195,8 @@ void DoRender()
 	memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
 	DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
 	vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
-	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels(), gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);
+	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels()
+	, gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);*/
 
 	ParticleSystem::BeginUpdateAll();
 	ParticleSystem::EndUpdateAll();

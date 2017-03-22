@@ -75,6 +75,7 @@ public:
 	GfxDeviceD3D9();
 	GFX_API ~GfxDeviceD3D9();
 
+	GFX_API GfxBuffer* CreateIndexBuffer();
 	GFX_API GfxBuffer* CreateVertexBuffer();
 	GFX_API void UpdateBuffer(GfxBuffer* buffer, GfxBufferMode mode, GfxBufferLabel label, size_t size, const void* data, UInt32 flags);
 

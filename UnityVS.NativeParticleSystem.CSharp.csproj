@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\NativeParticleSystem.cs" />
+    <Compile Include="Assets\Scripts\NativePlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Resources\Mobile-Particle-Alpha blended.shader" />

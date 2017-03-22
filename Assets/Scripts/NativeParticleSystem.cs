@@ -5,27 +5,20 @@ using System;
 
 public class NativeParticleSystem : MonoBehaviour
 {
-    private const string PluginName = "NativeParticleSystem";
+    public const string PluginName = "NativeParticleSystem";
 
     [SerializeField]
     Material m_Material;
 
-    [DllImport(PluginName)]
-    private static extern void StartUp([MarshalAs(UnmanagedType.FunctionPtr)]IntPtr debugCal);
+    [DllImport(NativePlugin.PluginName)]
+    private static extern void CreateParticleSystem();
 
-    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-    private delegate void DebugLog(string log);
-
-    private static readonly DebugLog debugLog = DebugWrapper;
-    private static readonly IntPtr functionPointer = Marshal.GetFunctionPointerForDelegate(debugLog);
-
-    private static void DebugWrapper(string log) { Debug.Log(log); }
     private Coroutine m_Coroutine = null;
 
     // Use this for initialization
     void Awake()
     {
-        StartUp(functionPointer);
+        CreateParticleSystem();
         m_Coroutine = StartCoroutine(NativeUpdate());
     }
 

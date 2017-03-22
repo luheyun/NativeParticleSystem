@@ -82,6 +82,17 @@ protected:
 	virtual void DrawChunkInternal(const DynamicVBOChunkHandle& chunkHandle, const ChannelAssigns& channels, UInt32 channelsMask, VertexDeclaration* vertexDecl, DrawBuffersRange* ranges, int numDrawRanges, UInt32 stride) = 0;
 	virtual void ReleaseChunkInternal(const DynamicVBOChunkHandle& chunkHandle, UInt32 actualVertices, UInt32 actualIndices) = 0;
 
+protected:
+	void FillQuadIndexBuffer(DynamicVBOChunkHandle& chunkHandle);
+
 private:
 	static UInt32 s_CurrentRenderThreadChunkId;
+
+	std::vector<UInt16> m_QuadBuffer;
 };
+
+// Translates index buffer with quads into an index buffer with triangles (two triangles per quad).
+// source index buffer can be null, then it is assumed to be implicit index buffer with 4 separate vertices for each quad.
+// sourceCount is the index count in the source buffer (in case of implicit buffer, it's the vertex count).
+// Normally sourceCount should be a multiple of 4. If it is not, then the last (broken) quad is not converted.
+void TranslateQuadIndexBufferToTriangleList(UInt16* dest, const UInt16* source, size_t sourceCount);

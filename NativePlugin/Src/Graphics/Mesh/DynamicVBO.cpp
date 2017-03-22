@@ -1,5 +1,6 @@
 #include "PluginPrefix.h"
 #include "DynamicVBO.h"
+#include "Shaders/GraphicsCaps.h"
 
 UInt32 DynamicVBO::s_CurrentRenderThreadChunkId = 0;
 
@@ -50,16 +51,16 @@ bool DynamicVBO::GetChunk(UInt32 stride, UInt32 maxVertices, UInt32 maxIndices, 
 	UInt32 requiredVBSize = maxVertices * stride;
 	UInt32 requiredIBSize = maxIndices * sizeof(UInt16);
 
-	//if (primType == kPrimitiveQuads && !GetGraphicsCaps().hasNativeQuad)
-	//{
-	//	// Use memory buffer and convert to triangles
-	//	m_QuadBuffer.resize_uninitialized(maxIndices);
-	//	outHandle->ibPtr = m_QuadBuffer.data();
-	//	if (maxIndices)
-	//		result = outHandle->ibPtr ? true : false;
-	//	// Allocate IB space later
-	//	requiredIBSize = 0;
-	//}
+	if (primType == kPrimitiveQuads && !GetGraphicsCaps().hasNativeQuad)
+	{
+		// Use memory buffer and convert to triangles
+		m_QuadBuffer.resize(maxIndices);
+		outHandle->ibPtr = m_QuadBuffer.data();
+		if (maxIndices)
+			result = outHandle->ibPtr ? true : false;
+		// Allocate IB space later
+		requiredIBSize = 0;
+	}
 
 	if (result && requiredVBSize)
 	{
@@ -87,6 +88,13 @@ void DynamicVBO::ReleaseChunk(DynamicVBOChunkHandle& chunkHandle, UInt32 actualV
 	DynamicVBOChunk* chunk = HandleToChunk(chunkHandle, false);
 	chunk->writtenVertices = actualVertices;
 	chunk->writtenIndices = actualIndices;
+
+	if (chunk->primitiveType == kPrimitiveQuads && !GetGraphicsCaps().hasNativeQuad)
+	{
+		FillQuadIndexBuffer(chunkHandle);
+		m_QuadBuffer.clear();
+	}
+
 	ReleaseChunkInternal(chunkHandle, chunk->writtenVertices, chunk->writtenIndices);
 }
 
@@ -133,7 +141,61 @@ void DynamicVBO::DrawChunk(const DynamicVBOChunkHandle& chunkHandle, const Chann
 	DrawChunkInternal(chunkHandle, channels, channelsMask, vertexDecl, drawRanges, numDrawParams, params[0].stride);
 }
 
+void DynamicVBO::FillQuadIndexBuffer(DynamicVBOChunkHandle& chunkHandle)
+{
+	DynamicVBOChunk* chunk = HandleToChunk(chunkHandle);
+
+	UInt32 quadCountX4 = chunk->indexed ? chunk->writtenIndices : chunk->writtenVertices;
+
+	if (quadCountX4 == 0)
+		return;
+
+	UInt32 quadCount = quadCountX4 / 4; // will just ignore any "broken" quads (e.g. passed 7 vertices -> will result in 1 quad)
+	UInt32 reqIBSize = quadCount * 6 * sizeof(UInt16);
+
+	if (reqIBSize)
+		chunkHandle.ibPtr = (UInt16*)AllocateIB(reqIBSize, chunkHandle);
+
+	TranslateQuadIndexBufferToTriangleList(chunkHandle.ibPtr, chunk->indexed ? m_QuadBuffer.data() : nullptr, quadCountX4);
+
+	chunk->primitiveType = kPrimitiveTriangles;
+	chunk->writtenIndices = quadCount * 6;
+	chunk->indexed = true;
+}
+
 void DynamicVBO::SwapBuffers(UInt16 frameIndex)
 {
 	s_CurrentRenderThreadChunkId = 0;
+}
+
+void TranslateQuadIndexBufferToTriangleList(UInt16* dest, const UInt16* source, size_t sourceCount)
+{
+	// source count might not be multiple of 4, in that case ignore the last "broken" quad
+	sourceCount &= ~3; // rounds down to multiple of 4
+
+	if (source != nullptr)
+	{
+		for (int i = 0; i < sourceCount; i += 4)
+		{
+			*dest++ = source[0];
+			*dest++ = source[1];
+			*dest++ = source[2];
+			*dest++ = source[0];
+			*dest++ = source[2];
+			*dest++ = source[3];
+			source += 4;
+		}
+	}
+	else
+	{
+		for (int i = 0; i < sourceCount; i += 4)
+		{
+			*dest++ = i + 0;
+			*dest++ = i + 1;
+			*dest++ = i + 2;
+			*dest++ = i + 0;
+			*dest++ = i + 2;
+			*dest++ = i + 3;
+		}
+	}
 }

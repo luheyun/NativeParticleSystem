@@ -60,7 +60,7 @@ void ParticleSystem::Render()
 	auto it = gParticleSystemManager->emitters.begin();
 
 	for (; it != gParticleSystemManager->emitters.end(); ++it)
-		(*it)->Render();
+		(*it)->m_Renderer->RenderMultiple();
 }
 
 void ParticleSystem::PrepareForRender()

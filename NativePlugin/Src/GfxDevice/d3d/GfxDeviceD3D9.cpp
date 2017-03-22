@@ -134,6 +134,13 @@ GfxDeviceD3D9::~GfxDeviceD3D9()
 	m_VertDeclCache.Clear();
 }
 
+GfxBuffer* GfxDeviceD3D9::CreateIndexBuffer()
+{
+	IndexBufferD3D9* indexBuffer = new IndexBufferD3D9();
+	OnCreateBuffer(indexBuffer);
+	return indexBuffer;
+}
+
 GfxBuffer* GfxDeviceD3D9::CreateVertexBuffer()
 {
 	VertexBufferD3D9* vertexBuffer = new VertexBufferD3D9();
