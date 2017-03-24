@@ -80,22 +80,26 @@ void ParticleSystemRenderer::GenerateParticleGeometry(ParticleSystemVertex* vbPt
         Vector4f(0.0f, 0.0f, 0.0f, 0.0f) };
 
     vbPtr[0].vert = {0.0f, 0.5f, 0.0f};
-	vbPtr[0].color = 0xFFff00ff;
+	//vbPtr[0].color = 0xFFff00ff;
+	vbPtr[0].color = 0xff000000;
     vbPtr[0].uv = uv[0];
     vbPtr[0].tangent = uv2[0];
 
     vbPtr[1].vert = { 0.5f, 0.5f, 0.0f };
-	vbPtr[1].color = 0xFF00ffff;
+	//vbPtr[1].color = 0xFF00ffff;
+	vbPtr[1].color = 0xff000000;
     vbPtr[1].uv = uv[1];
     vbPtr[1].tangent = uv2[1];
 
     vbPtr[2].vert = { 0.5f, 0.0f, 0.0f };
-	vbPtr[2].color = 0xFF0000ff;
+	//vbPtr[2].color = 0xFF0000ff;
+	vbPtr[2].color = 0xff000000;
     vbPtr[2].uv = uv[2];
     vbPtr[2].tangent = uv2[2];
 
     vbPtr[3].vert = { 0.0f, 0.0f, 0.0f };
-	vbPtr[3].color = 0xFF0000ff;
+	//vbPtr[3].color = 0xFF0000ff;
+	vbPtr[3].color = 0xff000000;
     vbPtr[3].uv = uv[3];
     vbPtr[3].tangent = uv2[3];
 

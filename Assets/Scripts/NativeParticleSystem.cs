@@ -10,8 +10,17 @@ public class NativeParticleSystem : MonoBehaviour
     [SerializeField]
     Material m_Material;
 
+    [SerializeField]
+    Mesh m_Mesh;
+
     [DllImport(NativePlugin.PluginName)]
     private static extern void CreateParticleSystem();
+
+    [DllImport(NativePlugin.PluginName)]
+    private static extern void SetTextureFromUnity(System.IntPtr texture);
+
+    [DllImport(NativePlugin.PluginName)]
+    private static extern void Render();
 
     private Coroutine m_Coroutine = null;
 
@@ -20,6 +29,11 @@ public class NativeParticleSystem : MonoBehaviour
     {
         CreateParticleSystem();
         m_Coroutine = StartCoroutine(NativeUpdate());
+    }
+
+    void Start()
+    {
+        //SetTextureFromUnity(m_Material.GetTexture().GetNativeTexturePtr());
     }
 
     void OnDestroy()
@@ -36,7 +50,11 @@ public class NativeParticleSystem : MonoBehaviour
         while (true)
         {
             yield return new WaitForEndOfFrame();
-            GL.IssuePluginEvent(1);
+            //GL.IssuePluginEvent(1);
+            m_Material.SetPass(0);
+            Graphics.DrawMeshNow(m_Mesh, this.gameObject.transform.position, this.gameObject.transform.rotation);
+            Render();
+            GL.IssuePluginEvent(0);
         }
     }
 }
