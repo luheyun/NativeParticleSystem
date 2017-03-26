@@ -28,6 +28,7 @@
     <ClInclude Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.h" />
+	<ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxBuffer.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxDevice.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxDeviceResources.h" />

@@ -1,6 +1,17 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+template <class DataType>
+inline bool CompareArrays(const DataType *lhs, const DataType *rhs, size_t arraySize)
+{
+    for (size_t i = 0; i < arraySize; i++)
+    {
+        if (lhs[i] != rhs[i])
+            return false;
+    }
+    return true;
+}
+
 template <class T>
 inline T clamp(const T&t, const T& t0, const T& t1)
 {

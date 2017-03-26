@@ -269,15 +269,15 @@ void GfxDeviceD3D9::SetStencilState(const DeviceStencilState* state, int stencil
 // Compute/Update any deferred state before each draw call
 void GfxDeviceD3D9::BeforeDrawCall()
 {
-//	ShaderConstantCacheD3D9& vscache = GetVertexShaderConstantCache();
+	//ShaderConstantCacheD3D9& vscache = GetVertexShaderConstantCache();
 //	ShaderConstantCacheD3D9& pscache = GetPixelShaderConstantCache();
 //	DeviceStateD3D& state = m_State;
-//	IDirect3DDevice9* dev = GetD3DDevice();
-//
-//	m_TransformState.UpdateWorldViewMatrix(m_BuiltinParamValues);
-//
-//	// update GL equivalents of built-in shader state
-//
+	//IDirect3DDevice9* dev = GetD3DDevice();
+
+	//m_TransformState.UpdateWorldViewMatrix(m_BuiltinParamValues);
+
+	// update GL equivalents of built-in shader state
+
 //	const BuiltinShaderParamIndices& paramsVS = *m_BuiltinParamIndices[kShaderVertex];
 //	const BuiltinShaderParamIndices& paramsPS = *m_BuiltinParamIndices[kShaderFragment];
 //	int gpuIndexVS, gpuIndexPS;

@@ -4,6 +4,7 @@
 #include <map>
 #include "D3D9Includes.h"
 #include "VertexDeclarationD3D9.h"
+#include "ShaderConstantCacheD3D9.h"
 
 class ChannelAssigns;
 
@@ -102,6 +103,8 @@ public:
 		const DrawBuffersRange* drawRanges, int drawRangeCount,
 		VertexDeclaration* vertexDecl, const ChannelAssigns& channels);
 
+    ShaderConstantCacheD3D9& GetVertexShaderConstantCache() { return m_VSConstantCache; }
+
 protected:
 	GFX_API DynamicVBO*	CreateDynamicVBO();
 
@@ -112,6 +115,7 @@ private:
 	const DeviceStencilStateD3D9*	m_CurrStencilState;
 	DeviceRasterState*		m_CurrRasterState;
 	VertexDeclarationCacheD3D9 m_VertDeclCache;
+    ShaderConstantCacheD3D9	m_VSConstantCache;
 
 	CachedBlendStates	m_CachedBlendStates;
 	CachedDepthStates	m_CachedDepthStates;

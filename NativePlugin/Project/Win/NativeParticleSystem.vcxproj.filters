@@ -92,6 +92,9 @@
     <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Enumeration.h">
       <Filter>Src\GfxDevice\d3d</Filter>
     </ClInclude>
+	<ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h">
+      <Filter>Src\GfxDevice\d3d</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Includes.h">
       <Filter>Src\GfxDevice\d3d</Filter>
     </ClInclude>
