@@ -22,6 +22,7 @@ struct ParticleSystemManager
 	}
 
 	std::vector<ParticleSystem*> activeEmitters;
+	std::vector<ParticleSystem*> particleSystems;
 
 	bool needSync;
 };
@@ -47,9 +48,29 @@ static void ApplyStartDelay(float& delayT, float& accumulatedDt)
 	}
 }
 
+void ParticleSystem::CreateParticleSystrem(ParticleSystemInitState* initState)
+{
+	ParticleSystem* ps = new ParticleSystem(initState);
+	gParticleSystemManager->particleSystems.push_back(ps);
+}
+
 void ParticleSystem::Init()
 {
 	gParticleSystemManager = new ParticleSystemManager();
+}
+
+void ParticleSystem::ShutDown()
+{
+	for (int i = 0; i < gParticleSystemManager->particleSystems.size(); ++i)
+	{
+		if (gParticleSystemManager->particleSystems[i] != nullptr)
+			delete gParticleSystemManager->particleSystems[i];
+
+		gParticleSystemManager->particleSystems[i] = nullptr;
+	}
+
+	gParticleSystemManager->particleSystems.clear();
+	gParticleSystemManager->activeEmitters.clear();
 }
 
 void ParticleSystem::BeginUpdateAll()
@@ -109,13 +130,13 @@ void ParticleSystem::EndUpdateAll()
 	}
 }
 
-ParticleSystem::ParticleSystem()
+ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	: m_Renderer(nullptr)
     , m_EmittersIndex(-1)
+	, m_InitState(initState)
 {
 	gParticleSystemManager->activeEmitters.push_back(this);
 	m_Renderer = new ParticleSystemRenderer();
-	m_InitState = new ParticleSystemInitState();
 	m_State = new ParticleSystemState();
 	m_ShapeModule = ShapeModule();
 	m_SizeModule = new SizeModule();

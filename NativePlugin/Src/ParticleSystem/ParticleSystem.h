@@ -31,7 +31,9 @@ public:
 	// allocate N particles at a time
 	static const size_t kMemAllocGranularity = 64;
 
+	static void CreateParticleSystrem(ParticleSystemInitState* initState);
 	static void Init();
+	static void ShutDown();
 	static void BeginUpdateAll();
 	static void EndUpdateAll();
 	static void Prepare();
@@ -39,7 +41,7 @@ public:
 	static void Update(ParticleSystem& system, float deltaTime, bool fixedTimeStep, bool useProcedural, int rayBudget = 0);
 	static void SyncJobs(bool syncRenderJobs = true);
 
-	ParticleSystem();
+	ParticleSystem(ParticleSystemInitState* initState);
 	~ParticleSystem();
 
 	void Play(bool autoPrewarm = true);

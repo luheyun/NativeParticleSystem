@@ -1,4 +1,5 @@
 #include "PluginPrefix.h"
+#include "Log/Log.h"
 #include "UnityPluginInterface.h"
 #include "GfxDevice/d3d/D3D9Includes.h"
 #include "GfxDevice/d3d/GfxDeviceD3D9.h"
@@ -14,7 +15,6 @@
 #include "Mono/ScriptingAPI.h"
 
 
-static inline void DebugLog(char* str);
 static void DoRender();
 void SetD3DDevice(IDirect3DDevice9* device, GfxDeviceEventType eventType);
 static void InitMono();
@@ -24,31 +24,17 @@ static void* g_TexturePointer;
 // Allow writing to the Unity debug console from inside DLL land.
 extern "C"
 {
-	void(_stdcall*debugLog)(char*) = nullptr;
-
 	EXPORT_API void StartUp(void(_stdcall*d)(char*))
 	{
-		debugLog = d;
+		SetDebugLog(d);
 		DebugLog("Plugin Start Up!");
 		InitMonoSystem();
 	}
 
-	ParticleSystem* gPs = nullptr;
-
-	EXPORT_API void CreateNativeParticleSystem()
-	{
-		// todo
-		gPs = new ParticleSystem();
-	}
-
 	EXPORT_API void ShutDown()
 	{
-		debugLog = nullptr;
-
-		if (gPs != nullptr)
-			delete gPs;
-
-		gPs = nullptr;
+		SetDebugLog(nullptr);
+		ParticleSystem::ShutDown();
 	}
 
 	void EXPORT_API SetTextureFromUnity(void* texturePtr)
@@ -60,13 +46,6 @@ extern "C"
 	{
 		DoRender();
 	}
-}
-
-static inline void DebugLog(char* str)
-{
-#if _DEBUG
-	if (debugLog) debugLog(str);
-#endif
 }
 
 static void* LoadPluginExecutable(const char* pluginPath)

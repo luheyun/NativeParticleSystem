@@ -1,6 +1,9 @@
 #include "PluginPrefix.h"
 #include "ScriptingAPI.h"
 #include "NativeUtil.h"
+#include "Log/Log.h"
+
+extern void DebugLog(char* str);
 
 NativeUtil::NativeUtil()
 {
@@ -43,6 +46,12 @@ void Internal_CreateNativeUtil_Native(ScriptingObject* self)
 	NativeUtil::Instance()->SetScriptingObj(self);
 	GetLogicObjectMemoryLayout(self)->cachedPtr = NativeUtil::Instance();
 }
+
+void Internal_CreateParticleSystem(ScriptingObject* self, ScriptingObject* initState)
+{
+	DebugLog("Internal_CreateParticleSystem");
+}
+
 ScriptingBool NativeUtil_get_EnableLog(ScriptingObject* self)
 {
 	return NativeUtil::Instance()->EnableLog();
@@ -53,17 +62,19 @@ void NativeUtil_set_EnableLog(ScriptingObject* self, ScriptingBool value)
 }
 static const char* s_NativeUtil_IcallNames[] =
 {
-	"WNEngine.NativeUtil::Internal_CreateNativeUtil",
-	"WNEngine.NativeUtil::get_EnableLog",
-	"WNEngine.NativeUtil::set_EnableLog",
+	//"WNEngine.NativeUtil::Internal_CreateNativeUtil",
+	//"WNEngine.NativeUtil::get_EnableLog",
+	//"WNEngine.NativeUtil::set_EnableLog",
+	"NativeParticleSystem::Internal_CreateParticleSystem",
 	NULL
 };
 
 static const void* s_NativeUtil_IcallFuncs[] =
 {
-	(const void*)&Internal_CreateNativeUtil_Native,
-	(const void*)&NativeUtil_get_EnableLog,
-	(const void*)&NativeUtil_set_EnableLog,
+	//(const void*)&Internal_CreateNativeUtil_Native,
+	//(const void*)&NativeUtil_get_EnableLog,
+	//(const void*)&NativeUtil_set_EnableLog,
+	(const void*)&Internal_CreateParticleSystem,
 	NULL
 };
 void RegistNativeUtilBindings()

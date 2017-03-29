@@ -67,7 +67,7 @@ ScriptingImage* script_get_corlib()
 
 ScriptingClass* script_object_get_class(ScriptingObject* obj)
 {
-	return mono_object_get_class(obj);		
+	return mono_object_get_class(obj);
 }
 
 ScriptingMethod* script_class_get_method_from_name(ScriptingClass *klass, const char *name, int param_count)
@@ -139,33 +139,25 @@ static void UnloadPluginExecutable(void* pluginHandle)
 void InitMonoSystem()
 {
 	void* hModule = nullptr;
-	//callBack(0, 0, NativeUtil::Instance()->GetLibMonoPath());
 	hModule = LoadPluginExecutable(NativeUtil::Instance()->GetLibMonoPath());
 
 	if (hModule != nullptr)
 	{
-
 		FIND_API(g_free)
-			//DO_API(void, mono_add_internal_call, (const char *name, gconstpointer method))
-			//typedef void(*fpmono_add_internal_callType) (const char *name, gconstpointer method); 
-			//fpmono_add_internal_callType mono_add_internal_call = NULL;
 			FIND_API(mono_add_internal_call)
-			//	mono_add_internal_call = (fpmono_add_internal_callType)LoadPluginFunction(hModule, "mono_add_internal_call");
 			FIND_API(mono_string_to_utf8)
-
 			FIND_API(mono_object_get_class)
 			FIND_API(mono_class_get_field_from_name)
 			FIND_API(mono_field_get_offset)
 			FIND_API(mono_string_new_wrapper)
-
 			FIND_API(mono_class_get_method_from_name)
 			FIND_API(mono_runtime_invoke)
 			FIND_API(mono_get_corlib)
 
-		if (mono_add_internal_call != NULL)
-		{			
-			RegistNativeUtilBindings();
-		}
+			if (mono_add_internal_call != NULL)
+			{
+				RegistNativeUtilBindings();
+			}
 	}
 }
 

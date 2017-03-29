@@ -51,6 +51,9 @@
     <Filter Include="Src\Mono">
       <UniqueIdentifier>{99d48e1d-8448-44cf-9889-ce21d738a488}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Log">
+      <UniqueIdentifier>{ba0c2aa2-e4ce-4a42-aad4-aec505681217}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\Precomplie\PluginPrefix.h">
@@ -275,6 +278,9 @@
     <ClInclude Include="..\..\Src\Mono\ScriptingAPI.h">
       <Filter>Src\Mono</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\Log\Log.h">
+      <Filter>Src\Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParams.cpp">
@@ -411,6 +417,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Mono\ScriptingAPI.cpp">
       <Filter>Src\Mono</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Log\Log.cpp">
+      <Filter>Src\Log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

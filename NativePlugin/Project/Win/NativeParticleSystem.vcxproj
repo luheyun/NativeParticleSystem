@@ -45,6 +45,7 @@
     <ClInclude Include="..\..\Src\Graphics\Renderer.h" />
     <ClInclude Include="..\..\Src\Graphics\Transform.h" />
     <ClInclude Include="..\..\Src\Input\TimeManager.h" />
+    <ClInclude Include="..\..\Src\Log\Log.h" />
     <ClInclude Include="..\..\Src\Math\AnimationCurve.h" />
     <ClInclude Include="..\..\Src\Math\FloatConversion.h" />
     <ClInclude Include="..\..\Src\Math\Gradient.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Renderer.cpp" />
+    <ClCompile Include="..\..\Src\Log\Log.cpp" />
     <ClCompile Include="..\..\Src\Math\AnimationCurve.cpp" />
     <ClCompile Include="..\..\Src\Math\Gradient.cpp" />
     <ClCompile Include="..\..\Src\Math\Matrix3x3.cpp" />
