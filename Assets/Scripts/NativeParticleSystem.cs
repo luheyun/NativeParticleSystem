@@ -2,6 +2,14 @@
 using System.Collections;
 using System.Runtime.InteropServices;
 using System;
+using System.Runtime.CompilerServices;
+
+class ParticleInitState
+{
+    public bool playOnAwake;
+    public bool looping;
+    public float startDelay;
+}
 
 public class NativeParticleSystem : MonoBehaviour
 {
@@ -13,8 +21,8 @@ public class NativeParticleSystem : MonoBehaviour
     [SerializeField]
     Mesh m_Mesh;
 
-    [DllImport(NativePlugin.PluginName)]
-    private static extern void CreateParticleSystem();
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    private extern void Internal_CreateParticleSystem(ParticleInitState initState);
 
     [DllImport(NativePlugin.PluginName)]
     private static extern void SetTextureFromUnity(System.IntPtr texture);
@@ -27,7 +35,8 @@ public class NativeParticleSystem : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        CreateParticleSystem();
+        ParticleInitState initState = new ParticleInitState();
+        Internal_CreateParticleSystem(initState);
         m_Coroutine = StartCoroutine(NativeUpdate());
     }
 
@@ -53,6 +62,7 @@ public class NativeParticleSystem : MonoBehaviour
             //GL.IssuePluginEvent(1);
             m_Material.SetPass(0);
             Graphics.DrawMeshNow(m_Mesh, this.gameObject.transform.position, this.gameObject.transform.rotation);
+            //m_Material.GetMatrix();
             Render();
             GL.IssuePluginEvent(0);
         }

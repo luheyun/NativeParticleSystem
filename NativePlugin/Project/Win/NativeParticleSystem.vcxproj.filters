@@ -42,6 +42,15 @@
     <Filter Include="Src\Graphics\Mesh">
       <UniqueIdentifier>{a2e7e78c-8536-40cc-8ea7-6f13177ef013}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Input">
+      <UniqueIdentifier>{c5658546-2a66-492f-b2bc-428af16fd3cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Math\Random">
+      <UniqueIdentifier>{d381fa3b-3150-48ec-ab6f-c88040036514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Mono">
+      <UniqueIdentifier>{99d48e1d-8448-44cf-9889-ce21d738a488}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\Precomplie\PluginPrefix.h">
@@ -92,7 +101,7 @@
     <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Enumeration.h">
       <Filter>Src\GfxDevice\d3d</Filter>
     </ClInclude>
-	<ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h">
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h">
       <Filter>Src\GfxDevice\d3d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Includes.h">
@@ -188,6 +197,84 @@
     <ClInclude Include="..\..\Src\GfxDevice\d3d\GraphicsCapsD3D9.cpp">
       <Filter>Src\GfxDevice\d3d</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Graphics\Transform.h">
+      <Filter>Src\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Input\TimeManager.h">
+      <Filter>Src\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ShapeModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\InitialModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemParticles.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Random\rand.h">
+      <Filter>Src\Math\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Utilities\dynamic_array.h">
+      <Filter>Src\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\EmissionModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemCurves.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\PolynomialCurve.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\AnimationCurve.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Polynomials.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemGradients.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Gradient.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Vector2.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Color.h">
+      <Filter>Src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Math\Random\Random.h">
+      <Filter>Src\Math\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemCommon.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\RotationModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemUtils.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\ColorModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\SizeModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Mono\NativeUtil.h">
+      <Filter>Src\Mono</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Mono\ScriptingTypes.h">
+      <Filter>Src\Mono</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Mono\ScriptingAPI.h">
+      <Filter>Src\Mono</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParams.cpp">
@@ -267,6 +354,63 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\RenderingPlugin.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ShapeModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Vector2.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\InitialModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemParticles.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Random\rand.cpp">
+      <Filter>Src\Math\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\EmissionModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemCurves.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\PolynomialCurve.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\AnimationCurve.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemGradients.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Math\Gradient.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\RotationModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemUtils.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\ColorModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\SizeModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Mono\NativeUtil.cpp">
+      <Filter>Src\Mono</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Mono\ScriptingAPI_Mono.cpp">
+      <Filter>Src\Mono</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Mono\ScriptingAPI.cpp">
+      <Filter>Src\Mono</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

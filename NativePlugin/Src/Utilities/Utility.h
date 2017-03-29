@@ -37,4 +37,15 @@ inline T* Stride(T* p, size_t offset)
 	return reinterpret_cast<T*>((char*)p + offset);
 }
 
+template <class T>
+inline T clamp01(const T& t)
+{
+	if (t < 0)
+		return 0;
+	else if (t > 1)
+		return 1;
+	else
+		return t;
+}
+
 #endif

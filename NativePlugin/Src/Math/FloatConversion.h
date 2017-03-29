@@ -131,5 +131,64 @@ inline float Deg2Rad(float deg)
 	return deg / 360.0F * 2.0F * kPI;
 }
 
+inline float Ceilf(float f)
+{
+	// Use std::ceil().
+	// We are interested in reliable functions that do not lose precision.
+	// Casting to int and back to float would not be helpful.
+	return ceil(f);
+}
+
+inline float Floorf(float f)
+{
+	// Use std::floor().
+	// We are interested in reliable functions that do not lose precision.
+	// Casting to int and back to float would not be helpful.
+	return floor(f);
+}
+
+// Returns float remainder for t / length
+inline float Repeat(float t, float length)
+{
+	return t - Floorf(t / length) * length;
+}
+
+// Returns double remainder for t / length
+inline double RepeatD(double t, double length)
+{
+	return t - floor(t / length) * length;
+}
+
+inline UInt32 FloorfToIntPos(float f)
+{
+	return (UInt32)f;
+}
+
+inline UInt32 RoundfToIntPos(float f)
+{
+	return FloorfToIntPos(f + 0.5F);
+}
+
+///  Fast conversion of float [0...1] to 0 ... 65535
+inline int NormalizedToWord(float f)
+{
+	f = FloatMax(f, 0.0F);
+	f = FloatMin(f, 1.0F);
+	return RoundfToIntPos(f * 65535.0f);
+}
+
+///  Fast conversion of float [0...1] to 0 ... 255
+inline int NormalizedToByte(float f)
+{
+	f = FloatMax(f, 0.0F);
+	f = FloatMin(f, 1.0F);
+	return RoundfToIntPos(f * 255.0f);
+}
+
+///  Fast conversion of float [0...1] to 0 ... 65535
+inline float WordToNormalized(int p)
+{
+	return (float)p / 65535.0F;
+}
 
 #endif

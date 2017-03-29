@@ -28,7 +28,7 @@
     <ClInclude Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.h" />
-	<ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h" />
+    <ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxBuffer.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxDevice.h" />
     <ClInclude Include="..\..\Src\GfxDevice\GfxDeviceResources.h" />
@@ -43,21 +43,44 @@
     <ClInclude Include="..\..\Src\Graphics\Mesh\SharedMeshData.h" />
     <ClInclude Include="..\..\Src\Graphics\Mesh\VertexData.h" />
     <ClInclude Include="..\..\Src\Graphics\Renderer.h" />
+    <ClInclude Include="..\..\Src\Graphics\Transform.h" />
+    <ClInclude Include="..\..\Src\Input\TimeManager.h" />
+    <ClInclude Include="..\..\Src\Math\AnimationCurve.h" />
     <ClInclude Include="..\..\Src\Math\FloatConversion.h" />
+    <ClInclude Include="..\..\Src\Math\Gradient.h" />
     <ClInclude Include="..\..\Src\Math\Matrix3x3.h" />
     <ClInclude Include="..\..\Src\Math\Matrix4x4.h" />
+    <ClInclude Include="..\..\Src\Math\Polynomials.h" />
     <ClInclude Include="..\..\Src\Math\Quaternion.h" />
+    <ClInclude Include="..\..\Src\Math\Random\rand.h" />
+    <ClInclude Include="..\..\Src\Math\Random\Random.h" />
     <ClInclude Include="..\..\Src\Math\Simd\RotationOrder.h" />
-	<ClInclude Include="..\..\Src\Math\Vector2.h" />
+    <ClInclude Include="..\..\Src\Math\Vector2.h" />
     <ClInclude Include="..\..\Src\Math\Vector3.h" />
     <ClInclude Include="..\..\Src\Math\Vector4.h" />
-	<ClInclude Include="..\..\Src\Math\Color.h" />
+    <ClInclude Include="..\..\Src\Math\Color.h" />
+    <ClInclude Include="..\..\Src\Mono\NativeUtil.h" />
+    <ClInclude Include="..\..\Src\Mono\ScriptingAPI.h" />
+    <ClInclude Include="..\..\Src\Mono\ScriptingTypes.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ColorModule.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\EmissionModule.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\InitialModule.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystem.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemCommon.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemCurves.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemGradients.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemModule.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.h" />
-	<ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemParticle.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemParticles.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemUtils.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\PolynomialCurve.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\RotationModule.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\ShapeModule.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\SizeModule.h" />
     <ClInclude Include="..\..\Src\Shaders\GraphicsCaps.h" />
     <ClInclude Include="..\..\Src\Utilities\algorithm_utility.h" />
     <ClInclude Include="..\..\Src\Utilities\BitUtility.h" />
+    <ClInclude Include="..\..\Src\Utilities\dynamic_array.h" />
     <ClInclude Include="..\..\Src\Utilities\LinkedList.h" />
     <ClInclude Include="..\..\Src\Utilities\UnionTuple.h" />
     <ClInclude Include="..\..\Src\Utilities\Utility.h" />
@@ -81,15 +104,32 @@
     <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Renderer.cpp" />
+    <ClCompile Include="..\..\Src\Math\AnimationCurve.cpp" />
+    <ClCompile Include="..\..\Src\Math\Gradient.cpp" />
     <ClCompile Include="..\..\Src\Math\Matrix3x3.cpp" />
     <ClCompile Include="..\..\Src\Math\Matrix4x4.cpp" />
     <ClCompile Include="..\..\Src\Math\Matrix4x4_REF.cpp" />
     <ClCompile Include="..\..\Src\Math\Quaternion.cpp" />
-	<ClCompile Include="..\..\Src\Math\Vector2.cpp" />
+    <ClCompile Include="..\..\Src\Math\Random\rand.cpp" />
+    <ClCompile Include="..\..\Src\Math\Vector2.cpp" />
     <ClCompile Include="..\..\Src\Math\Vector3.cpp" />
+    <ClCompile Include="..\..\Src\Mono\NativeUtil.cpp" />
+    <ClCompile Include="..\..\Src\Mono\ScriptingAPI.cpp" />
+    <ClCompile Include="..\..\Src\Mono\ScriptingAPI_Mono.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ColorModule.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\EmissionModule.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\InitialModule.cpp" />
     <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystem.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemCurves.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemGradients.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemModule.cpp" />
     <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.cpp" />
-	<ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemParticle.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemParticles.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemUtils.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\PolynomialCurve.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\RotationModule.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\ShapeModule.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\SizeModule.cpp" />
     <ClCompile Include="..\..\Src\RenderingPlugin.cpp" />
     <ClCompile Include="..\..\Src\Shaders\GraphicsCaps.cpp" />
   </ItemGroup>
@@ -133,7 +173,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NATIVEPARTICLESYSTEM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;USE_MONO;_DEBUG;_WINDOWS;_USRDLL;NATIVEPARTICLESYSTEM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../Src;../../Include;../../;../../Include/Precomplie;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
@@ -153,7 +193,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;NATIVEPARTICLESYSTEM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;USE_MONO;NDEBUG;_WINDOWS;_USRDLL;NATIVEPARTICLESYSTEM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../Src;../../Include;../../;../../Include/Precomplie;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
