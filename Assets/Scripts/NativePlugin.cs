@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 using System;
 
 public class NativePlugin : MonoBehaviour
@@ -16,6 +17,9 @@ public class NativePlugin : MonoBehaviour
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     private delegate void DebugLog(string log);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    private static extern void Internal_Update(float frameTime, float deltaTime);
+
     private static readonly DebugLog debugLog = DebugWrapper;
     private static readonly IntPtr functionPointer = Marshal.GetFunctionPointerForDelegate(debugLog);
 
@@ -25,6 +29,11 @@ public class NativePlugin : MonoBehaviour
     {
         StartUp(functionPointer);	
 	}
+
+    void Update()
+    {
+        Internal_Update(Time.time, Time.deltaTime);
+    }
 
     void OnDestroy()
     {
