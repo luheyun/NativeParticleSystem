@@ -13,7 +13,7 @@ private:
 	double m_CurFrameTime;
 };
 
-TimeManager* g_TimeManager = new TimeManager();
+extern TimeManager* g_TimeManager;
 inline float GetDeltaTime() { return g_TimeManager->GetDeltaTime(); }
 inline double GetCurTime()	{ return g_TimeManager->GetCurTime(); }
 inline void SetDeltaTime(float deltaTime) { g_TimeManager->SetDeltaTime(deltaTime); }

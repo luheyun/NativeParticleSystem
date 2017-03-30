@@ -105,6 +105,7 @@
     <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Renderer.cpp" />
+    <ClCompile Include="..\..\Src\Input\TimeManager.cpp" />
     <ClCompile Include="..\..\Src\Log\Log.cpp" />
     <ClCompile Include="..\..\Src\Math\AnimationCurve.cpp" />
     <ClCompile Include="..\..\Src\Math\Gradient.cpp" />

@@ -1,11 +1,6 @@
 #include "PluginPrefix.h"
 #include "ScriptingAPI.h"
 #include "NativeUtil.h"
-#include "Log/Log.h"
-#include "Input/TimeManager.h"
-#include "ParticleSystem/ParticleSystem.h"
-
-extern void DebugLog(char* str);
 
 NativeUtil::NativeUtil()
 {
@@ -49,19 +44,6 @@ void Internal_CreateNativeUtil_Native(ScriptingObject* self)
 	GetLogicObjectMemoryLayout(self)->cachedPtr = NativeUtil::Instance();
 }
 
-void Internal_CreateParticleSystem(ScriptingObject* self, ScriptingObject* initState)
-{
-	DebugLog("Internal_CreateParticleSystem");
-    //ParticleSystem::CreateParticleSystrem(initState);
-}
-
-void Internal_Update(ScriptingObject* self, float frameTime, float deltaTime)
-{
-    DebugLog("Internal_Update");
-    SetFrameTime(frameTime);
-    SetDeltaTime(deltaTime);
-}
-
 ScriptingBool NativeUtil_get_EnableLog(ScriptingObject* self)
 {
 	return NativeUtil::Instance()->EnableLog();
@@ -75,8 +57,7 @@ static const char* s_NativeUtil_IcallNames[] =
 	//"WNEngine.NativeUtil::Internal_CreateNativeUtil",
 	//"WNEngine.NativeUtil::get_EnableLog",
 	//"WNEngine.NativeUtil::set_EnableLog",
-	"NativeParticleSystem::Internal_CreateParticleSystem",
-    "NativePlugin::Internal_Update",
+    //"NativePlugin::Internal_Update",
 	NULL
 };
 
@@ -85,8 +66,7 @@ static const void* s_NativeUtil_IcallFuncs[] =
 	//(const void*)&Internal_CreateNativeUtil_Native,
 	//(const void*)&NativeUtil_get_EnableLog,
 	//(const void*)&NativeUtil_set_EnableLog,
-	(const void*)&Internal_CreateParticleSystem,
-    (const void*)&Internal_Update,
+    //(const void*)&Internal_Update,
 	NULL
 };
 void RegistNativeUtilBindings()

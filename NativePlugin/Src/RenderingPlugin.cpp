@@ -13,38 +13,42 @@
 #include "ParticleSystem/ParticleSystem.h"
 #include "Mono/NativeUtil.h"
 #include "Mono/ScriptingAPI.h"
-
+#include "Input/TimeManager.h"
 
 static void DoRender();
 void SetD3DDevice(IDirect3DDevice9* device, GfxDeviceEventType eventType);
 static void InitMono();
 static void* g_TexturePointer;
 
-// --------------------------------------------------------------------------
-// Allow writing to the Unity debug console from inside DLL land.
-extern "C"
+void Internal_Update(float frameTime, float deltaTime)
 {
-	EXPORT_API void StartUp(void(_stdcall*d)(char*))
-	{
-		SetDebugLog(d);
-		DebugLog("Plugin Start Up!");
-		InitMonoSystem();
-	}
+	SetFrameTime(frameTime);
+	SetDeltaTime(deltaTime);
+}
 
-	EXPORT_API void ShutDown()
-	{
-		SetDebugLog(nullptr);
-		ParticleSystem::ShutDown();
-	}
+static const char* s_RenderingPlugin_IcallNames[] =
+{
+	//"WNEngine.NativeUtil::Internal_CreateNativeUtil",
+	//"WNEngine.NativeUtil::get_EnableLog",
+	//"WNEngine.NativeUtil::set_EnableLog",
+	"NativePlugin::Internal_Update",
+	NULL
+};
 
-	void EXPORT_API SetTextureFromUnity(void* texturePtr)
-	{
-		g_TexturePointer = texturePtr;
-	}
+static const void* s_RenderingPlugin_IcallFuncs[] =
+{
+	//(const void*)&Internal_CreateNativeUtil_Native,
+	//(const void*)&NativeUtil_get_EnableLog,
+	//(const void*)&NativeUtil_set_EnableLog,
+	(const void*)&Internal_Update,
+	NULL
+};
 
-	void EXPORT_API Render()
+void RegisterRenderingPluginBindings()
+{
+	for (int i = 0; s_RenderingPlugin_IcallNames[i] != NULL; ++i)
 	{
-		DoRender();
+		script_add_internal_call(s_RenderingPlugin_IcallNames[i], s_RenderingPlugin_IcallFuncs[i]);
 	}
 }
 
@@ -82,6 +86,36 @@ static void UnloadPluginExecutable(void* pluginHandle)
 #endif
 }
 
+// --------------------------------------------------------------------------
+// Allow writing to the Unity debug console from inside DLL land.
+extern "C"
+{
+	EXPORT_API void StartUp(void(_stdcall*d)(char*))
+	{
+		SetDebugLog(d);
+		DebugLog("Plugin Start Up!");
+		InitMonoSystem();
+		RegisterRenderingPluginBindings();
+		ParticleSystem::Init();
+	}
+
+	EXPORT_API void ShutDown()
+	{
+		SetDebugLog(nullptr);
+		ParticleSystem::ShutDown();
+	}
+
+	void EXPORT_API SetTextureFromUnity(void* texturePtr)
+	{
+		g_TexturePointer = texturePtr;
+	}
+
+	void EXPORT_API Render()
+	{
+		DoRender();
+	}
+}
+
 static int g_DeviceType = -1;
 LPDIRECT3DDEVICE9 g_D3DDevice = NULL;
 
@@ -101,7 +135,6 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 			SetD3DDevice((IDirect3DDevice9*)device, (GfxDeviceEventType)eventType);
 			SetGfxDevice(new GfxDeviceD3D9());
 			InitializeMeshVertexFormatManager();
-			ParticleSystem::Init();
 			GfxBuffer* gfxBuf = GetGfxDevice().CreateVertexBuffer();
 			GetGfxDevice().UpdateBuffer(gfxBuf, kGfxBufferModeDynamic, kGfxBufferLabelDefault, 1024, nullptr, 0);
 		}

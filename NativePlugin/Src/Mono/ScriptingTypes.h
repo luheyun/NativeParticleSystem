@@ -123,11 +123,6 @@ typedef ScriptingImage* ScriptingImagePtr;
 typedef ScriptingDomain* ScriptingDomainPtr;
 typedef unsigned char ScriptingBool;
 
-struct UnityEngineObjectMemoryLayout
-{
-	int         instanceID;
-	void*       cachedPtr;
-};
 //Unity messes around deep in mono internals, bypassing mono's API to do certain things. One of those things is we have c++
 //structs that we assume are identical to c# structs, and when a mono method calls into the unity runtime, we make the assumption
 //that we can access the data stored in the c# struct directly.  When a MonoObject* gets passed to us by mono, and we know that the

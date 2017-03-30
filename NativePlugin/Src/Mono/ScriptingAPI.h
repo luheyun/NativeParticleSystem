@@ -84,17 +84,6 @@ inline int GetScriptingArraySize(ScriptingArrayPtr a)
 	return mono_array_length_safe(a);
 }
 
-
-inline UnityEngineObjectMemoryLayout* GetUnityEngineObjectMemoryLayout(ScriptingObjectPtr object)
-{
-	return reinterpret_cast<UnityEngineObjectMemoryLayout*>(((char*)object) + kMonoObjectOffset);
-}
-
-inline void* GetCachedPtrFromScriptingWrapper(ScriptingObjectPtr object)
-{
-	return GetUnityEngineObjectMemoryLayout(object)->cachedPtr;
-}
-
 inline LogicObjectMemoryLayout* GetLogicObjectMemoryLayout(ScriptingObjectPtr object)
 {
 	return reinterpret_cast<LogicObjectMemoryLayout*>(((char*)object) + kMonoObjectOffset);

@@ -27,8 +27,9 @@ struct ParticleSystemEmissionData
 	UInt8 burstCount;
 };
 
-struct ParticleSystemInitState
+class ParticleSystemInitState
 {
+public:
 	ParticleSystemInitState();
 
 	bool looping;
@@ -39,6 +40,7 @@ struct ParticleSystemInitState
 	float speed;
 	float lengthInSec;
 	bool useLocalSpace;
+	int maxNumParticles;
 };
 
 // @TODO: Find "pretty" place for shared structs and enums?

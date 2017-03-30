@@ -7,7 +7,7 @@
 class ParticleSystemRenderer;
 struct ParticleSystemParticles;
 class Transform;
-struct ParticleSystemInitState;
+class ParticleSystemInitState;
 struct ParticleSystemState;
 class RotationModule;
 class ColorModule;

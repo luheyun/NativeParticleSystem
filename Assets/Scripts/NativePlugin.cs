@@ -32,7 +32,10 @@ public class NativePlugin : MonoBehaviour
 
     void Update()
     {
-        Internal_Update(Time.time, Time.deltaTime);
+        float frameTime = Time.time;
+        float deltaTime = Time.deltaTime;
+        Debug.Log("Plugin Update, frameTime:" + Time.time.ToString() + ", deltaTime:" + deltaTime.ToString());
+        Internal_Update(frameTime, deltaTime);
     }
 
     void OnDestroy()

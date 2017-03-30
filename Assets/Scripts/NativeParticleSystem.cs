@@ -4,11 +4,18 @@ using System.Runtime.InteropServices;
 using System;
 using System.Runtime.CompilerServices;
 
+//[StructLayoutAttribute(LayoutKind.Sequential)]
 class ParticleInitState
 {
-    public bool playOnAwake;
     public bool looping;
+    public bool prewarm;
+    public int randomSeed;
+    public bool playOnAwake;
     public float startDelay;
+    public float speed;
+    public float lengthInSec;
+    public bool useLocalSpace;
+    public int maxNumParticles;
 }
 
 public class NativeParticleSystem : MonoBehaviour
@@ -22,7 +29,7 @@ public class NativeParticleSystem : MonoBehaviour
     Mesh m_Mesh;
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    private extern void Internal_CreateParticleSystem(ParticleInitState initState);
+    private extern static void Internal_CreateParticleSystem(ParticleInitState initState);
 
     [DllImport(NativePlugin.PluginName)]
     private static extern void SetTextureFromUnity(System.IntPtr texture);
@@ -31,12 +38,18 @@ public class NativeParticleSystem : MonoBehaviour
     private static extern void Render();
 
     private Coroutine m_Coroutine = null;
+    private ParticleInitState m_InitState = null;
 
     // Use this for initialization
     void Awake()
     {
-        ParticleInitState initState = new ParticleInitState();
-        Internal_CreateParticleSystem(initState);
+        m_InitState = new ParticleInitState();
+        m_InitState.looping = true;
+        m_InitState.playOnAwake = true;
+        m_InitState.useLocalSpace = true;
+        m_InitState.speed = 0.2f;
+        m_InitState.maxNumParticles = 5;
+        Internal_CreateParticleSystem(m_InitState);
         m_Coroutine = StartCoroutine(NativeUpdate());
     }
 

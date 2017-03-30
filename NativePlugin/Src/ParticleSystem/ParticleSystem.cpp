@@ -12,6 +12,9 @@
 #include "Input/TimeManager.h"
 #include "Utilities/Utility.h"
 #include "Math/Random/Random.h"
+#include "Mono/ScriptingTypes.h"
+#include "Mono/ScriptingAPI.h"
+#include "Log/Log.h"
 
 struct ParticleSystemManager
 {
@@ -28,6 +31,33 @@ struct ParticleSystemManager
 };
 
 ParticleSystemManager* gParticleSystemManager = nullptr;
+
+void Internal_CreateParticleSystem(ScriptingObject* initState)
+{
+	DebugLog("Internal_CreateParticleSystem");
+	ParticleSystemInitState* pInitState = (ParticleSystemInitState*)GetLogicObjectCachedPtrFromScriptingWrapper(initState);
+	ParticleSystem::CreateParticleSystrem(pInitState);
+}
+
+static const char* s_ParticleSystem_IcallNames[] =
+{
+	"NativeParticleSystem::Internal_CreateParticleSystem",
+	NULL
+};
+
+static const void* s_ParticleSystem_IcallFuncs[] =
+{
+	(const void*)&Internal_CreateParticleSystem,
+	NULL
+};
+
+static void RegisterParticleSystemBindings()
+{
+	for (int i = 0; s_ParticleSystem_IcallNames[i] != NULL; ++i)
+	{
+		script_add_internal_call(s_ParticleSystem_IcallNames[i], s_ParticleSystem_IcallFuncs[i]);
+	}
+}
 
 #define MAX_TIME_STEP (0.03f)
 static float GetTimeStep(float dt)
@@ -57,6 +87,7 @@ void ParticleSystem::CreateParticleSystrem(ParticleSystemInitState* initState)
 void ParticleSystem::Init()
 {
 	gParticleSystemManager = new ParticleSystemManager();
+	RegisterParticleSystemBindings();
 }
 
 void ParticleSystem::ShutDown()
@@ -135,6 +166,8 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
     , m_EmittersIndex(-1)
 	, m_InitState(initState)
 {
+	m_InitState = new ParticleSystemInitState();
+	memcpy(m_InitState, initState, sizeof(ParticleSystemInitState));
 	gParticleSystemManager->activeEmitters.push_back(this);
 	m_Renderer = new ParticleSystemRenderer();
 	m_State = new ParticleSystemState();
