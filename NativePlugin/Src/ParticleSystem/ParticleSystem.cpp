@@ -176,6 +176,8 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	m_RotationModule = new RotationModule();
 	m_ColorModule = new ColorModule();
 
+	m_InitialModule.SetMaxNumParticles(m_InitState->maxNumParticles);
+
 	for (size_t i = 0; i < kNumParticleBuffers; i++)
 		m_Particles[i] = new ParticleSystemParticles();
 }

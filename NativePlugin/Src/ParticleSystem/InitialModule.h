@@ -18,6 +18,7 @@ public:
 	inline MinMaxCurve& GetSpeedCurve() { return m_Speed; }
 	inline const MinMaxCurve& GetSpeedCurve() const { return m_Speed; }
 	inline int GetMaxNumParticles() const { return m_MaxNumParticles; }
+	inline void SetMaxNumParticles(int maxNumParticles) { m_MaxNumParticles = maxNumParticles; }
 	inline float GetInheritVelocity() const { return m_InheritVelocity; }
 	Vector3f GetGravity(const ParticleSystemInitState& initState, const ParticleSystemState& state) const;
 
