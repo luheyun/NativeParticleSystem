@@ -65,8 +65,6 @@ void ParticleSystemRenderer::RenderMultiple(ParticleSystem& system)
 	}
 }
 
-extern Matrix4x4f gWorldMatrix;
-
 void ParticleSystemRenderer::PrepareForRender(ParticleSystem& system)
 {
 	const bool needsAxisOfRotation = !GetScreenSpaceRotation();
@@ -127,7 +125,7 @@ void ParticleSystemRenderer::PrepareForRender(ParticleSystem& system)
 	Matrix4x4f viewToWorldMatrix;
 	Matrix4x4f::Invert_General3D(viewMatrix, viewToWorldMatrix);
 
-	Matrix4x4f worldMatrix = gWorldMatrix;
+	Matrix4x4f worldMatrix = system.m_WorldMatrix;
 	Matrix4x4f worldViewMatrix;
 	MultiplyMatrices4x4(&viewMatrix, &worldMatrix, &worldViewMatrix);
 

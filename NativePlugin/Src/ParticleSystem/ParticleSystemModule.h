@@ -41,7 +41,8 @@ public:
 	float lengthInSec;
 	bool useLocalSpace;
 	int maxNumParticles;
-	Matrix4x4f worldMatrix;
+    float rotationMin;
+    float rotationMax;
 };
 
 // @TODO: Find "pretty" place for shared structs and enums?

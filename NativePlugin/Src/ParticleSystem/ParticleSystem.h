@@ -26,7 +26,7 @@ public:
 	// allocate N particles at a time
 	static const size_t kMemAllocGranularity = 64;
 
-	static void CreateParticleSystrem(ParticleSystemInitState* initState);
+	static int CreateParticleSystrem(ParticleSystemInitState* initState);
 	static void Init();
 	static void ShutDown();
 	static void BeginUpdateAll();
@@ -56,6 +56,8 @@ public:
     int GetParticleCount() const;
 	static size_t EmitFromData(ParticleSystemEmissionState& emissionState, size_t& numContinuous, const ParticleSystemEmissionData& emissionData, const Vector3f velocity, float fromT, float toT, float dt, float length);
 
+    void SetWorldMatrix(const Matrix4x4f& worldMatrix) { m_WorldMatrix = worldMatrix; }
+
 private:
 	void ResetSeeds();
 	static size_t EmitFromModules(const ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemEmissionState& emissionState, size_t& numContinuous, const Vector3f velocity, float fromT, float toT, float dt);
@@ -78,6 +80,7 @@ private:
 	size_t LimitParticleCount(size_t requestSize) const;
 	bool ComputePrewarmStartParameters(float& prewarmTime, float t);
 
+    void SetUsesRotationalSpeed();
 
 private:
     int m_EmittersIndex;
@@ -94,6 +97,7 @@ private:
 	SizeModule*	m_SizeModule;
 	UVModule* m_UVModule;
 	bool m_IsActive = true;
+    Matrix4x4f m_WorldMatrix;
 
 	friend class ParticleSystemRenderer;
 };

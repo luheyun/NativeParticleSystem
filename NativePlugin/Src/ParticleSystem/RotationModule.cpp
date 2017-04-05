@@ -39,8 +39,21 @@ void UpdateProceduralTpl(const DualMinMaxPolyCurves& curves, ParticleSystemParti
 	}
 }
 
-RotationModule::RotationModule() : ParticleSystemModule(false)
+RotationModule::RotationModule() : ParticleSystemModule(true)
 {}
+
+void RotationModule::Init(float minAngularVelocity, float maxAngularVelocity)
+{
+    MinMaxAnimationCurves animCurves;
+    AnimationCurve::Keyframe minKeyFrame, maxKeyFrame;
+    minKeyFrame.value = minAngularVelocity;
+    animCurves.min.AddKey(minKeyFrame);
+    maxKeyFrame.value = maxAngularVelocity;
+    animCurves.max.AddKey(maxKeyFrame);
+    m_Curve.minMaxState = kMMCTwoConstants;
+    m_Curve.editorCurves = animCurves;
+    m_Curve.SetScalar(Deg2Rad(45.0f));
+}
 
 void RotationModule::Update(const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex)
 {

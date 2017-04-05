@@ -16,12 +16,15 @@ class ParticleInitState
     public float lengthInSec;
     public bool useLocalSpace;
     public int maxNumParticles;
+    public float rotationMin;
+    public float rotationMax;
 }
 
 [StructLayoutAttribute(LayoutKind.Sequential)]
 class ParticleSystremUpdateData
 {
-    public Matrix4x4 worldMatrix; 
+    public Matrix4x4 worldMatrix;
+    public int index;
 }
 
 public class NativeParticleSystem : MonoBehaviour
@@ -35,7 +38,7 @@ public class NativeParticleSystem : MonoBehaviour
     Mesh m_Mesh;
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    private extern static void Internal_CreateParticleSystem(ParticleInitState initState);
+    private extern static int Internal_CreateParticleSystem(ParticleInitState initState);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     private extern static void Internal_ParticleSystem_Update(ParticleSystremUpdateData updateData);
@@ -51,6 +54,8 @@ public class NativeParticleSystem : MonoBehaviour
 
     private ParticleSystremUpdateData m_UpdateData = new ParticleSystremUpdateData();
 
+    private Vector3 m_DefaultMeshPos = new Vector3(-1000f, -1000f, -1000f);
+
     // Use this for initialization
     void Awake()
     {
@@ -60,7 +65,10 @@ public class NativeParticleSystem : MonoBehaviour
         m_InitState.useLocalSpace = true;
         m_InitState.speed = 0.2f;
         m_InitState.maxNumParticles = 15;
-        Internal_CreateParticleSystem(m_InitState);
+        m_InitState.rotationMax = 10;
+        m_InitState.rotationMin = -20;
+        m_UpdateData.index = Internal_CreateParticleSystem(m_InitState);
+        Debug.Log("index:"+ m_UpdateData.index.ToString());
         m_Coroutine = StartCoroutine(NativeUpdate());
     }
 
@@ -85,7 +93,7 @@ public class NativeParticleSystem : MonoBehaviour
             yield return new WaitForEndOfFrame();
             //GL.IssuePluginEvent(1);
             m_Material.SetPass(0);
-            Graphics.DrawMeshNow(m_Mesh, this.gameObject.transform.position, this.gameObject.transform.rotation);
+            Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
             //m_Material.GetMatrix();
             m_UpdateData.worldMatrix = transform.localToWorldMatrix;
             Internal_ParticleSystem_Update(m_UpdateData);

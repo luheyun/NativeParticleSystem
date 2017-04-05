@@ -38,22 +38,25 @@ class ParticleSystemUpdateData
 {
 public:
 	Matrix4x4f worldMatrix;
+    int index;
 };
 
-void Internal_CreateParticleSystem(ScriptingObject* initState)
+int Internal_CreateParticleSystem(ScriptingObject* initState)
 {
 	DebugLog("Internal_CreateParticleSystem");
 	ParticleSystemInitState* pInitState = (ParticleSystemInitState*)GetLogicObjectMemoryLayout(initState);
-	ParticleSystem::CreateParticleSystrem(pInitState);
+	return ParticleSystem::CreateParticleSystrem(pInitState);
 }
 
-
-Matrix4x4f gWorldMatrix; // todo
 
 void Internal_ParticleSystem_Update(ScriptingObject* updateData)
 {
 	ParticleSystemUpdateData* gUpdateData = (ParticleSystemUpdateData*)GetLogicObjectMemoryLayout(updateData);
-	gWorldMatrix = gUpdateData->worldMatrix;
+
+    if (gUpdateData->index < gParticleSystemManager->particleSystems.size())
+    {
+        gParticleSystemManager->particleSystems[gUpdateData->index]->SetWorldMatrix(gUpdateData->worldMatrix);
+    }
 }
 
 static const char* s_ParticleSystem_IcallNames[] =
@@ -97,10 +100,11 @@ static void ApplyStartDelay(float& delayT, float& accumulatedDt)
 	}
 }
 
-void ParticleSystem::CreateParticleSystrem(ParticleSystemInitState* initState)
+int ParticleSystem::CreateParticleSystrem(ParticleSystemInitState* initState)
 {
 	ParticleSystem* ps = new ParticleSystem(initState);
 	gParticleSystemManager->particleSystems.push_back(ps);
+    return gParticleSystemManager->particleSystems.size() - 1;
 }
 
 void ParticleSystem::Init()
@@ -193,6 +197,7 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	m_ShapeModule = ShapeModule();
 	m_SizeModule = new SizeModule();
 	m_RotationModule = new RotationModule();
+    m_RotationModule->Init(initState->rotationMin, initState->rotationMax);
 	m_ColorModule = new ColorModule();
 	m_UVModule = new UVModule();
 
@@ -295,7 +300,7 @@ size_t ParticleSystem::EmitFromModules(const ParticleSystem& system, const Parti
 void ParticleSystem::Update0(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, float dt, bool fixedTimeStep)
 {
 	state.oldPosition = state.localToWorld.GetPosition();
-	state.localToWorld = gWorldMatrix;
+	state.localToWorld = system.m_WorldMatrix;
 	Matrix4x4f::Invert_General3D(state.localToWorld, state.WorldToLocal);
 
 	// todo subEmitter
@@ -307,6 +312,9 @@ void ParticleSystem::Update0(ParticleSystem& system, const ParticleSystemInitSta
 		else
 			; //todo  state.emitterVelocity = (position - oldPosition) / dt;
 	}
+
+    if (system.m_RotationModule->GetEnabled())
+        system.SetUsesRotationalSpeed();
 
 	if (system.m_ShapeModule.GetEnabled())
 		system.m_ShapeModule.AcquireMeshData(state.WorldToLocal);
@@ -635,6 +643,12 @@ bool ParticleSystem::ComputePrewarmStartParameters(float& prewarmTime, float t)
 {
 	// todo
 	return true;
+}
+
+void ParticleSystem::SetUsesRotationalSpeed()
+{
+    if (!m_Particles->usesRotationalSpeed)
+        m_Particles->SetUsesRotationalSpeed();
 }
 
 void ParticleSystem::Play(bool autoPrewarm)

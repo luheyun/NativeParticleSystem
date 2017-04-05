@@ -48,6 +48,15 @@ void ParticleSystemParticles::SetUsesAxisOfRotation()
 		axisOfRotation[i] = Vector3f::yAxis;
 }
 
+void ParticleSystemParticles::SetUsesRotationalSpeed()
+{
+    usesRotationalSpeed = true;
+    const size_t count = position.size();
+    rotationalSpeed.resize_uninitialized(count);
+    for (size_t i = 0; i < count; i++)
+        rotationalSpeed[i] = 0.0f;
+}
+
 ParticleSystemParticlesTempData::ParticleSystemParticlesTempData()
 	:color(0)
 	, size(0)

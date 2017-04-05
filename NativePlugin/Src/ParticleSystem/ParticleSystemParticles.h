@@ -56,6 +56,7 @@ struct ParticleSystemParticles
 	void array_resize(size_t i);
 	void element_assign(size_t i, size_t j);
 	void SetUsesAxisOfRotation();
+    void SetUsesRotationalSpeed();
 };
 
 struct ParticleSystemParticlesTempData
