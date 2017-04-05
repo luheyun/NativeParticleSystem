@@ -25,6 +25,7 @@ typedef UInt32 UIntPtr;
 #ifdef BUILDING_COREMODULE
 #pragma warning(disable:4275)
 #pragma warning(disable:4251)
+#pragma warning(disable:4996)
 #define EXPORT_COREMODULE __declspec(dllexport)
 #else
 #define EXPORT_COREMODULE __declspec(dllimport)

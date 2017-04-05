@@ -103,6 +103,8 @@ public:
 	UInt8& operator [] (long i) { return GetPtr()[i]; }
 	const UInt8& operator [] (long i)const { return GetPtr()[i]; }
 
+	inline ColorRGBA32 SwizzleToBGRA() const { return ColorRGBA32(b, g, r, a); }
+
 	inline void operator *= (const ColorRGBA32& inC1)
 	{
        // This is much faster, but doesn't guarantee 100% matching result (basically color values van vary 1/255 but not at ends, check out unit test in cpp file).
@@ -137,3 +139,5 @@ inline ColorRGBA32 Lerp(const ColorRGBA32& c0, const ColorRGBA32& c1, int scale)
 	vx = u0 & 0xff00ff00;
 	return ColorRGBA32(rb | (vx + ((((u1 >> 8) & 0x00ff00ff) - (vx >> 8)) * scale) & 0xff00ff00));
 }
+
+inline ColorRGBA32 SwizzleColorForPlatform(const ColorRGBA32& col) { return col.SwizzleToBGRA(); }

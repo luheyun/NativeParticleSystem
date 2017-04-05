@@ -22,6 +22,7 @@ struct GraphicsCaps
 #endif
 
 	bool hasNativeQuad = false;
+	bool needsToSwizzleVertexColors; // Should vertex colors be passed as B,G,R,A bytes instead of R,G,B,A
 };
 
 GraphicsCaps& GetGraphicsCaps();

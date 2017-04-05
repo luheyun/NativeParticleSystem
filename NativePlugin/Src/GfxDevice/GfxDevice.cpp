@@ -14,6 +14,7 @@ public:
 };
 
 GfxDevice::GfxDevice()
+	: m_DynamicVBO(nullptr)
 {
 	OnCreate();
 }
@@ -69,6 +70,11 @@ void GfxDevice::SetProjectionMatrix(const Matrix4x4f& matrix)
 	m_TransformState.projectionMatrixOriginal = matrix;
 	GetGfxDevice().CalculateDeviceProjectionMatrix(m, GetGraphicsCaps().usesOpenGLTextureCoords, m_InvertProjectionMatrix);
 	m_TransformState.dirtyFlags |= TransformState::kProjDirty;
+}
+
+const Matrix4x4f& GfxDevice::GetViewMatrix() const
+{
+	return m_BuiltinParamValues.GetMatrixParam(kShaderMatView);
 }
 
 void GfxDevice::UpdateViewProjectionMatrix()

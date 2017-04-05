@@ -55,6 +55,18 @@ struct ParticleSystemParticles
 	size_t array_size() const { return position.size(); }
 	void array_resize(size_t i);
 	void element_assign(size_t i, size_t j);
+	void SetUsesAxisOfRotation();
+};
+
+struct ParticleSystemParticlesTempData
+{
+	ParticleSystemParticlesTempData();
+	void element_swap(size_t i, size_t j);
+
+	ColorRGBA32* color;
+	float* size;
+	float* sheetIndex;
+	size_t particleCount;
 };
 
 inline float NormalizedTime(const ParticleSystemParticles& ps, size_t i)

@@ -5,6 +5,7 @@
 #include "RotationModule.h"
 #include "ColorModule.h"
 #include "SizeModule.h"
+#include "UVModule.h"
 #include "ParticleSystemParticles.h"
 #include "ParticleSystemCommon.h"
 #include "ParticleSystemUtils.h"
@@ -15,6 +16,7 @@
 #include "Mono/ScriptingTypes.h"
 #include "Mono/ScriptingAPI.h"
 #include "Log/Log.h"
+#include "Shaders/GraphicsCaps.h"
 
 struct ParticleSystemManager
 {
@@ -32,22 +34,39 @@ struct ParticleSystemManager
 
 ParticleSystemManager* gParticleSystemManager = nullptr;
 
+class ParticleSystemUpdateData
+{
+public:
+	Matrix4x4f worldMatrix;
+};
+
 void Internal_CreateParticleSystem(ScriptingObject* initState)
 {
 	DebugLog("Internal_CreateParticleSystem");
-	ParticleSystemInitState* pInitState = (ParticleSystemInitState*)GetLogicObjectCachedPtrFromScriptingWrapper(initState);
+	ParticleSystemInitState* pInitState = (ParticleSystemInitState*)GetLogicObjectMemoryLayout(initState);
 	ParticleSystem::CreateParticleSystrem(pInitState);
+}
+
+
+Matrix4x4f gWorldMatrix; // todo
+
+void Internal_ParticleSystem_Update(ScriptingObject* updateData)
+{
+	ParticleSystemUpdateData* gUpdateData = (ParticleSystemUpdateData*)GetLogicObjectMemoryLayout(updateData);
+	gWorldMatrix = gUpdateData->worldMatrix;
 }
 
 static const char* s_ParticleSystem_IcallNames[] =
 {
 	"NativeParticleSystem::Internal_CreateParticleSystem",
+	"NativeParticleSystem::Internal_ParticleSystem_Update",
 	NULL
 };
 
 static const void* s_ParticleSystem_IcallFuncs[] =
 {
 	(const void*)&Internal_CreateParticleSystem,
+	(const void*)&Internal_ParticleSystem_Update,
 	NULL
 };
 
@@ -110,18 +129,18 @@ void ParticleSystem::BeginUpdateAll()
 	if (deltaTime == 0.0f)
 		return;
 
-    for (size_t i = 0; i < gParticleSystemManager->activeEmitters.size(); ++i)
-    {
-        ParticleSystem& system = *gParticleSystemManager->activeEmitters[i];
+	for (size_t i = 0; i < gParticleSystemManager->activeEmitters.size(); ++i)
+	{
+		ParticleSystem& system = *gParticleSystemManager->activeEmitters[i];
 
-        if (!system.IsActive())
-        {
-            system.RemoveFromManager();
-            continue;
-        }
+		if (!system.IsActive())
+		{
+			system.RemoveFromManager();
+			continue;
+		}
 
-        Update0(system, *system.m_InitState, *system.m_State, deltaTime, false);
-    }
+		Update0(system, *system.m_InitState, *system.m_State, deltaTime, false);
+	}
 
 	gParticleSystemManager->needSync = true;
 
@@ -131,7 +150,7 @@ void ParticleSystem::BeginUpdateAll()
 	for (size_t i = 0; i < gParticleSystemManager->activeEmitters.size(); ++i)
 	{
 		ParticleSystem& system = *gParticleSystemManager->activeEmitters[i];
-		system.Update1(system, system.GetParticles(kParticleBuffer0), deltaTime, false, false);
+		system.Update1(system, system.GetParticles(), deltaTime, false, false);
 	}
 #endif
 
@@ -163,7 +182,7 @@ void ParticleSystem::EndUpdateAll()
 
 ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	: m_Renderer(nullptr)
-    , m_EmittersIndex(-1)
+	, m_EmittersIndex(-1)
 	, m_InitState(initState)
 {
 	m_InitState = new ParticleSystemInitState();
@@ -175,11 +194,13 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	m_SizeModule = new SizeModule();
 	m_RotationModule = new RotationModule();
 	m_ColorModule = new ColorModule();
+	m_UVModule = new UVModule();
 
 	m_InitialModule.SetMaxNumParticles(m_InitState->maxNumParticles);
+	m_Particles = new ParticleSystemParticles();
 
-	for (size_t i = 0; i < kNumParticleBuffers; i++)
-		m_Particles[i] = new ParticleSystemParticles();
+	if (m_InitState->playOnAwake)
+		Play(false);
 }
 
 ParticleSystem::~ParticleSystem()
@@ -214,13 +235,13 @@ void ParticleSystem::Render()
 	auto it = gParticleSystemManager->activeEmitters.begin();
 
 	for (; it != gParticleSystemManager->activeEmitters.end(); ++it)
-		(*it)->m_Renderer->RenderMultiple();
+		(*it)->m_Renderer->RenderMultiple(**it);
 }
 
 void ParticleSystem::Update(ParticleSystem& system, float deltaTime, bool fixedTimeStep, bool useProcedural, int rayBudget)
 {
 	Update0(system, *system.m_InitState, *system.m_State, deltaTime, fixedTimeStep);
-	Update1(system, system.GetParticles((int)ParticleSystem::kParticleBuffer0), deltaTime, fixedTimeStep, useProcedural, rayBudget);
+	Update1(system, system.GetParticles(), deltaTime, fixedTimeStep, useProcedural, rayBudget);
 	Update2(system, *system.m_InitState, *system.m_State, fixedTimeStep);
 }
 
@@ -247,7 +268,7 @@ void ParticleSystem::SyncJobs(bool syncRenderJobs)
 
 	// todo
 	//if (syncRenderJobs)
-		//SyncRenderJobs();
+	//SyncRenderJobs();
 }
 
 void ParticleSystem::ResetSeeds()
@@ -355,16 +376,16 @@ void ParticleSystem::Update1Incremental(ParticleSystem& system, const ParticleSy
 			else
 				StartParticles(system, ps, prevT, t, dt, numContinuous, amountOfParticlesToEmit, frameOffset);
 		}
+
+		state.accumulatedDt -= dt;
+
+		// todo
+		// Workaround for external forces being dependent on AABB (need to update it before the next time step)
+		//if (!useProcedural && (state.accumulatedDt >= dt) && system.m_ExternalForcesModule->GetEnabled())
+		//	UpdateBounds(system, ps, state);
+
+		numTimeSteps++;
 	}
-
-	state.accumulatedDt -= dt;
-
-	// todo
-	// Workaround for external forces being dependent on AABB (need to update it before the next time step)
-	//if (!useProcedural && (state.accumulatedDt >= dt) && system.m_ExternalForcesModule->GetEnabled())
-	//	UpdateBounds(system, ps, state);
-
-	numTimeSteps++;
 }
 
 void ParticleSystem::UpdateProcedural(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state
@@ -425,6 +446,35 @@ void ParticleSystem::UpdateModulesPreSimulationIncremental(const ParticleSystem&
 	system.m_InitialModule.Update(initState, state, ps, fromIndex, toIndex, dt);
 	if (system.m_RotationModule->GetEnabled())
 		system.m_RotationModule->Update(initState, state, ps, fromIndex, toIndex);
+}
+
+void ParticleSystem::UpdateModulesNonIncremental(const ParticleSystem& system, const ParticleSystemParticles& ps, ParticleSystemParticlesTempData& psTemp, size_t fromIndex, size_t toIndex)
+{
+	for (size_t i = fromIndex; i < toIndex; ++i)
+		psTemp.color[i] = ps.color[i];
+	for (size_t i = fromIndex; i < toIndex; ++i)
+		psTemp.size[i] = ps.size[i];
+
+	if (system.m_ColorModule->GetEnabled())
+		system.m_ColorModule->Update(ps, psTemp.color, fromIndex, toIndex);
+
+	if (system.m_SizeModule->GetEnabled())
+		system.m_SizeModule->Update(ps, psTemp.size, fromIndex, toIndex);
+
+	if (GetGraphicsCaps().needsToSwizzleVertexColors)
+		std::transform(&psTemp.color[fromIndex], &psTemp.color[toIndex], &psTemp.color[fromIndex], SwizzleColorForPlatform);
+
+	if (system.m_UVModule->GetEnabled())
+	{
+		if (!psTemp.sheetIndex)
+		{
+			psTemp.sheetIndex = new float[psTemp.particleCount];
+			for (size_t i = 0; i < fromIndex; ++i)
+				psTemp.sheetIndex[i] = 0.0f;
+		}
+
+		system.m_UVModule->Update(ps, psTemp.sheetIndex, fromIndex, toIndex);
+	}
 }
 
 void ParticleSystem::StartModules(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state
@@ -609,11 +659,7 @@ void ParticleSystem::Pause()
 
 void ParticleSystem::Clear(UInt32 flags)
 {
-	for (int i = 0; i < kNumParticleBuffers; i++)
-	{
-		m_Particles[i]->array_resize(0);
-	}
-
+	m_Particles->array_resize(0);
 	m_State->emitReplay.resize_uninitialized(0);
 	m_State->cullTime = 0.0f;
 	m_State->stopTime = 0.0f;
@@ -628,9 +674,9 @@ void ParticleSystem::Clear(UInt32 flags)
 	}
 }
 
-ParticleSystemParticles& ParticleSystem::GetParticles(int index)
+ParticleSystemParticles& ParticleSystem::GetParticles()
 {
-	return *m_Particles[kParticleBuffer0];
+	return *m_Particles;
 }
 
 void ParticleSystem::PrepareForRender()
@@ -644,6 +690,12 @@ void ParticleSystem::AutoPrewarm()
 	{
 		Simulate(0.0f, true, true);
 	}
+}
+
+void ParticleSystem::SetUsesAxisOfRotation()
+{
+	if (!m_Particles->usesAxisOfRotation)
+		m_Particles->SetUsesAxisOfRotation();
 }
 
 void ParticleSystem::Simulate(float deltaTime, bool restart, bool fixedTimeStep)
@@ -707,20 +759,20 @@ void ParticleSystem::AddToManager()
 
 void ParticleSystem::RemoveFromManager()
 {
-    if (m_EmittersIndex < 0)
-        return;
+	if (m_EmittersIndex < 0)
+		return;
 
-    const int index = m_EmittersIndex;
-    gParticleSystemManager->activeEmitters[index]->m_EmittersIndex = -1;
-    gParticleSystemManager->activeEmitters[index] = gParticleSystemManager->activeEmitters.back();
+	const int index = m_EmittersIndex;
+	gParticleSystemManager->activeEmitters[index]->m_EmittersIndex = -1;
+	gParticleSystemManager->activeEmitters[index] = gParticleSystemManager->activeEmitters.back();
 
-    if (gParticleSystemManager->activeEmitters[index] != this)
-        gParticleSystemManager->activeEmitters[index]->m_EmittersIndex = index;
+	if (gParticleSystemManager->activeEmitters[index] != this)
+		gParticleSystemManager->activeEmitters[index]->m_EmittersIndex = index;
 
-    gParticleSystemManager->activeEmitters.pop_back();
+	gParticleSystemManager->activeEmitters.pop_back();
 }
 
 int ParticleSystem::GetParticleCount() const
 {
-	return m_Particles[kParticleBuffer0]->array_size();
+	return m_Particles->array_size();
 }

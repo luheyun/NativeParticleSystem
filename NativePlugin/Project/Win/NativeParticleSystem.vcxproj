@@ -78,6 +78,7 @@
     <ClInclude Include="..\..\Src\ParticleSystem\RotationModule.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\ShapeModule.h" />
     <ClInclude Include="..\..\Src\ParticleSystem\SizeModule.h" />
+    <ClInclude Include="..\..\Src\ParticleSystem\UVModule.h" />
     <ClInclude Include="..\..\Src\Shaders\GraphicsCaps.h" />
     <ClInclude Include="..\..\Src\Utilities\algorithm_utility.h" />
     <ClInclude Include="..\..\Src\Utilities\BitUtility.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="..\..\Src\ParticleSystem\RotationModule.cpp" />
     <ClCompile Include="..\..\Src\ParticleSystem\ShapeModule.cpp" />
     <ClCompile Include="..\..\Src\ParticleSystem\SizeModule.cpp" />
+    <ClCompile Include="..\..\Src\ParticleSystem\UVModule.cpp" />
     <ClCompile Include="..\..\Src\RenderingPlugin.cpp" />
     <ClCompile Include="..\..\Src\Shaders\GraphicsCaps.cpp" />
   </ItemGroup>
@@ -177,7 +179,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;USE_MONO;_DEBUG;_WINDOWS;_USRDLL;NATIVEPARTICLESYSTEM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>../../Src;../../Include;../../;../../Include/Precomplie;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
@@ -197,7 +199,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;USE_MONO;NDEBUG;_WINDOWS;_USRDLL;NATIVEPARTICLESYSTEM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>../../Src;../../Include;../../;../../Include/Precomplie;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>

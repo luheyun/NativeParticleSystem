@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System;
 using System.Runtime.CompilerServices;
 
-//[StructLayoutAttribute(LayoutKind.Sequential)]
+[StructLayoutAttribute(LayoutKind.Sequential)]
 class ParticleInitState
 {
     public bool looping;
@@ -16,6 +16,12 @@ class ParticleInitState
     public float lengthInSec;
     public bool useLocalSpace;
     public int maxNumParticles;
+}
+
+[StructLayoutAttribute(LayoutKind.Sequential)]
+class ParticleSystremUpdateData
+{
+    public Matrix4x4 worldMatrix; 
 }
 
 public class NativeParticleSystem : MonoBehaviour
@@ -31,6 +37,9 @@ public class NativeParticleSystem : MonoBehaviour
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     private extern static void Internal_CreateParticleSystem(ParticleInitState initState);
 
+    [MethodImplAttribute(MethodImplOptions.InternalCall)]
+    private extern static void Internal_ParticleSystem_Update(ParticleSystremUpdateData updateData);
+
     [DllImport(NativePlugin.PluginName)]
     private static extern void SetTextureFromUnity(System.IntPtr texture);
 
@@ -39,6 +48,8 @@ public class NativeParticleSystem : MonoBehaviour
 
     private Coroutine m_Coroutine = null;
     private ParticleInitState m_InitState = null;
+
+    private ParticleSystremUpdateData m_UpdateData = new ParticleSystremUpdateData();
 
     // Use this for initialization
     void Awake()
@@ -76,6 +87,8 @@ public class NativeParticleSystem : MonoBehaviour
             m_Material.SetPass(0);
             Graphics.DrawMeshNow(m_Mesh, this.gameObject.transform.position, this.gameObject.transform.rotation);
             //m_Material.GetMatrix();
+            m_UpdateData.worldMatrix = transform.localToWorldMatrix;
+            Internal_ParticleSystem_Update(m_UpdateData);
             Render();
             GL.IssuePluginEvent(0);
         }

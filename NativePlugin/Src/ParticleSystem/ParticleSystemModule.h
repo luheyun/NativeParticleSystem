@@ -41,6 +41,7 @@ public:
 	float lengthInSec;
 	bool useLocalSpace;
 	int maxNumParticles;
+	Matrix4x4f worldMatrix;
 };
 
 // @TODO: Find "pretty" place for shared structs and enums?
@@ -61,6 +62,13 @@ struct ParticleSystemEmitReplay
 
 struct  ParticleSystemState
 {
+	ParticleSystemState()
+		: isSubEmitter(false)
+		, culled(false)
+	{
+
+	}
+
 	// state
 	float accumulatedDt;
 	bool playing;

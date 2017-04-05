@@ -198,14 +198,6 @@ void MultiplyMatrixArrayWithBase4x4REF (const Matrix4x4f* __restrict base,
 	#define MultiplyMatrixArray4x4			MultiplyMatrixArray4x4_VFP
 	#define MultiplyMatrixArrayWithBase4x4	MultiplyMatrixArrayWithBase4x4REF
 
-#elif UNITY_WIIU
-
-	void TransposeMatrix4x4(const Matrix4x4f* __restrict lhs, Matrix4x4f* __restrict res);
-	void MultiplyMatrices4x4(const Matrix4x4f* __restrict lhs, const Matrix4x4f* __restrict rhs, Matrix4x4f* __restrict res);
-
-	#define MultiplyMatrixArray4x4			MultiplyMatrixArray4x4REF
-	#define MultiplyMatrixArrayWithBase4x4	MultiplyMatrixArrayWithBase4x4REF
-
 #else
 
 	#define TransposeMatrix4x4				TransposeMatrix4x4REF

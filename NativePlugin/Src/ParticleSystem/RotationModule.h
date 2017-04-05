@@ -14,9 +14,6 @@ public:
 	void CheckConsistency() {};
 
 	inline MinMaxCurve& GetCurve() { return m_Curve; }
-
-	template<class TransferFunction>
-	void Transfer (TransferFunction& transfer);
 	
 private:
 	MinMaxCurve m_Curve;

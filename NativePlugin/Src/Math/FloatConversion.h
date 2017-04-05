@@ -191,4 +191,14 @@ inline float WordToNormalized(int p)
 	return (float)p / 65535.0F;
 }
 
+inline float Sin(float f)
+{
+	return sinf(f);
+}
+
+inline float Cos(float f)
+{
+	return cosf(f);
+}
+
 #endif

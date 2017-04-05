@@ -281,6 +281,9 @@
     <ClInclude Include="..\..\Src\Log\Log.h">
       <Filter>Src\Log</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Src\ParticleSystem\UVModule.h">
+      <Filter>Src\ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParams.cpp">
@@ -423,6 +426,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Input\TimeManager.cpp">
       <Filter>Src\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\ParticleSystem\UVModule.cpp">
+      <Filter>Src\ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -43,6 +43,8 @@ public:
 	GFX_API void	SetViewMatrix(const Matrix4x4f& matrix);
 	GFX_API void	SetProjectionMatrix(const Matrix4x4f& matrix);
 
+	GFX_API	const Matrix4x4f& GetViewMatrix() const;
+
 	// VP matrix (kShaderMatViewProj) is updated when setting view matrix but not when setting projection.
 	// Call UpdateViewProjectionMatrix() explicitly if you only change projection matrix.
 	GFX_API void	UpdateViewProjectionMatrix();

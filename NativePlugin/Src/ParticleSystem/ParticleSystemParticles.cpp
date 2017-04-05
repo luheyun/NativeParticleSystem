@@ -38,3 +38,27 @@ void ParticleSystemParticles::element_assign(size_t i, size_t j)
 	for (int acc = 0; acc < numEmitAccumulators; acc++)
 		emitAccumulator[acc][i] = emitAccumulator[acc][j];
 }
+
+void ParticleSystemParticles::SetUsesAxisOfRotation()
+{
+	usesAxisOfRotation = true;
+	const size_t count = position.size();
+	axisOfRotation.resize_uninitialized(count);
+	for (size_t i = 0; i < count; i++)
+		axisOfRotation[i] = Vector3f::yAxis;
+}
+
+ParticleSystemParticlesTempData::ParticleSystemParticlesTempData()
+	:color(0)
+	, size(0)
+	, sheetIndex(0)
+	, particleCount(0)
+{}
+
+void ParticleSystemParticlesTempData::element_swap(size_t i, size_t j)
+{
+	std::swap(color[i], color[j]);
+	std::swap(size[i], size[j]);
+	if (sheetIndex)
+		std::swap(sheetIndex[i], sheetIndex[j]);
+}

@@ -39,6 +39,7 @@ using std::isfinite;
 #ifdef _MSC_VER
 // Visual Studio
 //#include "VisualStudioPostPrefix.h"
+#define D_SCL_SECURE_NO_WARNINGS
 #elif UNITY_IPHONE || UNITY_TVOS
 #include "iPhonePostPrefix.h"
 #endif

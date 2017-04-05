@@ -4,9 +4,19 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using System;
 
+[StructLayoutAttribute(LayoutKind.Sequential)]
+class NativeUpdateData 
+{
+    public float frameTime;
+    public float deltaTime;
+    public Matrix4x4 viewMatrix; 
+}
+
 public class NativePlugin : MonoBehaviour
 {
     public const string PluginName = "NativeParticleSystem";
+
+    public Camera MainCamera;
 
     [DllImport(PluginName)]
     private static extern void StartUp([MarshalAs(UnmanagedType.FunctionPtr)]IntPtr debugCal);
@@ -18,12 +28,14 @@ public class NativePlugin : MonoBehaviour
     private delegate void DebugLog(string log);
 
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
-    private static extern void Internal_Update(float frameTime, float deltaTime);
+    private static extern void Internal_Update(NativeUpdateData updateData);
 
     private static readonly DebugLog debugLog = DebugWrapper;
     private static readonly IntPtr functionPointer = Marshal.GetFunctionPointerForDelegate(debugLog);
 
     private static void DebugWrapper(string log) { Debug.Log(log); }
+
+    private NativeUpdateData m_NativeUpdateData = new NativeUpdateData();
 
 	void Awake ()
     {
@@ -35,7 +47,10 @@ public class NativePlugin : MonoBehaviour
         float frameTime = Time.time;
         float deltaTime = Time.deltaTime;
         Debug.Log("Plugin Update, frameTime:" + Time.time.ToString() + ", deltaTime:" + deltaTime.ToString());
-        Internal_Update(frameTime, deltaTime);
+        m_NativeUpdateData.viewMatrix = MainCamera.worldToCameraMatrix;
+        m_NativeUpdateData.frameTime = Time.time;
+        m_NativeUpdateData.deltaTime = Time.deltaTime;
+        Internal_Update(m_NativeUpdateData);
     }
 
     void OnDestroy()

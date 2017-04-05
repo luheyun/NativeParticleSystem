@@ -20,10 +20,20 @@ void SetD3DDevice(IDirect3DDevice9* device, GfxDeviceEventType eventType);
 static void InitMono();
 static void* g_TexturePointer;
 
-void Internal_Update(float frameTime, float deltaTime)
+class MonoUpdateData
 {
-	SetFrameTime(frameTime);
-	SetDeltaTime(deltaTime);
+public:
+	float frameTime;
+	float deltaTime;
+	Matrix4x4f viewMatrix;
+};
+
+void Internal_Update(ScriptingObject* updateData)
+{
+	MonoUpdateData* pUpdateData = (MonoUpdateData*)GetLogicObjectMemoryLayout(updateData);
+	SetFrameTime(pUpdateData->frameTime);
+	SetDeltaTime(pUpdateData->deltaTime);
+	GetGfxDevice().SetViewMatrix(pUpdateData->viewMatrix);
 }
 
 static const char* s_RenderingPlugin_IcallNames[] =

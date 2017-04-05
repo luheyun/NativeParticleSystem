@@ -12,16 +12,11 @@ struct ParticleSystemState;
 class RotationModule;
 class ColorModule;
 class SizeModule;
+class UVModule;
 
 class ParticleSystem
 {
 public:
-	enum
-	{
-		kParticleBuffer0,
-		kNumParticleBuffers,
-	};
-
 	enum ClearFlags
 	{
 		kUpdateBounds = (1 << 0),
@@ -48,10 +43,11 @@ public:
 	void Stop();
 	void Pause();
 	void Clear(UInt32 flags);
-	ParticleSystemParticles& GetParticles(int index = -1);
+	ParticleSystemParticles& GetParticles();
 	bool IsActive() { return m_IsActive; }
 	void PrepareForRender();
 	void AutoPrewarm();
+	void SetUsesAxisOfRotation();
 	void Simulate(float deltaTime, bool restart, bool fixedTimeStep);	// Fastforwards the particle system by simulating particles over given period of time, then pauses it.
 
 	void AddToManager();
@@ -69,6 +65,7 @@ private:
 	static void Update1Incremental(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps, size_t fromIndex, float dt, bool useProcedural);
 	static void UpdateProcedural(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps);
 	static void UpdateModulesPreSimulationIncremental(const ParticleSystem& system, const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex, float dt);
+	static void UpdateModulesNonIncremental(const ParticleSystem& system, const ParticleSystemParticles& ps, ParticleSystemParticlesTempData& psTemp, size_t fromIndex, size_t toIndex);
 	static void StartModules(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, const ParticleSystemEmissionState& emissionState, Vector3f initialVelocity, const Matrix4x4f& matrix, ParticleSystemParticles& ps, size_t fromIndex, float dt, float t, size_t numContinuous, float frameOffset);
 	static void StartParticles(ParticleSystem& system, ParticleSystemParticles& ps, const float prevT, const float t, const float dt, const size_t numContinuous, size_t amountOfParticlesToEmit, float frameOffset);
 	static void StartParticlesProcedural(ParticleSystem& system, ParticleSystemParticles& ps, const float prevT, const float t, const float dt, const size_t numContinuous, size_t amountOfParticlesToEmit, float frameOffset);
@@ -83,7 +80,7 @@ private:
 private:
     int m_EmittersIndex;
 	ParticleSystemRenderer* m_Renderer;
-	ParticleSystemParticles* m_Particles[kNumParticleBuffers];
+	ParticleSystemParticles* m_Particles;
 	ParticleSystemInitState* m_InitState;
 	ParticleSystemState* m_State;
 	Transform* m_Transform;
@@ -93,5 +90,10 @@ private:
 	RotationModule*	m_RotationModule; // @TODO: Requires outputs angular velocity and thus requires integration (Inconsistent with other modules in this group)
 	ColorModule* m_ColorModule;
 	SizeModule*	m_SizeModule;
+	UVModule* m_UVModule;
 	bool m_IsActive = true;
+
+	friend class ParticleSystemRenderer;
 };
+
+extern Matrix4x4f gWorldMatrix;
