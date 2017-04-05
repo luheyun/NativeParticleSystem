@@ -65,7 +65,9 @@ private:
 	static void Update1Incremental(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps, size_t fromIndex, float dt, bool useProcedural);
 	static void UpdateProcedural(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps);
 	static void UpdateModulesPreSimulationIncremental(const ParticleSystem& system, const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex, float dt);
+	static void UpdateModulesIncremental(const ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps, size_t fromIndex, float dt);
 	static void UpdateModulesNonIncremental(const ParticleSystem& system, const ParticleSystemParticles& ps, ParticleSystemParticlesTempData& psTemp, size_t fromIndex, size_t toIndex);
+	static void SimulateParticles(const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, float dt);
 	static void StartModules(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, const ParticleSystemEmissionState& emissionState, Vector3f initialVelocity, const Matrix4x4f& matrix, ParticleSystemParticles& ps, size_t fromIndex, float dt, float t, size_t numContinuous, float frameOffset);
 	static void StartParticles(ParticleSystem& system, ParticleSystemParticles& ps, const float prevT, const float t, const float dt, const size_t numContinuous, size_t amountOfParticlesToEmit, float frameOffset);
 	static void StartParticlesProcedural(ParticleSystem& system, ParticleSystemParticles& ps, const float prevT, const float t, const float dt, const size_t numContinuous, size_t amountOfParticlesToEmit, float frameOffset);

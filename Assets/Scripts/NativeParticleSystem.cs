@@ -59,7 +59,7 @@ public class NativeParticleSystem : MonoBehaviour
         m_InitState.playOnAwake = true;
         m_InitState.useLocalSpace = true;
         m_InitState.speed = 0.2f;
-        m_InitState.maxNumParticles = 5;
+        m_InitState.maxNumParticles = 15;
         Internal_CreateParticleSystem(m_InitState);
         m_Coroutine = StartCoroutine(NativeUpdate());
     }

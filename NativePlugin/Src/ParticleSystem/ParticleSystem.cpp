@@ -295,9 +295,18 @@ size_t ParticleSystem::EmitFromModules(const ParticleSystem& system, const Parti
 void ParticleSystem::Update0(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, float dt, bool fixedTimeStep)
 {
 	state.oldPosition = state.localToWorld.GetPosition();
+	state.localToWorld = gWorldMatrix;
 	Matrix4x4f::Invert_General3D(state.localToWorld, state.WorldToLocal);
 
 	// todo subEmitter
+
+	if (state.playing && (dt > 0.0001f))
+	{
+		if (initState.useLocalSpace)
+			state.emitterVelocity = Vector3f::zero;
+		else
+			; //todo  state.emitterVelocity = (position - oldPosition) / dt;
+	}
 
 	if (system.m_ShapeModule.GetEnabled())
 		system.m_ShapeModule.AcquireMeshData(state.WorldToLocal);
@@ -361,8 +370,11 @@ void ParticleSystem::Update1Incremental(ParticleSystem& system, const ParticleSy
 		if (!initState.looping && timePassedDuration)
 			system.Stop();
 
-		for (size_t i = 0; i < state.emitReplay.size(); i++)
-			state.emitReplay[i].aliveTime += dt;
+		if (!useProcedural)
+			UpdateModulesIncremental(system, initState, state, ps, fromIndex, dt);
+		else
+			for (size_t i = 0; i < state.emitReplay.size(); i++)
+				state.emitReplay[i].aliveTime += dt;
 
 		// Emission
 		bool emit = !state.stopEmitting;
@@ -446,6 +458,37 @@ void ParticleSystem::UpdateModulesPreSimulationIncremental(const ParticleSystem&
 	system.m_InitialModule.Update(initState, state, ps, fromIndex, toIndex, dt);
 	if (system.m_RotationModule->GetEnabled())
 		system.m_RotationModule->Update(initState, state, ps, fromIndex, toIndex);
+}
+
+void ParticleSystem::UpdateModulesIncremental(const ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps, size_t fromIndex, float dt)
+{
+	UpdateModulesPreSimulationIncremental(system, initState, state, ps, fromIndex, ps.array_size(), dt);
+	SimulateParticles(initState, state, ps, fromIndex, dt);
+	//UpdateModulesPostSimulationIncremental(system, roState, state, particles, fromIndex, dt);
+}
+
+void ParticleSystem::SimulateParticles(const ParticleSystemInitState& initState, ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, float dt)
+{
+	size_t particleCount = ps.array_size();
+	for (size_t q = fromIndex; q < particleCount;)
+	{
+		ps.lifetime[q] -= dt;
+
+		if (ps.lifetime[q] < 0)
+		{
+			KillParticle(initState, state, ps, q, particleCount);
+			continue;
+		}
+		++q;
+	}
+	ps.array_resize(particleCount);
+
+	for (size_t q = fromIndex; q < particleCount; ++q)
+		ps.position[q] += (ps.velocity[q] + ps.animatedVelocity[q]) * dt;
+
+	if (ps.usesRotationalSpeed)
+		for (size_t q = fromIndex; q < particleCount; ++q)
+			ps.rotation[q] += ps.rotationalSpeed[q] * dt;
 }
 
 void ParticleSystem::UpdateModulesNonIncremental(const ParticleSystem& system, const ParticleSystemParticles& ps, ParticleSystemParticlesTempData& psTemp, size_t fromIndex, size_t toIndex)

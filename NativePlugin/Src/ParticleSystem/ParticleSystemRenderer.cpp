@@ -101,12 +101,12 @@ void ParticleSystemRenderer::PrepareForRender(ParticleSystem& system)
 	m_DrawCallData.m_IndexCount = 0;
 
 	if (!GetGraphicsCaps().hasNativeQuad)
-		m_DrawCallData.m_IndexCount = 6;
+		m_DrawCallData.m_IndexCount = 6 * m_DrawCallData.m_NumPaticles;
 
 	vbo.GetChunk(m_DrawCallData.m_Stride, m_DrawCallData.m_NumPaticles * m_DrawCallData.m_Stride * BILL_BOARD_VERTEX_COUNT, m_DrawCallData.m_NumPaticles * m_DrawCallData.m_IndexCount, GetGraphicsCaps().hasNativeQuad ? kPrimitiveQuads : kPrimitiveTriangles, &chunkHandle);
 
-    if (!GetGraphicsCaps().hasNativeQuad)
-        GenerateIndicesForBillBoard(chunkHandle.ibPtr, m_DrawCallData.m_IndexCount);
+	if (!GetGraphicsCaps().hasNativeQuad)
+		GenerateIndicesForBillBoard(chunkHandle.ibPtr, m_DrawCallData.m_IndexCount);
 
 	Matrix4x4f viewMatrix = device.GetViewMatrix(); // todo
 
@@ -244,28 +244,32 @@ void ParticleSystemRenderer::GenerateParticleGeometry(ParticleSystemVertex* vbPt
 		n1 = viewToWorldMatrix.MultiplyVector3(n1 * bentNormalFactor);
 		ColorRGBA32 color = psTemp.color[i];
 
-		vbPtr[0].vert = { 0.0f, 0.5f, 0.0f };
+		//vbPtr[0].vert = { 0.0f, 0.5f, 0.0f };
+		vbPtr[0].vert = vert[0];
 		vbPtr[0].color = color;
 		//vbPtr[0].color = 0xff000000;
 		vbPtr[0].normal = bentNormalVector + n0;
 		vbPtr[0].uv = uv[0];
 		vbPtr[0].tangent = uv2[0];
 
-		vbPtr[1].vert = { 0.5f, 0.5f, 0.0f };
+		//vbPtr[1].vert = { 0.5f, 0.5f, 0.0f };
+		vbPtr[1].vert = vert[1];
 		vbPtr[1].color = color;
 		//vbPtr[1].color = 0xff000000;
 		vbPtr[1].normal = bentNormalVector + n1;
 		vbPtr[1].uv = uv[1];
 		vbPtr[1].tangent = uv2[1];
 
-		vbPtr[2].vert = { 0.5f, 0.0f, 0.0f };
+		//vbPtr[2].vert = { 0.5f, 0.0f, 0.0f };
+		vbPtr[2].vert = vert[2];
 		vbPtr[2].color = color;
 		//vbPtr[2].color = 0xff000000;
 		vbPtr[2].normal = bentNormalVector - n0;
 		vbPtr[2].uv = uv[2];
 		vbPtr[2].tangent = uv2[2];
 
-		vbPtr[3].vert = { 0.0f, 0.0f, 0.0f };
+		//vbPtr[3].vert = { 0.0f, 0.0f, 0.0f };
+		vbPtr[3].vert = vert[3];
 		vbPtr[3].color = color;
 		//vbPtr[3].color = 0xff000000;
 		vbPtr[3].normal = bentNormalVector - n1;

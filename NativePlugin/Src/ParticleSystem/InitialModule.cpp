@@ -33,7 +33,7 @@ void InitialModule::Start(const ParticleSystemInitState& initState, const Partic
 		ps.position[q] = origin;
 		ps.velocity[q] = vel;
 		ps.animatedVelocity[q] = Vector3f::zero;
-		ps.lifetime[q] = ttl;
+		ps.lifetime[q] = 100.0f;// ttl;
 		ps.startLifetime[q] = ttl;
 		ps.size[q] = sz;
 		ps.rotation[q] = rot;
