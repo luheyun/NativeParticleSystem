@@ -21,8 +21,8 @@ public class KeyFrame
 public class Curve
 {
     public int minMaxState;
-    public AnimationCurve minCurve;
-    public AnimationCurve maxCurve;
+    public AnimationCurve minCurve = new AnimationCurve();
+    public AnimationCurve maxCurve = new AnimationCurve();
 }
 
 [System.Serializable]
@@ -30,7 +30,7 @@ public class Curve
 public class AnimationCurve
 {
     public int keyFrameCount;
-    //public KeyFrame[] keyFrameContainer;
+    public KeyFrame[] keyFrameContainer;
     public int preInfinity;
     public int postInfinity;
 }
@@ -53,7 +53,7 @@ public class ParticleInitState
     public float rotationMax;
     public float emissionRate;
     public bool sizeModuleEnable;
-    public Curve sizeModuleCurve;
+    public Curve sizeModuleCurve = new Curve();
 }
 
 [StructLayoutAttribute(LayoutKind.Sequential)]

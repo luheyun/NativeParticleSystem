@@ -38,31 +38,36 @@ public class NativeParticleSystremEditor : Editor
 
             ps.InitState.sizeModuleEnable = so.FindProperty("SizeModule.enabled").boolValue; 
             ps.InitState.sizeModuleCurve.minMaxState = so.FindProperty("SizeModule.curve.minMaxState").intValue;
-            ps.InitState.sizeModuleCurve.maxCurve.keyFrameCount = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.size").intValue;
-            //ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer = new KeyFrame[ps.InitState.sizeModuleCurve.maxCurve.keyFrameCount];
+            int keyFrameCount = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.size").intValue;
+            ps.InitState.sizeModuleCurve.maxCurve.keyFrameCount = keyFrameCount;
+            ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer = keyFrameCount > 0 ? new KeyFrame[keyFrameCount] : null;
 
-            //for (int i = 0; i < ps.InitState.sizeModuleCurve.maxCurve.keyFrameCount; ++i)
-            //{
-            //    ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i] = new KeyFrame();
-            //    ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].time = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].time").floatValue;
-            //    ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].value = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].value").floatValue;
-            //    ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].inSlope = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].inSlope").floatValue;
-            //    ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].outSlope = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].outSlope").floatValue;
-            //    //ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].tangentMode = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].tangentMode").intValue;
-            //}
+            for (int i = 0; i < keyFrameCount; ++i)
+            {
+                ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i] = new KeyFrame();
+                ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].time = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].time").floatValue;
+                ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].value = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].value").floatValue;
+                ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].inSlope = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].inSlope").floatValue;
+                ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].outSlope = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].outSlope").floatValue;
+                //ps.InitState.sizeModuleCurve.maxCurve.keyFrameContainer[i].tangentMode = so.FindProperty("SizeModule.curve.maxCurve.m_Curve.Array.data[" + i.ToString() + "].tangentMode").intValue;
+            }
 
             ps.InitState.sizeModuleCurve.maxCurve.preInfinity = so.FindProperty("SizeBySpeedModule.curve.maxCurve.m_PreInfinity").intValue;
             ps.InitState.sizeModuleCurve.maxCurve.postInfinity = so.FindProperty("SizeBySpeedModule.curve.maxCurve.m_PostInfinity").intValue;
 
-            //for (int i = 0; i < ps.InitState.sizeModuleCurve.minCurve.keyFrameCount; ++i)
-            //{
-            //    ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i] = new KeyFrame();
-            //    ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].time = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].time").floatValue;
-            //    ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].value = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].value").floatValue;
-            //    ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].inSlope = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].inSlope").floatValue;
-            //    ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].outSlope = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].outSlope").floatValue;
-            //    //ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].tangentMode = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].tangentMode").intValue;
-            //}
+            keyFrameCount = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.size").intValue;
+            ps.InitState.sizeModuleCurve.minCurve.keyFrameCount = keyFrameCount;
+            ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer = keyFrameCount > 0 ? new KeyFrame[keyFrameCount] : null;
+
+            for (int i = 0; i < keyFrameCount; ++i)
+            {
+                ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i] = new KeyFrame();
+                ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].time = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].time").floatValue;
+                ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].value = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].value").floatValue;
+                ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].inSlope = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].inSlope").floatValue;
+                ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].outSlope = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].outSlope").floatValue;
+                //ps.InitState.sizeModuleCurve.minCurve.keyFrameContainer[i].tangentMode = so.FindProperty("SizeModule.curve.minCurve.m_Curve.Array.data[" + i.ToString() + "].tangentMode").intValue;
+            }
 
             ps.InitState.sizeModuleCurve.minCurve.preInfinity = so.FindProperty("SizeBySpeedModule.curve.minCurve.m_PreInfinity").intValue;
             ps.InitState.sizeModuleCurve.minCurve.postInfinity = so.FindProperty("SizeBySpeedModule.curve.minCurve.m_PostInfinity").intValue;

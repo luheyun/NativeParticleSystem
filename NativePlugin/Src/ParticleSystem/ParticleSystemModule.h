@@ -40,8 +40,19 @@ public:
 class MonoAnimationCurve
 {
 public:
+    void InitFromMono(MonoAnimationCurve* pMonoAnimationCurve)
+    {
+        MonoKeyFrame** container = GetScriptingArrayStart<MonoKeyFrame*>((ScriptingArrayPtr)pMonoAnimationCurve->pKeyFrameContainer);
+        for (int i = 0; i < keyFrameCount; ++i)
+        {
+            MonoKeyFrame* srcKeyFrame = (MonoKeyFrame*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)(container[i]));
+            pKeyFrameContainer[i] = new MonoKeyFrame();
+            memcpy(pKeyFrameContainer[i], srcKeyFrame, sizeof(MonoKeyFrame));
+        }
+    }
+
 	int keyFrameCount;
-	//MonoKeyFrame* pKeyFrameContainer;
+	MonoKeyFrame** pKeyFrameContainer;
 	int preInfinity;
 	int postInfinity;
 };
@@ -51,17 +62,19 @@ class MonoCurve
 public:
 	MonoCurve()
 	{
-		minCurve = new MonoAnimationCurve();
-		maxCurve = new MonoAnimationCurve();
 	}
 
 	void InitFromMono(MonoCurve* pMonoCurve)
 	{
 		MonoAnimationCurve* srcMinCurve = (MonoAnimationCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoCurve->minCurve);
+        minCurve = new MonoAnimationCurve();
 		memcpy(minCurve, srcMinCurve, sizeof(MonoAnimationCurve));
+        minCurve->InitFromMono(srcMinCurve);
 
 		MonoAnimationCurve* srcMaxCurve = (MonoAnimationCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoCurve->maxCurve);
+        maxCurve = new MonoAnimationCurve();
 		memcpy(maxCurve, srcMaxCurve, sizeof(MonoAnimationCurve));
+        maxCurve->InitFromMono(srcMaxCurve);
 	}
 
 	int minMaxState;
@@ -78,6 +91,7 @@ public:
 	{
 		memcpy(this, pInitState, sizeof(ParticleSystemInitState));
 		MonoCurve* src = (MonoCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)this->sizeModuleCurve);
+        this->sizeModuleCurve = new MonoCurve();
 		memcpy(this->sizeModuleCurve, src, sizeof(MonoCurve));
 		this->sizeModuleCurve->InitFromMono(src);
 	}
