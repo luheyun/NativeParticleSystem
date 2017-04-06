@@ -190,16 +190,58 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	, m_InitState(initState)
 {
 	m_InitState = new ParticleSystemInitState();
-	memcpy(m_InitState, initState, sizeof(ParticleSystemInitState));
+	m_InitState->InitFromMono(initState);
 	gParticleSystemManager->activeEmitters.push_back(this);
 	m_Renderer = new ParticleSystemRenderer();
 	m_State = new ParticleSystemState();
 	m_ShapeModule = ShapeModule();
 	m_SizeModule = new SizeModule();
+
+	MinMaxCurve& curve = m_SizeModule->GetCurve();
+
+	if (initState->sizeModuleEnable)
+	{
+		m_SizeModule->SetEnabled(true);
+		//for (int i = 0; i < initState->sizeModuleCurve.maxCurve.keyFrameCount; ++i)
+		//{
+		//	AnimationCurve::Keyframe keyFrame;
+		//	keyFrame.time = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].time;
+		//	keyFrame.inSlope = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].inSlope;
+		//	keyFrame.outSlope = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].outSlope;
+		//	keyFrame.value = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].value;
+		//	curve.editorCurves.max.AddKey(keyFrame);
+		//}
+
+		//curve.editorCurves.max.SetPreInfinity(initState->sizeModuleCurve.maxCurve.preInfinity);
+		//curve.editorCurves.max.SetPostInfinity(initState->sizeModuleCurve.maxCurve.postInfinity);
+
+		//for (int i = 0; i < initState->sizeModuleCurve.minCurve.keyFrameCount; ++i)
+		//{
+		//	AnimationCurve::Keyframe keyFrame;
+		//	keyFrame.time = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].time;
+		//	keyFrame.inSlope = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].inSlope;
+		//	keyFrame.outSlope = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].outSlope;
+		//	keyFrame.value = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].value;
+		//	curve.editorCurves.min.AddKey(keyFrame);
+		//}
+
+		//curve.editorCurves.min.SetPreInfinity(initState->sizeModuleCurve.minCurve.preInfinity);
+		//curve.editorCurves.min.SetPostInfinity(initState->sizeModuleCurve.minCurve.postInfinity);
+		//curve.minMaxState = initState->sizeModuleCurve.minMaxState;
+		//curve.isOptimizedCurve = BuildCurves(curve.polyCurves, curve.editorCurves, curve.GetScalar(), curve.minMaxState);
+	}
+
 	m_RotationModule = new RotationModule();
-    m_RotationModule->Init(initState->rotationMin, initState->rotationMax);
+	m_RotationModule->SetEnabled(initState->rotationModuleEnable);
+
+	if (m_RotationModule->GetEnabled())
+		m_RotationModule->Init(initState->rotationMin, initState->rotationMax);
+
 	m_ColorModule = new ColorModule();
 	m_UVModule = new UVModule();
+
+	m_EmissionModule = new EmissionModule();
+	m_EmissionModule->Init(m_InitState->emissionRate);
 
 	m_InitialModule.SetMaxNumParticles(m_InitState->maxNumParticles);
 	m_Particles = new ParticleSystemParticles();
@@ -292,8 +334,8 @@ size_t ParticleSystem::EmitFromData(ParticleSystemEmissionState& emissionState, 
 size_t ParticleSystem::EmitFromModules(const ParticleSystem& system, const ParticleSystemInitState& initState
 	, ParticleSystemEmissionState& emissionState, size_t& numContinuous, const Vector3f velocity, float fromT, float toT, float dt)
 {
-	if (system.m_EmissionModule.GetEnabled())
-		return EmitFromData(emissionState, numContinuous, system.m_EmissionModule.GetEmissionDataRef(), velocity, fromT, toT, dt, initState.lengthInSec);
+	if (system.m_EmissionModule->GetEnabled())
+		return EmitFromData(emissionState, numContinuous, system.m_EmissionModule->GetEmissionDataRef(), velocity, fromT, toT, dt, initState.lengthInSec);
 	return 0;
 }
 

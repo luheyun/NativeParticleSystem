@@ -3,9 +3,41 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
+[System.Serializable]
 [StructLayoutAttribute(LayoutKind.Sequential)]
-class ParticleInitState
+public class KeyFrame
+{
+    public float time;
+    public float value;
+    public float inSlope;
+    public float outSlope;
+    //public int tangentMode;
+}
+
+[System.Serializable]
+[StructLayoutAttribute(LayoutKind.Sequential)]
+public class Curve
+{
+    public int minMaxState;
+    public AnimationCurve minCurve;
+    public AnimationCurve maxCurve;
+}
+
+[System.Serializable]
+[StructLayoutAttribute(LayoutKind.Sequential)]
+public class AnimationCurve
+{
+    public int keyFrameCount;
+    //public KeyFrame[] keyFrameContainer;
+    public int preInfinity;
+    public int postInfinity;
+}
+
+[System.Serializable]
+[StructLayoutAttribute(LayoutKind.Sequential)]
+public class ParticleInitState
 {
     public bool looping;
     public bool prewarm;
@@ -16,12 +48,16 @@ class ParticleInitState
     public float lengthInSec;
     public bool useLocalSpace;
     public int maxNumParticles;
+    public bool rotationModuleEnable;
     public float rotationMin;
     public float rotationMax;
+    public float emissionRate;
+    public bool sizeModuleEnable;
+    public Curve sizeModuleCurve;
 }
 
 [StructLayoutAttribute(LayoutKind.Sequential)]
-class ParticleSystremUpdateData
+public class ParticleSystremUpdateData
 {
     public Matrix4x4 worldMatrix;
     public int index;
@@ -50,24 +86,20 @@ public class NativeParticleSystem : MonoBehaviour
     private static extern void Render();
 
     private Coroutine m_Coroutine = null;
-    private ParticleInitState m_InitState = null;
+    public ParticleInitState InitState = new ParticleInitState();
 
-    private ParticleSystremUpdateData m_UpdateData = new ParticleSystremUpdateData();
+    public ParticleSystremUpdateData m_UpdateData = new ParticleSystremUpdateData();
 
     private Vector3 m_DefaultMeshPos = new Vector3(-1000f, -1000f, -1000f);
+
+    public ParticleSystem particleSystem;
 
     // Use this for initialization
     void Awake()
     {
-        m_InitState = new ParticleInitState();
-        m_InitState.looping = true;
-        m_InitState.playOnAwake = true;
-        m_InitState.useLocalSpace = true;
-        m_InitState.speed = 0.2f;
-        m_InitState.maxNumParticles = 15;
-        m_InitState.rotationMax = 10;
-        m_InitState.rotationMin = -20;
-        m_UpdateData.index = Internal_CreateParticleSystem(m_InitState);
+        InitState.useLocalSpace = true;
+        InitState.speed = 0.2f;
+        m_UpdateData.index = Internal_CreateParticleSystem(InitState);
         Debug.Log("index:"+ m_UpdateData.index.ToString());
         m_Coroutine = StartCoroutine(NativeUpdate());
     }

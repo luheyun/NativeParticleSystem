@@ -3,6 +3,7 @@
 #include "Math/Matrix4x4.h"
 #include "Utilities/dynamic_array.h"
 #include "ParticleSystemCurves.h"
+#include "Mono/ScriptingAPI.h"
 
 struct ParticleSystemEmissionState
 {
@@ -27,10 +28,59 @@ struct ParticleSystemEmissionData
 	UInt8 burstCount;
 };
 
+class MonoKeyFrame
+{
+public:
+	float time;
+	float value;
+	float inSlope;
+	float outSlope;
+};
+
+class MonoAnimationCurve
+{
+public:
+	int keyFrameCount;
+	//MonoKeyFrame* pKeyFrameContainer;
+	int preInfinity;
+	int postInfinity;
+};
+
+class MonoCurve
+{
+public:
+	MonoCurve()
+	{
+		minCurve = new MonoAnimationCurve();
+		maxCurve = new MonoAnimationCurve();
+	}
+
+	void InitFromMono(MonoCurve* pMonoCurve)
+	{
+		MonoAnimationCurve* srcMinCurve = (MonoAnimationCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoCurve->minCurve);
+		memcpy(minCurve, srcMinCurve, sizeof(MonoAnimationCurve));
+
+		MonoAnimationCurve* srcMaxCurve = (MonoAnimationCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoCurve->maxCurve);
+		memcpy(maxCurve, srcMaxCurve, sizeof(MonoAnimationCurve));
+	}
+
+	int minMaxState;
+	MonoAnimationCurve* minCurve;
+	MonoAnimationCurve* maxCurve;
+};
+
 class ParticleSystemInitState
 {
 public:
 	ParticleSystemInitState();
+
+	void InitFromMono(ParticleSystemInitState* pInitState)
+	{
+		memcpy(this, pInitState, sizeof(ParticleSystemInitState));
+		MonoCurve* src = (MonoCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)this->sizeModuleCurve);
+		memcpy(this->sizeModuleCurve, src, sizeof(MonoCurve));
+		this->sizeModuleCurve->InitFromMono(src);
+	}
 
 	bool looping;
 	bool prewarm;
@@ -41,8 +91,12 @@ public:
 	float lengthInSec;
 	bool useLocalSpace;
 	int maxNumParticles;
+	bool rotationModuleEnable;
     float rotationMin;
     float rotationMax;
+	float emissionRate;
+	bool sizeModuleEnable;
+	MonoCurve* sizeModuleCurve;
 };
 
 // @TODO: Find "pretty" place for shared structs and enums?

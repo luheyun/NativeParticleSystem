@@ -32,6 +32,12 @@ EmissionModule::EmissionModule() : ParticleSystemModule(true)
 	}
 }
 
+void EmissionModule::Init(float rate)
+{
+	m_EmissionData.rate.minMaxState = kMMCScalar;
+	m_EmissionData.rate.SetScalar(rate);
+}
+
 void EmissionModule::Emit(ParticleSystemEmissionState& emissionState, size_t& amountOfParticlesToEmit, size_t& numContinuous, const ParticleSystemEmissionData& emissionData, const Vector3f velocity, float fromT, float toT, float dt, float length)
 {
 	const float epsilon = 0.0001f;

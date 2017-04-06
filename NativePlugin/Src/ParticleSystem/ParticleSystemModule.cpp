@@ -11,6 +11,7 @@ ParticleSystemInitState::ParticleSystemInitState()
 	, lengthInSec(5.0f)
 	, useLocalSpace(true)
 {
+	sizeModuleCurve = new MonoCurve();
 }
 
 void ParticleSystemState::Tick(const ParticleSystemInitState& initState, float dt)

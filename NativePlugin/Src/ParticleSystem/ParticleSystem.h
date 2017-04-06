@@ -91,7 +91,7 @@ private:
 	Transform* m_Transform;
 	InitialModule m_InitialModule;
 	ShapeModule m_ShapeModule;
-	EmissionModule m_EmissionModule;
+	EmissionModule* m_EmissionModule;
 	RotationModule*	m_RotationModule; // @TODO: Requires outputs angular velocity and thus requires integration (Inconsistent with other modules in this group)
 	ColorModule* m_ColorModule;
 	SizeModule*	m_SizeModule;
