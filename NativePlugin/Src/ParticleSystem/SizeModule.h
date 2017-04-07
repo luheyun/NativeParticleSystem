@@ -9,6 +9,7 @@ class SizeModule : public ParticleSystemModule
 public:
 	SizeModule();
 	
+    void Init(ParticleSystemInitState* initState);
 	void Update (const ParticleSystemParticles& ps, float* tempSize, size_t fromIndex, size_t toIndex);
 
 	void CheckConsistency () {};

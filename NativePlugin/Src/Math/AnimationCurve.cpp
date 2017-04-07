@@ -566,16 +566,29 @@ int AnimationCurveTpl<T>::AddKey (const Keyframe& key)
 {
 	InvalidateCache ();
 
-	iterator i = std::lower_bound (m_Curve.begin (), m_Curve.end (), key);
+    if (CompareApproximately(key.time, 0.0F, 0.0001F))
+    {
+        m_Curve.front() = key;
+        return 0;
+    }
+    else if (CompareApproximately(key.time, 1.0F, 0.0001F))
+    {
+        m_Curve.back() = key;
+        return m_Curve.size() - 1;
+    }
+    else
+    {
+        iterator i = std::lower_bound(m_Curve.begin(), m_Curve.end(), key);
 
-	// is not included in container and value is not a duplicate
-	if (i == end () || key < *i)
-	{
-		iterator ii = m_Curve.insert (i, key);
-		return std::distance (m_Curve.begin (), ii);
-	}
-	else
-		return -1;
+        // is not included in container and value is not a duplicate
+        if (i == end() || key < *i)
+        {
+            iterator ii = m_Curve.insert(i, key);
+            return std::distance(m_Curve.begin(), ii);
+        }
+        else
+            return -1;
+    }
 }
 
 template<class T>

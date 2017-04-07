@@ -10,6 +10,7 @@ public:
 	RotationModule();
 
     void Init(float minAngularVelocity, float maxAngularVelocity);
+    void Init(ParticleSystemInitState* initState);
 	void Update (const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex);
 	void UpdateProcedural (const ParticleSystemState& state, ParticleSystemParticles& ps);
 	void CheckConsistency() {};

@@ -125,7 +125,11 @@ void ParticleSystemRenderer::PrepareForRender(ParticleSystem& system)
 	Matrix4x4f viewToWorldMatrix;
 	Matrix4x4f::Invert_General3D(viewMatrix, viewToWorldMatrix);
 
-	Matrix4x4f worldMatrix = system.m_WorldMatrix;
+    Matrix4x4f worldMatrix = Matrix4x4f::identity;
+
+    if (system.m_InitState->useLocalSpace)
+	    worldMatrix = system.m_WorldMatrix;
+
 	Matrix4x4f worldViewMatrix;
 	MultiplyMatrices4x4(&viewMatrix, &worldMatrix, &worldViewMatrix);
 

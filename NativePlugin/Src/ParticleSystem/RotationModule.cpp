@@ -55,6 +55,47 @@ void RotationModule::Init(float minAngularVelocity, float maxAngularVelocity)
     m_Curve.SetScalar(Deg2Rad(45.0f));
 }
 
+void RotationModule::Init(ParticleSystemInitState* initState)
+{
+    if (initState->sizeModuleEnable)
+    {
+        SetEnabled(true);
+        MinMaxCurve& curve = GetCurve();
+
+        for (int i = 0; i < initState->rotationModuleCurve->maxCurve->keyFrameCount; ++i)
+        {
+            AnimationCurve::Keyframe keyFrame;
+            keyFrame.time = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->time;
+            keyFrame.inSlope = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->inSlope;
+            keyFrame.outSlope = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->outSlope;
+            keyFrame.value = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->value;
+            curve.editorCurves.max.AddKey(keyFrame);
+        }
+
+        curve.editorCurves.max.SetPreInfinity(initState->rotationModuleCurve->maxCurve->preInfinity);
+        curve.editorCurves.max.SetPostInfinity(initState->rotationModuleCurve->maxCurve->postInfinity);
+
+        for (int i = 0; i < initState->rotationModuleCurve->minCurve->keyFrameCount; ++i)
+        {
+            AnimationCurve::Keyframe keyFrame;
+            keyFrame.time = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->time;
+            keyFrame.inSlope = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->inSlope;
+            keyFrame.outSlope = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->outSlope;
+            keyFrame.value = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->value;
+            curve.editorCurves.min.AddKey(keyFrame);
+        }
+
+        curve.editorCurves.min.SetPreInfinity(initState->rotationModuleCurve->minCurve->preInfinity);
+        curve.editorCurves.min.SetPostInfinity(initState->rotationModuleCurve->minCurve->postInfinity);
+        curve.minMaxState = initState->rotationModuleCurve->minMaxState;
+        curve.SetScalar(initState->rotationModuleCurve->scalar);
+    }
+    else
+    {
+        SetEnabled(false);
+    }
+}
+
 void RotationModule::Update(const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex)
 {
 	if (m_Curve.minMaxState == kMMCScalar)

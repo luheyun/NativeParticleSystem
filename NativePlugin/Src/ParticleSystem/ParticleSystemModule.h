@@ -40,12 +40,22 @@ public:
 class MonoAnimationCurve
 {
 public:
+    ~MonoAnimationCurve()
+    {
+        for (int i = 0; i < keyFrameCount; ++i)
+            delete pKeyFrameContainer[i];
+
+        pKeyFrameContainer = nullptr;
+    }
+
     void InitFromMono(MonoAnimationCurve* pMonoAnimationCurve)
     {
+        pKeyFrameContainer = (MonoKeyFrame**)malloc(sizeof(MonoKeyFrame*) * keyFrameCount);
         MonoKeyFrame** container = GetScriptingArrayStart<MonoKeyFrame*>((ScriptingArrayPtr)pMonoAnimationCurve->pKeyFrameContainer);
         for (int i = 0; i < keyFrameCount; ++i)
         {
             MonoKeyFrame* srcKeyFrame = (MonoKeyFrame*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)(container[i]));
+
             pKeyFrameContainer[i] = new MonoKeyFrame();
             memcpy(pKeyFrameContainer[i], srcKeyFrame, sizeof(MonoKeyFrame));
         }
@@ -61,8 +71,22 @@ class MonoCurve
 {
 public:
 	MonoCurve()
+        : maxCurve(nullptr)
+        , minCurve(nullptr)
 	{
 	}
+
+    ~MonoCurve()
+    {
+        if (maxCurve != nullptr)
+            delete maxCurve;
+
+        if (minCurve != nullptr)
+            delete minCurve;
+
+        maxCurve = nullptr;
+        minCurve = nullptr;
+    }
 
 	void InitFromMono(MonoCurve* pMonoCurve)
 	{
@@ -78,6 +102,7 @@ public:
 	}
 
 	int minMaxState;
+    float scalar;
 	MonoAnimationCurve* minCurve;
 	MonoAnimationCurve* maxCurve;
 };
@@ -90,11 +115,21 @@ public:
 	void InitFromMono(ParticleSystemInitState* pInitState)
 	{
 		memcpy(this, pInitState, sizeof(ParticleSystemInitState));
-		MonoCurve* src = (MonoCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)this->sizeModuleCurve);
-        this->sizeModuleCurve = new MonoCurve();
-		memcpy(this->sizeModuleCurve, src, sizeof(MonoCurve));
-		this->sizeModuleCurve->InitFromMono(src);
+		//MonoCurve* src = (MonoCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)this->sizeModuleCurve);
+  //      this->sizeModuleCurve = new MonoCurve();
+		//memcpy(this->sizeModuleCurve, src, sizeof(MonoCurve));
+		//this->sizeModuleCurve->InitFromMono(src);
+        InitCurveFromMono(this->sizeModuleCurve);
+        InitCurveFromMono(this->rotationModuleCurve);
 	}
+
+    void InitCurveFromMono(MonoCurve* &pMonoCurve)
+    {
+        MonoCurve* src = (MonoCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoCurve);
+        pMonoCurve = new MonoCurve();
+        memcpy(pMonoCurve, src, sizeof(MonoCurve));
+        pMonoCurve->InitFromMono(src);
+    }
 
 	bool looping;
 	bool prewarm;
@@ -106,6 +141,7 @@ public:
 	bool useLocalSpace;
 	int maxNumParticles;
 	bool rotationModuleEnable;
+    MonoCurve* rotationModuleCurve;
     float rotationMin;
     float rotationMax;
 	float emissionRate;

@@ -195,47 +195,16 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	m_Renderer = new ParticleSystemRenderer();
 	m_State = new ParticleSystemState();
 	m_ShapeModule = ShapeModule();
+
 	m_SizeModule = new SizeModule();
-
-	MinMaxCurve& curve = m_SizeModule->GetCurve();
-
-	if (initState->sizeModuleEnable)
-	{
-		m_SizeModule->SetEnabled(true);
-		//for (int i = 0; i < initState->sizeModuleCurve.maxCurve.keyFrameCount; ++i)
-		//{
-		//	AnimationCurve::Keyframe keyFrame;
-		//	keyFrame.time = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].time;
-		//	keyFrame.inSlope = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].inSlope;
-		//	keyFrame.outSlope = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].outSlope;
-		//	keyFrame.value = initState->sizeModuleCurve.maxCurve.pKeyFrameContainer[i].value;
-		//	curve.editorCurves.max.AddKey(keyFrame);
-		//}
-
-		//curve.editorCurves.max.SetPreInfinity(initState->sizeModuleCurve.maxCurve.preInfinity);
-		//curve.editorCurves.max.SetPostInfinity(initState->sizeModuleCurve.maxCurve.postInfinity);
-
-		//for (int i = 0; i < initState->sizeModuleCurve.minCurve.keyFrameCount; ++i)
-		//{
-		//	AnimationCurve::Keyframe keyFrame;
-		//	keyFrame.time = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].time;
-		//	keyFrame.inSlope = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].inSlope;
-		//	keyFrame.outSlope = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].outSlope;
-		//	keyFrame.value = initState->sizeModuleCurve.minCurve.pKeyFrameContainer[i].value;
-		//	curve.editorCurves.min.AddKey(keyFrame);
-		//}
-
-		//curve.editorCurves.min.SetPreInfinity(initState->sizeModuleCurve.minCurve.preInfinity);
-		//curve.editorCurves.min.SetPostInfinity(initState->sizeModuleCurve.minCurve.postInfinity);
-		//curve.minMaxState = initState->sizeModuleCurve.minMaxState;
-		//curve.isOptimizedCurve = BuildCurves(curve.polyCurves, curve.editorCurves, curve.GetScalar(), curve.minMaxState);
-	}
+    m_SizeModule->Init(m_InitState);
 
 	m_RotationModule = new RotationModule();
-	m_RotationModule->SetEnabled(initState->rotationModuleEnable);
+    m_RotationModule->Init(m_InitState);
+	//m_RotationModule->SetEnabled(initState->rotationModuleEnable);
 
-	if (m_RotationModule->GetEnabled())
-		m_RotationModule->Init(initState->rotationMin, initState->rotationMax);
+	//if (m_RotationModule->GetEnabled())
+	//	m_RotationModule->Init(initState->rotationMin, initState->rotationMax);
 
 	m_ColorModule = new ColorModule();
 	m_UVModule = new UVModule();

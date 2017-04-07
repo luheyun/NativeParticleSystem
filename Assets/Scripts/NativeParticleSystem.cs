@@ -21,6 +21,7 @@ public class KeyFrame
 public class Curve
 {
     public int minMaxState;
+    public float scalar;
     public AnimationCurve minCurve = new AnimationCurve();
     public AnimationCurve maxCurve = new AnimationCurve();
 }
@@ -49,6 +50,7 @@ public class ParticleInitState
     public bool useLocalSpace;
     public int maxNumParticles;
     public bool rotationModuleEnable;
+    public Curve rotationModuleCurve = new Curve();
     public float rotationMin;
     public float rotationMax;
     public float emissionRate;
@@ -125,6 +127,7 @@ public class NativeParticleSystem : MonoBehaviour
             yield return new WaitForEndOfFrame();
             //GL.IssuePluginEvent(1);
             m_Material.SetPass(0);
+
             Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
             //m_Material.GetMatrix();
             m_UpdateData.worldMatrix = transform.localToWorldMatrix;

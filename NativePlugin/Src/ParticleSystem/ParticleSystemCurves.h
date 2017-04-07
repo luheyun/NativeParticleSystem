@@ -109,7 +109,7 @@ public:
 	MinMaxCurve ();
 
 	inline float GetScalar() const { return scalar; }
-	inline void SetScalar(float value) { scalar = value; BuildCurves(polyCurves, editorCurves, scalar, minMaxState); }
+	inline void SetScalar(float value) { scalar = value; isOptimizedCurve = BuildCurves(polyCurves, editorCurves, scalar, minMaxState); }
 	
 	bool IsOptimized () const { return isOptimizedCurve; }
 	bool UsesMinMax () const { return (minMaxState == kMMCTwoCurves) || (minMaxState == kMMCTwoConstants); }
