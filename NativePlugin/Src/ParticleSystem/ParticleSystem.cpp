@@ -6,6 +6,7 @@
 #include "ColorModule.h"
 #include "SizeModule.h"
 #include "UVModule.h"
+#include "InitialModule.h"
 #include "ParticleSystemParticles.h"
 #include "ParticleSystemCommon.h"
 #include "ParticleSystemUtils.h"
@@ -212,7 +213,9 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	m_EmissionModule = new EmissionModule();
 	m_EmissionModule->Init(m_InitState->emissionRate);
 
-	m_InitialModule.SetMaxNumParticles(m_InitState->maxNumParticles);
+    m_InitialModule = new InitialModule();
+    m_InitialModule->Init(m_InitState);
+
 	m_Particles = new ParticleSystemParticles();
 
 	if (m_InitState->playOnAwake)
@@ -289,7 +292,7 @@ void ParticleSystem::SyncJobs(bool syncRenderJobs)
 
 void ParticleSystem::ResetSeeds()
 {
-	m_InitialModule.ResetSeed(*m_InitState);
+	m_InitialModule->ResetSeed(*m_InitState);
 	m_ShapeModule.ResetSeed(*m_InitState);
 }
 
@@ -434,20 +437,20 @@ void ParticleSystem::UpdateProcedural(ParticleSystem& system, const ParticleSyst
 
 		//@TODO: remove passing m_State since that is very dangerous when making things procedural compatible
 		size_t previousParticleCount = ps.array_size();
-		system.m_InitialModule.GenerateProcedural(initState, state, ps, emit);
+		system.m_InitialModule->GenerateProcedural(initState, state, ps, emit);
 
 		//@TODO: This can be moved out of the emit all particles loop...
 		if (system.m_ShapeModule.GetEnabled())
 			system.m_ShapeModule.Start(initState, state, ps, localToWorld, previousParticleCount, emit.t);
 
 		// Apply gravity & integrated velocity after shape module so that it picks up any changes done in shapemodule (for example rotating the velocity)
-		Vector3f gravity = system.m_InitialModule.GetGravity(initState, state);
+		Vector3f gravity = system.m_InitialModule->GetGravity(initState, state);
 		float particleIndex = 0.0f;
 		const size_t particleCount = ps.array_size();
 		for (size_t q = previousParticleCount; q < particleCount; q++)
 		{
 			const float normalizedT = emit.t / initState.lengthInSec;
-			ps.velocity[q] *= Evaluate(system.m_InitialModule.GetSpeedCurve(), normalizedT, GenerateRandom(ps.randomSeed[q] + kParticleSystemStartSpeedCurveId));
+			ps.velocity[q] *= Evaluate(system.m_InitialModule->GetSpeedCurve(), normalizedT, GenerateRandom(ps.randomSeed[q] + kParticleSystemStartSpeedCurveId));
 			Vector3f velocity = ps.velocity[q];
 			float frameOffset = (particleIndex + emit.emissionOffset) * emit.emissionGap * float(particleIndex < emit.numContinuous);
 			float aliveTime = emit.aliveTime + frameOffset;
@@ -474,7 +477,7 @@ void ParticleSystem::UpdateProcedural(ParticleSystem& system, const ParticleSyst
 void ParticleSystem::UpdateModulesPreSimulationIncremental(const ParticleSystem& system, const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex, float dt)
 {
 	const size_t count = ps.array_size();
-	system.m_InitialModule.Update(initState, state, ps, fromIndex, toIndex, dt);
+	system.m_InitialModule->Update(initState, state, ps, fromIndex, toIndex, dt);
 	if (system.m_RotationModule->GetEnabled())
 		system.m_RotationModule->Update(initState, state, ps, fromIndex, toIndex);
 }
@@ -542,18 +545,18 @@ void ParticleSystem::UpdateModulesNonIncremental(const ParticleSystem& system, c
 void ParticleSystem::StartModules(ParticleSystem& system, const ParticleSystemInitState& initState, ParticleSystemState& state
 	, const ParticleSystemEmissionState& emissionState, Vector3f initialVelocity, const Matrix4x4f& matrix, ParticleSystemParticles& ps, size_t fromIndex, float dt, float t, size_t numContinuous, float frameOffset)
 {
-	system.m_InitialModule.Start(initState, state, ps, matrix, fromIndex, t);
+	system.m_InitialModule->Start(initState, state, ps, matrix, fromIndex, t);
 	if (system.m_ShapeModule.GetEnabled())
 		system.m_ShapeModule.Start(initState, state, ps, matrix, fromIndex, t);
 
 	const float normalizedT = t / initState.lengthInSec;
 
 	size_t count = ps.array_size();
-	const Vector3f velocityOffset = system.m_InitialModule.GetInheritVelocity() * initialVelocity;
+	const Vector3f velocityOffset = system.m_InitialModule->GetInheritVelocity() * initialVelocity;
 	for (size_t q = fromIndex; q < count; q++)
 	{
 		const float randomValue = GenerateRandom(ps.randomSeed[q] + kParticleSystemStartSpeedCurveId);
-		ps.velocity[q] *= Evaluate(system.m_InitialModule.GetSpeedCurve(), normalizedT, randomValue);
+		ps.velocity[q] *= Evaluate(system.m_InitialModule->GetSpeedCurve(), normalizedT, randomValue);
 		ps.velocity[q] += velocityOffset;
 	}
 
@@ -638,7 +641,7 @@ void ParticleSystem::Cull()
 
 size_t ParticleSystem::LimitParticleCount(size_t requestSize) const
 {
-	const size_t maxNumParticles = m_InitialModule.GetMaxNumParticles();
+	const size_t maxNumParticles = m_InitialModule->GetMaxNumParticles();
 	return std::min<size_t>(requestSize, maxNumParticles);
 }
 

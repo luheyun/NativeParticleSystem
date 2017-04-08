@@ -21,35 +21,7 @@ void SizeModule::Init(ParticleSystemInitState* initState)
     if (initState->sizeModuleEnable)
     {
         SetEnabled(true);
-        MinMaxCurve& curve = GetCurve();
-
-        for (int i = 0; i < initState->sizeModuleCurve->maxCurve->keyFrameCount; ++i)
-        {
-            AnimationCurve::Keyframe keyFrame;
-            keyFrame.time = initState->sizeModuleCurve->maxCurve->pKeyFrameContainer[i]->time;
-            keyFrame.inSlope = initState->sizeModuleCurve->maxCurve->pKeyFrameContainer[i]->inSlope;
-            keyFrame.outSlope = initState->sizeModuleCurve->maxCurve->pKeyFrameContainer[i]->outSlope;
-            keyFrame.value = initState->sizeModuleCurve->maxCurve->pKeyFrameContainer[i]->value;
-            curve.editorCurves.max.AddKey(keyFrame);
-        }
-
-        curve.editorCurves.max.SetPreInfinity(initState->sizeModuleCurve->maxCurve->preInfinity);
-        curve.editorCurves.max.SetPostInfinity(initState->sizeModuleCurve->maxCurve->postInfinity);
-
-        for (int i = 0; i < initState->sizeModuleCurve->minCurve->keyFrameCount; ++i)
-        {
-            AnimationCurve::Keyframe keyFrame;
-            keyFrame.time = initState->sizeModuleCurve->minCurve->pKeyFrameContainer[i]->time;
-            keyFrame.inSlope = initState->sizeModuleCurve->minCurve->pKeyFrameContainer[i]->inSlope;
-            keyFrame.outSlope = initState->sizeModuleCurve->minCurve->pKeyFrameContainer[i]->outSlope;
-            keyFrame.value = initState->sizeModuleCurve->minCurve->pKeyFrameContainer[i]->value;
-            curve.editorCurves.min.AddKey(keyFrame);
-        }
-
-        curve.editorCurves.min.SetPreInfinity(initState->sizeModuleCurve->minCurve->preInfinity);
-        curve.editorCurves.min.SetPostInfinity(initState->sizeModuleCurve->minCurve->postInfinity);
-        curve.minMaxState = initState->sizeModuleCurve->minMaxState;
-        curve.SetScalar(initState->sizeModuleCurve->scalar);
+        ParticleSystemModule::InitCurveFromMono(GetCurve(), initState->sizeModuleCurve);
     }
     else
     {

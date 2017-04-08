@@ -9,6 +9,16 @@ InitialModule::InitialModule() : ParticleSystemModule(true)
 
 }
 
+void InitialModule::Init(ParticleSystemInitState* initState)
+{
+    ResetSeed(*initState);
+    ParticleSystemModule::InitCurveFromMono(m_Lifetime, initState->initModuleLiftTime);
+    ParticleSystemModule::InitCurveFromMono(m_Rotation, initState->initModuleRotation);
+    ParticleSystemModule::InitCurveFromMono(m_Speed, initState->initModuleSpeed);
+    ParticleSystemModule::InitCurveFromMono(m_Size, initState->initModuleSize);
+    SetMaxNumParticles(initState->maxNumParticles);
+}
+
 void InitialModule::Start(const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const Matrix4x4f& matrix, size_t fromIndex, float t)
 {
 	const float normalizedT = t / initState.lengthInSec;

@@ -49,6 +49,10 @@ public class ParticleInitState
     public float lengthInSec;
     public bool useLocalSpace;
     public int maxNumParticles;
+    public Curve initModuleLiftTime;
+    public Curve initModuleSpeed;
+    public Curve initModuleSize;
+    public Curve initModuleRotation;
     public bool rotationModuleEnable;
     public Curve rotationModuleCurve = new Curve();
     public float rotationMin;

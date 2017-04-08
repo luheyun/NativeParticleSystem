@@ -2,7 +2,6 @@
 
 #include "ShapeModule.h"
 #include "EmissionModule.h"
-#include "InitialModule.h"
 
 class ParticleSystemRenderer;
 struct ParticleSystemParticles;
@@ -13,6 +12,7 @@ class RotationModule;
 class ColorModule;
 class SizeModule;
 class UVModule;
+class InitialModule;
 
 class ParticleSystem
 {
@@ -89,7 +89,7 @@ private:
 	ParticleSystemInitState* m_InitState;
 	ParticleSystemState* m_State;
 	Transform* m_Transform;
-	InitialModule m_InitialModule;
+	InitialModule* m_InitialModule;
 	ShapeModule m_ShapeModule;
 	EmissionModule* m_EmissionModule;
 	RotationModule*	m_RotationModule; // @TODO: Requires outputs angular velocity and thus requires integration (Inconsistent with other modules in this group)

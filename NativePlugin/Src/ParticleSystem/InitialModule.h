@@ -11,6 +11,7 @@ class InitialModule : public ParticleSystemModule
 public:
 	InitialModule();
 
+    void Init(ParticleSystemInitState* initState);
 	void Start(const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const Matrix4x4f& matrix, size_t fromIndex, float t);
 	void Update(const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const size_t fromIndex, const size_t toIndex, float dt) const;
 	void GenerateProcedural(const ParticleSystemInitState& initState, const ParticleSystemState& state, ParticleSystemParticles& ps, const ParticleSystemEmitReplay& emit);

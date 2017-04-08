@@ -119,6 +119,10 @@ public:
   //      this->sizeModuleCurve = new MonoCurve();
 		//memcpy(this->sizeModuleCurve, src, sizeof(MonoCurve));
 		//this->sizeModuleCurve->InitFromMono(src);
+        InitCurveFromMono(this->initModuleLiftTime);
+        InitCurveFromMono(this->initModuleSpeed);
+        InitCurveFromMono(this->initModuleSize);
+        InitCurveFromMono(this->initModuleRotation);
         InitCurveFromMono(this->sizeModuleCurve);
         InitCurveFromMono(this->rotationModuleCurve);
 	}
@@ -140,6 +144,10 @@ public:
 	float lengthInSec;
 	bool useLocalSpace;
 	int maxNumParticles;
+    MonoCurve* initModuleLiftTime;
+    MonoCurve* initModuleSpeed;
+    MonoCurve* initModuleSize;
+    MonoCurve* initModuleRotation;
 	bool rotationModuleEnable;
     MonoCurve* rotationModuleCurve;
     float rotationMin;
@@ -214,6 +222,8 @@ public:
 
 	inline bool GetEnabled() const { return m_Enabled; }
 	inline void SetEnabled(bool enabled) { m_Enabled = enabled; }
+
+    static void InitCurveFromMono(MinMaxCurve& curve, const MonoCurve* monoCurve);
 
 private:
 	bool m_Enabled;
