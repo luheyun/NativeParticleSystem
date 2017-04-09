@@ -156,7 +156,7 @@ static bool CompareMeshTriangleData(const MeshTriangleData& a, const MeshTriangl
 // todo
 Vector3f* emitterScale = new Vector3f(1.0f, 1.0f, 1.0f);
 
-ShapeModule::ShapeModule() : ParticleSystemModule(true)
+ShapeModule::ShapeModule() : ParticleSystemModule(false)
 , m_Type(kCone)
 , m_Radius(1.0f)
 , m_Angle(25.0f)
@@ -317,7 +317,20 @@ void ShapeModule::CheckConsistency()
 
 void ShapeModule::Init(ParticleSystemInitState* initState)
 {
-    ResetSeed(*initState);
+    SetEnabled(initState->shapeModuleEnable);
+
+    if (GetEnabled())
+    {
+        m_Type = initState->shapeModuleData->type;
+        m_Radius = initState->shapeModuleData->radius;
+        m_Angle = initState->shapeModuleData->angle;
+        m_BoxX = initState->shapeModuleData->boxX;
+        m_BoxY = initState->shapeModuleData->boxY;
+        m_BoxZ = initState->shapeModuleData->boxZ;
+        m_RandomDirection = initState->shapeModuleData->randomDirection;
+        m_Length = initState->shapeModuleData->length;
+        ResetSeed(*initState);
+    }
 }
 
 void ShapeModule::ResetSeed(const ParticleSystemInitState& initState)

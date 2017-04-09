@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\Include\Precomplie\VisualStudioPrefix.h" />
     <ClInclude Include="..\..\Include\UnityPluginInterface.h" />
     <ClInclude Include="..\..\Src\Allocator\MemoryMacros.h" />
+	<ClInclude Include="..\..\Src\Allocator\MemoryManager.h" />
     <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParams.h" />
     <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParamsNames.h" />
     <ClInclude Include="..\..\Src\GfxDevice\ChannelAssigns.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp" />
     <ClCompile Include="..\..\Src\Graphics\Renderer.cpp" />
+	<ClInclude Include="..\..\Src\Allocator\MemoryManager.cpp" />
     <ClCompile Include="..\..\Src\Input\TimeManager.cpp" />
     <ClCompile Include="..\..\Src\Log\Log.cpp" />
     <ClCompile Include="..\..\Src\Math\AnimationCurve.cpp" />

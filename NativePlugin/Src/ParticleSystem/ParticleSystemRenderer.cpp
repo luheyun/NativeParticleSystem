@@ -197,6 +197,8 @@ void ParticleSystemRenderer::GenerateParticleGeometry(ParticleSystemVertex* vbPt
 		// 1. fraction of size
 		// 2. only supported billBoard
 
+        //float maxWorldSpaceLength = position.z * 0.5f;
+        //float hsize = std::min(psTemp.size[i], maxWorldSpaceLength) * 0.5f;
 		float hsize = psTemp.size[i] * 0.5f;
 		float s = Sin(ps.rotation[i]);
 		float c = Cos(ps.rotation[i]);

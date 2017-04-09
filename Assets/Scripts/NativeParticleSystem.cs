@@ -36,6 +36,28 @@ public class AnimationCurve
     public int postInfinity;
 }
 
+
+[System.Serializable]
+[StructLayoutAttribute(LayoutKind.Sequential)]
+public class ParticleRenderData
+{
+
+}
+
+[System.Serializable]
+[StructLayoutAttribute(LayoutKind.Sequential)]
+public class ShapeModuleData
+{
+    public int type;
+    public float radius;
+    public float angle;
+    public float length;
+    public float boxX;
+    public float boxY;
+    public float boxZ;
+    public bool randomDirection;
+}
+
 [System.Serializable]
 [StructLayoutAttribute(LayoutKind.Sequential)]
 public class ParticleInitState
@@ -55,11 +77,13 @@ public class ParticleInitState
     public Curve initModuleRotation;
     public bool rotationModuleEnable;
     public Curve rotationModuleCurve = new Curve();
-    public float rotationMin;
-    public float rotationMax;
     public float emissionRate;
     public bool sizeModuleEnable;
     public Curve sizeModuleCurve = new Curve();
+    public bool shapeModuleEnable;
+    public ShapeModuleData shapeModuleData;
+    public bool colorModuleEnable;
+    public MinMaxGradient colorModuleGradient;
 }
 
 [StructLayoutAttribute(LayoutKind.Sequential)]
@@ -103,8 +127,6 @@ public class NativeParticleSystem : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        InitState.useLocalSpace = true;
-        InitState.speed = 0.2f;
         m_UpdateData.index = Internal_CreateParticleSystem(InitState);
         Debug.Log("index:"+ m_UpdateData.index.ToString());
         m_Coroutine = StartCoroutine(NativeUpdate());

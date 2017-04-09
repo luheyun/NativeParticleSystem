@@ -25,6 +25,14 @@ void UpdateTpl(const ParticleSystemParticles& ps, ColorRGBA32* colorTemp, const 
 ColorModule::ColorModule () : ParticleSystemModule(false)
 {}
 
+void ColorModule::Init(ParticleSystemInitState* initState)
+{
+    m_Gradient.maxColor = initState->colorModuleMinMaxGradient->maxColor;
+    m_Gradient.minColor = initState->colorModuleMinMaxGradient->minColor;
+    m_Gradient.minMaxState = initState->colorModuleMinMaxGradient->minMaxState;
+    //m_Gradient.maxGradient.SetAlphaKeys()
+}
+
 void ColorModule::Update (const ParticleSystemParticles& ps, ColorRGBA32* colorTemp, size_t fromIndex, size_t toIndex)
 {
 	OptimizedMinMaxGradient gradient;

@@ -5,6 +5,8 @@ using System.Collections;
 [CustomEditor(typeof(NativeParticleSystem))]
 public class NativeParticleSystremEditor : Editor
 {
+    const float SIZE_SCALE = 0.1f;
+
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -21,6 +23,7 @@ public class NativeParticleSystremEditor : Editor
 
         if (GUILayout.Button("Save Particle System Property"))
         {
+            ps.InitState.useLocalSpace = so.FindProperty("moveWithTransform").boolValue;
             ps.InitState.looping = so.FindProperty("looping").boolValue;
             ps.InitState.playOnAwake = so.FindProperty("playOnAwake").boolValue;
             ps.InitState.prewarm = so.FindProperty("prewarm").boolValue;
@@ -33,13 +36,74 @@ public class NativeParticleSystremEditor : Editor
             ParseCurve(so, ref ps.InitState.initModuleSpeed, "InitialModule.startSpeed");
             ParseCurve(so, ref ps.InitState.initModuleSize, "InitialModule.startSize");
             ParseCurve(so, ref ps.InitState.initModuleRotation, "InitialModule.startRotation");
+            ps.InitState.initModuleSize.scalar *= SIZE_SCALE;
             ps.InitState.rotationModuleEnable = so.FindProperty("RotationModule.enabled").boolValue;
             ParseCurve(so, ref ps.InitState.rotationModuleCurve, "RotationModule.curve");
-            ps.InitState.rotationMax = so.FindProperty("RotationModule.curve.maxCurve.m_Curve.Array.data[0].value").floatValue;
-            ps.InitState.rotationMin = so.FindProperty("RotationModule.curve.minCurve.m_Curve.Array.data[0].value").floatValue;
 
             ps.InitState.sizeModuleEnable = so.FindProperty("SizeModule.enabled").boolValue;
             ParseCurve(so, ref ps.InitState.sizeModuleCurve, "SizeModule.curve");
+
+            ps.InitState.shapeModuleEnable = so.FindProperty("ShapeModule.enabled").boolValue;
+            ps.InitState.shapeModuleData.type = so.FindProperty("ShapeModule.type").intValue;
+            ps.InitState.shapeModuleData.radius = so.FindProperty("ShapeModule.radius").floatValue * SIZE_SCALE;
+            ps.InitState.shapeModuleData.length = so.FindProperty("ShapeModule.length").floatValue;
+            ps.InitState.shapeModuleData.angle = so.FindProperty("ShapeModule.angle").floatValue;
+            ps.InitState.shapeModuleData.boxX = so.FindProperty("ShapeModule.boxX").floatValue;
+            ps.InitState.shapeModuleData.boxY = so.FindProperty("ShapeModule.boxY").floatValue;
+            ps.InitState.shapeModuleData.boxZ = so.FindProperty("ShapeModule.boxZ").floatValue;
+            ps.InitState.shapeModuleData.randomDirection = so.FindProperty("ShapeModule.randomDirection").boolValue;
+
+            ps.InitState.colorModuleEnable = so.FindProperty("ColorModule.enabled").boolValue;
+            ps.InitState.colorModuleGradient.maxColor = so.FindProperty("ColorModule.gradient.maxColor.rgba").intValue;
+            ps.InitState.colorModuleGradient.minColor = so.FindProperty("ColorModule.gradient.minColor.rgba").intValue;
+            ps.InitState.colorModuleGradient.minMaxState = so.FindProperty("ColorModule.gradient.minMaxState").intValue;
+
+            int keyCount = so.FindProperty("ColorModule.gradient.maxGradient.m_NumColorKeys").intValue;
+            ps.InitState.colorModuleGradient.maxGradient.colorKeyCount = keyCount;
+            ps.InitState.colorModuleGradient.maxGradient.colorKeys = keyCount > 0 ? new ColorKey[keyCount] : null;
+
+            for (int i = 0; i < keyCount; ++i)
+            {
+                ps.InitState.colorModuleGradient.maxGradient.colorKeys[i] = new ColorKey();
+                ps.InitState.colorModuleGradient.maxGradient.colorKeys[i].color = so.FindProperty("ColorModule.gradient.maxGradient.key" + i.ToString() + ".rgba").intValue;
+                ps.InitState.colorModuleGradient.maxGradient.colorKeys[i].time = so.FindProperty("ColorModule.gradient.maxGradient.ctime" + i.ToString()).intValue;
+            }
+
+
+            keyCount = so.FindProperty("ColorModule.gradient.maxGradient.m_NumAlphaKeys").intValue;
+            ps.InitState.colorModuleGradient.maxGradient.alphaKeyCount = keyCount;
+            ps.InitState.colorModuleGradient.maxGradient.alphaKeys = keyCount > 0 ? new AlphaKey[keyCount] : null;
+
+            for (int i = 0; i < keyCount; ++i)
+            {
+                ps.InitState.colorModuleGradient.maxGradient.alphaKeys[i] = new AlphaKey();
+                ps.InitState.colorModuleGradient.maxGradient.alphaKeys[i].alpha = so.FindProperty("ColorModule.gradient.maxGradient.key" + i.ToString() + ".rgba").intValue;
+                ps.InitState.colorModuleGradient.maxGradient.alphaKeys[i].time = so.FindProperty("ColorModule.gradient.maxGradient.atime" + i.ToString()).intValue;
+            }
+
+            keyCount = so.FindProperty("ColorModule.gradient.minGradient.m_NumColorKeys").intValue;
+            ps.InitState.colorModuleGradient.minGradient.colorKeyCount = keyCount;
+            ps.InitState.colorModuleGradient.minGradient.colorKeys = keyCount > 0 ? new ColorKey[keyCount] : null;
+
+            for (int i = 0; i < keyCount; ++i)
+            {
+                ps.InitState.colorModuleGradient.minGradient.colorKeys[i] = new ColorKey();
+                ps.InitState.colorModuleGradient.minGradient.colorKeys[i].color = so.FindProperty("ColorModule.gradient.minGradient.key" + i.ToString() + ".rgba").intValue;
+                ps.InitState.colorModuleGradient.minGradient.colorKeys[i].time = so.FindProperty("ColorModule.gradient.minGradient.ctime" + i.ToString()).intValue;
+            }
+
+
+            keyCount = so.FindProperty("ColorModule.gradient.minGradient.m_NumAlphaKeys").intValue;
+            ps.InitState.colorModuleGradient.minGradient.alphaKeyCount = keyCount;
+            ps.InitState.colorModuleGradient.minGradient.alphaKeys = keyCount > 0 ? new AlphaKey[keyCount] : null;
+
+            for (int i = 0; i < keyCount; ++i)
+            {
+                ps.InitState.colorModuleGradient.minGradient.alphaKeys[i] = new AlphaKey();
+                ps.InitState.colorModuleGradient.minGradient.alphaKeys[i].alpha = so.FindProperty("ColorModule.gradient.minGradient.key" + i.ToString() + ".rgba").intValue;
+                ps.InitState.colorModuleGradient.minGradient.alphaKeys[i].time = so.FindProperty("ColorModule.gradient.minGradient.atime" + i.ToString()).intValue;
+            }
+
 
             EditorUtility.SetDirty(ps);
             AssetDatabase.SaveAssets();

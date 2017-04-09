@@ -71,6 +71,9 @@
     <ClInclude Include="..\..\Src\Allocator\MemoryMacros.h">
       <Filter>Src\Allocator</Filter>
     </ClInclude>
+	<ClInclude Include="..\..\Src\Allocator\MemoryManager.h">
+      <Filter>Src\Allocator</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParams.h">
       <Filter>Src\GfxDevice</Filter>
     </ClInclude>
@@ -321,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\Renderer.cpp">
       <Filter>Src\Graphics</Filter>
+    </ClCompile>
+	<ClCompile Include="..\..\Src\Allocator\MemoryManager.cpp">
+      <Filter>Src\Allocator</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Graphics\Mesh\DynamicVBO.cpp">
       <Filter>Src\Graphics\Mesh</Filter>

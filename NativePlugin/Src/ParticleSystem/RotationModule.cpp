@@ -39,56 +39,15 @@ void UpdateProceduralTpl(const DualMinMaxPolyCurves& curves, ParticleSystemParti
 	}
 }
 
-RotationModule::RotationModule() : ParticleSystemModule(true)
+RotationModule::RotationModule() : ParticleSystemModule(false)
 {}
-
-void RotationModule::Init(float minAngularVelocity, float maxAngularVelocity)
-{
-    MinMaxAnimationCurves animCurves;
-    AnimationCurve::Keyframe minKeyFrame, maxKeyFrame;
-    minKeyFrame.value = minAngularVelocity;
-    animCurves.min.AddKey(minKeyFrame);
-    maxKeyFrame.value = maxAngularVelocity;
-    animCurves.max.AddKey(maxKeyFrame);
-    m_Curve.minMaxState = kMMCTwoConstants;
-    m_Curve.editorCurves = animCurves;
-    m_Curve.SetScalar(Deg2Rad(45.0f));
-}
 
 void RotationModule::Init(ParticleSystemInitState* initState)
 {
-    if (initState->sizeModuleEnable)
+    if (initState->rotationModuleEnable)
     {
         SetEnabled(true);
-        MinMaxCurve& curve = GetCurve();
-
-        for (int i = 0; i < initState->rotationModuleCurve->maxCurve->keyFrameCount; ++i)
-        {
-            AnimationCurve::Keyframe keyFrame;
-            keyFrame.time = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->time;
-            keyFrame.inSlope = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->inSlope;
-            keyFrame.outSlope = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->outSlope;
-            keyFrame.value = initState->rotationModuleCurve->maxCurve->pKeyFrameContainer[i]->value;
-            curve.editorCurves.max.AddKey(keyFrame);
-        }
-
-        curve.editorCurves.max.SetPreInfinity(initState->rotationModuleCurve->maxCurve->preInfinity);
-        curve.editorCurves.max.SetPostInfinity(initState->rotationModuleCurve->maxCurve->postInfinity);
-
-        for (int i = 0; i < initState->rotationModuleCurve->minCurve->keyFrameCount; ++i)
-        {
-            AnimationCurve::Keyframe keyFrame;
-            keyFrame.time = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->time;
-            keyFrame.inSlope = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->inSlope;
-            keyFrame.outSlope = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->outSlope;
-            keyFrame.value = initState->rotationModuleCurve->minCurve->pKeyFrameContainer[i]->value;
-            curve.editorCurves.min.AddKey(keyFrame);
-        }
-
-        curve.editorCurves.min.SetPreInfinity(initState->rotationModuleCurve->minCurve->preInfinity);
-        curve.editorCurves.min.SetPostInfinity(initState->rotationModuleCurve->minCurve->postInfinity);
-        curve.minMaxState = initState->rotationModuleCurve->minMaxState;
-        curve.SetScalar(initState->rotationModuleCurve->scalar);
+        ParticleSystemModule::InitCurveFromMono(GetCurve(), initState->rotationModuleCurve);
     }
     else
     {

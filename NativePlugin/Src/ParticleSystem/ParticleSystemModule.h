@@ -28,6 +28,92 @@ struct ParticleSystemEmissionData
 	UInt8 burstCount;
 };
 
+class MonoColorKey
+{
+public:
+    int color;
+    int time;
+};
+
+class MonoAlphaKey
+{
+public:
+    int alpha;
+    int time;
+};
+
+class MonoGradient
+{
+public:
+    ~MonoGradient()
+    {
+
+    }
+
+    void InitFromMono(MonoGradient* pMonoGradient)
+    {
+        colorKeys = (MonoColorKey**)malloc(sizeof(MonoColorKey*) * colorKeyCount);
+        MonoColorKey** srcColorContainer = GetScriptingArrayStart<MonoColorKey*>((ScriptingArrayPtr)pMonoGradient->colorKeys);
+
+        for (int i = 0; i < colorKeyCount; ++i)
+        {
+            MonoColorKey* srcColorKey = (MonoColorKey*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)srcColorContainer[i]);
+            colorKeys[i] = new MonoColorKey();
+            memcpy(colorKeys[i], srcColorKey, sizeof(MonoColorKey));
+        }
+
+        alphaKeys = (MonoAlphaKey**)malloc(sizeof(MonoAlphaKey*) * alphaKeyCount);
+        MonoAlphaKey** srcAlphaContainer = GetScriptingArrayStart<MonoAlphaKey*>((ScriptingArrayPtr)pMonoGradient->alphaKeys);
+
+        for (int i = 0; i < alphaKeyCount; ++i)
+        {
+            MonoAlphaKey* srcAlphaKey = (MonoAlphaKey*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)srcAlphaContainer[i]);
+            alphaKeys[i] = new MonoAlphaKey();
+            memcpy(alphaKeys[i], srcAlphaKey, sizeof(MonoAlphaKey));
+        }
+    }
+
+    int colorKeyCount;
+    MonoColorKey** colorKeys;
+    int alphaKeyCount;
+    MonoAlphaKey** alphaKeys;
+};
+
+class MonoMinMaxGradient
+{
+public:
+    ~MonoMinMaxGradient()
+    {
+        if (maxGradient != nullptr)
+            delete maxGradient;
+
+        if (minGradient != nullptr)
+            delete minGradient;
+
+        maxGradient = nullptr;
+        minGradient = nullptr;
+    }
+
+    void InitFromMono(MonoMinMaxGradient* pMonoMinMaxGradient)
+    {
+        MonoGradient* srcMaxGrad = (MonoGradient*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoMinMaxGradient->maxGradient);
+        maxGradient = new MonoGradient();
+        memcpy(maxGradient, srcMaxGrad, sizeof(MonoGradient));
+        maxGradient->InitFromMono(srcMaxGrad);
+
+        MonoGradient* srcMinGrad = (MonoGradient*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoMinMaxGradient->minGradient);
+        minGradient = new MonoGradient();
+        memcpy(minGradient, srcMinGrad, sizeof(MonoGradient));
+        minGradient->InitFromMono(srcMinGrad);
+    }
+
+    MonoGradient* maxGradient;
+    MonoGradient* minGradient;
+    int minColor; // rgba
+    int maxColor;
+    int minMaxState;
+};
+
 class MonoKeyFrame
 {
 public:
@@ -65,6 +151,19 @@ public:
 	MonoKeyFrame** pKeyFrameContainer;
 	int preInfinity;
 	int postInfinity;
+};
+
+class ShapeModuleMonoData
+{
+public:
+    int type;
+    float radius;
+    float angle;
+    float length;
+    float boxX;
+    float boxY;
+    float boxZ;
+    bool randomDirection;
 };
 
 class MonoCurve
@@ -115,16 +214,14 @@ public:
 	void InitFromMono(ParticleSystemInitState* pInitState)
 	{
 		memcpy(this, pInitState, sizeof(ParticleSystemInitState));
-		//MonoCurve* src = (MonoCurve*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)this->sizeModuleCurve);
-  //      this->sizeModuleCurve = new MonoCurve();
-		//memcpy(this->sizeModuleCurve, src, sizeof(MonoCurve));
-		//this->sizeModuleCurve->InitFromMono(src);
-        InitCurveFromMono(this->initModuleLiftTime);
+		InitCurveFromMono(this->initModuleLiftTime);
         InitCurveFromMono(this->initModuleSpeed);
         InitCurveFromMono(this->initModuleSize);
         InitCurveFromMono(this->initModuleRotation);
         InitCurveFromMono(this->sizeModuleCurve);
         InitCurveFromMono(this->rotationModuleCurve);
+        InitShapeModuleData(this->shapeModuleData);
+        InitMinMaxGradient(this->colorModuleMinMaxGradient);
 	}
 
     void InitCurveFromMono(MonoCurve* &pMonoCurve)
@@ -133,6 +230,21 @@ public:
         pMonoCurve = new MonoCurve();
         memcpy(pMonoCurve, src, sizeof(MonoCurve));
         pMonoCurve->InitFromMono(src);
+    }
+
+    void InitShapeModuleData(ShapeModuleMonoData* &pData)
+    {
+        ShapeModuleMonoData* src = (ShapeModuleMonoData*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pData);
+        pData = new ShapeModuleMonoData();
+        memcpy(pData, src, sizeof(ShapeModuleMonoData));
+    }
+
+    void InitMinMaxGradient(MonoMinMaxGradient* &pMonoMinMaxGradient)
+    {
+        MonoMinMaxGradient* src = (MonoMinMaxGradient*)GetLogicObjectMemoryLayout((ScriptingObjectPtr)pMonoMinMaxGradient);
+        pMonoMinMaxGradient = new MonoMinMaxGradient();
+        memcpy(pMonoMinMaxGradient, src, sizeof(MonoMinMaxGradient));
+        pMonoMinMaxGradient->InitFromMono(src);
     }
 
 	bool looping;
@@ -150,11 +262,13 @@ public:
     MonoCurve* initModuleRotation;
 	bool rotationModuleEnable;
     MonoCurve* rotationModuleCurve;
-    float rotationMin;
-    float rotationMax;
 	float emissionRate;
 	bool sizeModuleEnable;
 	MonoCurve* sizeModuleCurve;
+    bool shapeModuleEnable;
+    ShapeModuleMonoData* shapeModuleData;
+    bool colorModuleEnable;
+    MonoMinMaxGradient* colorModuleMinMaxGradient;
 };
 
 // @TODO: Find "pretty" place for shared structs and enums?

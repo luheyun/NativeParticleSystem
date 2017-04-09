@@ -6,7 +6,9 @@
 #include "ColorModule.h"
 #include "SizeModule.h"
 #include "UVModule.h"
+#include "ShapeModule.h"
 #include "InitialModule.h"
+#include "EmissionModule.h"
 #include "ParticleSystemParticles.h"
 #include "ParticleSystemCommon.h"
 #include "ParticleSystemUtils.h"
@@ -195,19 +197,19 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 	gParticleSystemManager->activeEmitters.push_back(this);
 	m_Renderer = new ParticleSystemRenderer();
 	m_State = new ParticleSystemState();
-	m_ShapeModule = ShapeModule();
+
+	m_ShapeModule = new ShapeModule();
+    m_ShapeModule->Init(m_InitState);
 
 	m_SizeModule = new SizeModule();
     m_SizeModule->Init(m_InitState);
 
 	m_RotationModule = new RotationModule();
     m_RotationModule->Init(m_InitState);
-	//m_RotationModule->SetEnabled(initState->rotationModuleEnable);
-
-	//if (m_RotationModule->GetEnabled())
-	//	m_RotationModule->Init(initState->rotationMin, initState->rotationMax);
 
 	m_ColorModule = new ColorModule();
+    m_ColorModule->Init(m_InitState);
+
 	m_UVModule = new UVModule();
 
 	m_EmissionModule = new EmissionModule();
@@ -293,7 +295,7 @@ void ParticleSystem::SyncJobs(bool syncRenderJobs)
 void ParticleSystem::ResetSeeds()
 {
 	m_InitialModule->ResetSeed(*m_InitState);
-	m_ShapeModule.ResetSeed(*m_InitState);
+	m_ShapeModule->ResetSeed(*m_InitState);
 }
 
 size_t ParticleSystem::EmitFromData(ParticleSystemEmissionState& emissionState, size_t& numContinuous, const ParticleSystemEmissionData& emissionData, const Vector3f velocity, float fromT, float toT, float dt, float length)
@@ -329,9 +331,6 @@ void ParticleSystem::Update0(ParticleSystem& system, const ParticleSystemInitSta
 
     if (system.m_RotationModule->GetEnabled())
         system.SetUsesRotationalSpeed();
-
-	if (system.m_ShapeModule.GetEnabled())
-		system.m_ShapeModule.AcquireMeshData(state.WorldToLocal);
 }
 
 void ParticleSystem::Update1(ParticleSystem& system, ParticleSystemParticles& ps, float dt, bool fixedTimeStep, bool useProcedural, int rayBudget)
@@ -440,8 +439,8 @@ void ParticleSystem::UpdateProcedural(ParticleSystem& system, const ParticleSyst
 		system.m_InitialModule->GenerateProcedural(initState, state, ps, emit);
 
 		//@TODO: This can be moved out of the emit all particles loop...
-		if (system.m_ShapeModule.GetEnabled())
-			system.m_ShapeModule.Start(initState, state, ps, localToWorld, previousParticleCount, emit.t);
+		if (system.m_ShapeModule->GetEnabled())
+			system.m_ShapeModule->Start(initState, state, ps, localToWorld, previousParticleCount, emit.t);
 
 		// Apply gravity & integrated velocity after shape module so that it picks up any changes done in shapemodule (for example rotating the velocity)
 		Vector3f gravity = system.m_InitialModule->GetGravity(initState, state);
@@ -546,8 +545,8 @@ void ParticleSystem::StartModules(ParticleSystem& system, const ParticleSystemIn
 	, const ParticleSystemEmissionState& emissionState, Vector3f initialVelocity, const Matrix4x4f& matrix, ParticleSystemParticles& ps, size_t fromIndex, float dt, float t, size_t numContinuous, float frameOffset)
 {
 	system.m_InitialModule->Start(initState, state, ps, matrix, fromIndex, t);
-	if (system.m_ShapeModule.GetEnabled())
-		system.m_ShapeModule.Start(initState, state, ps, matrix, fromIndex, t);
+	if (system.m_ShapeModule->GetEnabled())
+		system.m_ShapeModule->Start(initState, state, ps, matrix, fromIndex, t);
 
 	const float normalizedT = t / initState.lengthInSec;
 

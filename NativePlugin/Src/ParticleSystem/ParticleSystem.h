@@ -1,7 +1,6 @@
 #pragma once
 
-#include "ShapeModule.h"
-#include "EmissionModule.h"
+#include "ParticleSystemModule.h"
 
 class ParticleSystemRenderer;
 struct ParticleSystemParticles;
@@ -12,7 +11,9 @@ class RotationModule;
 class ColorModule;
 class SizeModule;
 class UVModule;
+class ShapeModule;
 class InitialModule;
+class EmissionModule;
 
 class ParticleSystem
 {
@@ -90,7 +91,7 @@ private:
 	ParticleSystemState* m_State;
 	Transform* m_Transform;
 	InitialModule* m_InitialModule;
-	ShapeModule m_ShapeModule;
+	ShapeModule* m_ShapeModule;
 	EmissionModule* m_EmissionModule;
 	RotationModule*	m_RotationModule; // @TODO: Requires outputs angular velocity and thus requires integration (Inconsistent with other modules in this group)
 	ColorModule* m_ColorModule;

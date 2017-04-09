@@ -64,10 +64,6 @@ void* operator new (size_t size) throw();
 void* operator new [] (size_t size) throw();
 #endif
 
-#if UNITY_PS3
-void* operator new (size_t size, size_t alignment) throw();
-void* operator new [] (size_t size, size_t alignment) throw();
-#endif
 void operator delete (void* p) throw();
 void operator delete [] (void* p) throw();
 
@@ -94,43 +90,10 @@ void operator delete [] (void* p, const std::nothrow_t&) throw();
 
 #endif
 
-#if ENABLE_MEM_PROFILER
-class BaseAllocator;
-
-EXPORT_COREMODULE bool  push_allocation_root(void* root, BaseAllocator* alloc, bool forcePush);
-EXPORT_COREMODULE void  pop_allocation_root();
-EXPORT_COREMODULE AllocationRootReference* get_current_allocation_root_reference_internal();
-EXPORT_COREMODULE AllocationRootReference* get_root_reference(void* ptr, MemLabelRef label);
-EXPORT_COREMODULE void set_root_reference(void* ptr, size_t size, MemLabelRef label, AllocationRootReference* root);
-EXPORT_COREMODULE void  assign_allocation_root(void* root, size_t size,  MemLabelRef label, const char* areaName, const char* objectName);
-
-class AutoScopeRoot
-{
-public:
-	AutoScopeRoot(void* root) { pushed = push_allocation_root(root, NULL, false); }
-	~AutoScopeRoot() { if(pushed) pop_allocation_root(); }
-	bool pushed;
-};
-
-#define GET_CURRENT_ALLOC_ROOT_REFERENCE() get_current_allocation_root_reference_internal()
-#define SET_ALLOC_OWNER(root) AutoScopeRoot autoScopeRoot(root)
-#define GET_ROOT_REFERENCE(ptr, label) get_root_reference(ptr, label)
-#define SET_ROOT_REFERENCE(ptr, size, label, rootRef) set_root_reference(ptr, size, label, rootRef)
-#define UNITY_TRANSFER_OWNERSHIP(source, label, newRootRef) transfer_ownership(source, label, newRootRef)
-
-#else
-
 #define GET_CURRENT_ALLOC_ROOT_REFERENCE() (AllocationRootReference*)NULL
 #define SET_ALLOC_OWNER(root) {}
 #define UNITY_TRANSFER_OWNERSHIP(source, label, newRootRef) {}
 #define SET_ROOT_REFERENCE(ptr, size, label, rootRef) {}
-
-#endif
-
-#if UNITY_PS3		// ps3 new can pass in 2 parameters on the front ... size and alignment
-EXPORT_COREMODULE void* operator new (size_t size, size_t alignment, MemLabelRef label, int align, const char* areaName, const char* objectName, const char* file, int line);
-EXPORT_COREMODULE void* operator new (size_t size, size_t alignment, MemLabelRef label, int align, const char* file, int line);
-#endif
 
 #define UNITY_MALLOC(label, size)                      malloc_internal(size, kDefaultMemoryAlignment, label, kAllocateOptionNone, __FILE_STRIPPED__, __LINE__)
 #define UNITY_MALLOC_NULL(label, size)                 malloc_internal(size, kDefaultMemoryAlignment, label, kAllocateOptionReturnNullIfOutOfMemory, __FILE_STRIPPED__, __LINE__)
@@ -149,30 +112,11 @@ EXPORT_COREMODULE void* operator new (size_t size, size_t alignment, MemLabelRef
 #define UNITY_NEW_ALIGNED(type, label, align) new (label, align, __FILE_STRIPPED__, __LINE__) type
 #define UNITY_DELETE(ptr, label) { delete_internal(ptr, label); ptr = NULL; }
 
-#if ENABLE_MEM_PROFILER
-	void register_external_gfx_allocation(void* ptr, size_t size, size_t related, const char* file, int line);
-	void register_external_gfx_deallocation(void* ptr, const char* file, int line);
-
-	template<typename T>
-	inline T* pop_allocation_root_after_new(T* p)
-	{
-		// new is called when constructing the argument and p is set as root while in the constructor
-		pop_allocation_root();
-		return p;
-	}
-
-	#define UNITY_NEW_AS_ROOT(type, label, areaName, objectName) pop_allocation_root_after_new(new (label, kDefaultMemoryAlignment, areaName, objectName, __FILE_STRIPPED__, __LINE__) type)
-	#define UNITY_NEW_AS_ROOT_ALIGNED(type, label, align, areaName, objectName) pop_allocation_root_after_new(new (label, align, areaName, objectName, __FILE_STRIPPED__, __LINE__) type)
-	#define SET_PTR_AS_ROOT(ptr, size, label, areaName, objectName) assign_allocation_root(ptr, size, label, areaName, objectName)
-	#define REGISTER_EXTERNAL_GFX_ALLOCATION_REF(ptr, size, related) register_external_gfx_allocation((void*)ptr, size, (size_t)related, __FILE_STRIPPED__, __LINE__)
-	#define REGISTER_EXTERNAL_GFX_DEALLOCATION(ptr) register_external_gfx_deallocation((void*)ptr, __FILE_STRIPPED__, __LINE__)
-#else
 	#define UNITY_NEW_AS_ROOT(type, label, areaName, objectName) new (label, kDefaultMemoryAlignment, __FILE_STRIPPED__, __LINE__) type
 	#define UNITY_NEW_AS_ROOT_ALIGNED(type, label, align, areaName, objectName) new (label, align, __FILE_STRIPPED__, __LINE__) type
 	#define SET_PTR_AS_ROOT(ptr, size, label, areaName, objectName) {}
 	#define REGISTER_EXTERNAL_GFX_ALLOCATION_REF(ptr, size, related) {}
 	#define REGISTER_EXTERNAL_GFX_DEALLOCATION(ptr) {}
-#endif
 
 // Deprecated -> Move to new Macros
 #define UNITY_ALLOC(label, size, align)                UNITY_MALLOC_ALIGNED(label, size, align)
@@ -231,37 +175,9 @@ inline size_t MaxAlignment(size_t alignment1, size_t alignment2)
 	} \
 	ANALYSIS_ASSUME(ptr)
 
-#if UNITY_PSP2 || UNITY_PS3 || UNITY_PS4
-
-struct FreeTempGfxMemory
-{
-	FreeTempGfxMemory() : m_Memory (NULL) { }
-	~FreeTempGfxMemory() { if (m_Memory) UNITY_FREE(kMemVertexData, m_Memory); }
-	void* m_Memory;
-};
-
-// On Sony platforms we need to ensure that temp allocations for graphics memory are
-// done in mapped memory and persist while in use by the GPU so this version uses the
-// delayed release allocator.
-#define ALLOC_TEMP_ALIGNED_GFX(ptr,type,count,alignment) \
-	FreeTempGfxMemory freeTempMemory_##ptr; \
-	{ \
-		size_t allocSize = (count) * sizeof(type) + (alignment)-1; \
-		void* allocPtr = NULL; \
-		if ((count) != 0) { \
-			allocPtr = UNITY_MALLOC_ALIGNED (kMemVertexData, allocSize, alignment); \
-			freeTempMemory_##ptr.m_Memory = allocPtr; \
-		} \
-		ptr = reinterpret_cast<type*> (AlignPtr(allocPtr, alignment)); \
-	} \
-	ANALYSIS_ASSUME(ptr)
-
-#else
 
 #ifndef ALLOC_TEMP_ALIGNED_GFX
 #define ALLOC_TEMP_ALIGNED_GFX ALLOC_TEMP_ALIGNED
-#endif
-
 #endif
 
 #define ALLOC_TEMP(ptr, type, count) \
