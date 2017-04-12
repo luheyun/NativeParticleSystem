@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ConsolePro\ConsoleProRemoteServer.cs" />
+    <Compile Include="Assets\Scripts\MinMaxGradient.cs" />
     <Compile Include="Assets\Scripts\NativeParticleSystem.cs" />
     <Compile Include="Assets\Scripts\NativePlugin.cs" />
   </ItemGroup>

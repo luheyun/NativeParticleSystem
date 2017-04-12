@@ -1,5 +1,6 @@
 #include "PluginPrefix.h"
 #include "Gradient.h"
+#include "ParticleSystem/ParticleSystemModule.h"
 
 GradientNEW::GradientNEW()
 :	m_NumColorKeys(2)
@@ -110,6 +111,64 @@ void GradientNEW::SetAlphaKeys (AlphaKey* alphaKeys, unsigned numKeys)
 		i++;
 	}
 	
+	ValidateAlphaKeys();
+}
+
+void GradientNEW::SetKeys(MonoColorKey** colorKeys, unsigned numColorKeys, MonoAlphaKey** alphaKeys, unsigned numAlphaKeys)
+{
+	if (numColorKeys > kGradientMaxNumKeys)
+		numColorKeys = kGradientMaxNumKeys;
+
+	if (numAlphaKeys > kGradientMaxNumKeys)
+		numAlphaKeys = kGradientMaxNumKeys;
+
+	int i = 0;
+	for (i = 0; i < numColorKeys; ++i)
+	{
+		m_Keys[i] = colorKeys[i]->color;
+		m_ColorTime[i] = colorKeys[i]->time;
+	}
+
+	m_NumColorKeys = numColorKeys;
+
+	// Ensure sorted!
+	i = 0;
+	int keyCount = m_NumColorKeys;
+	while ((i + 1) < keyCount)
+	{
+		if (m_ColorTime[i] > m_ColorTime[i + 1])
+		{
+			SwapColorKeys(i, i + 1);
+			if (i > 0)
+				i -= 2;
+		}
+		i++;
+	}
+
+	ValidateColorKeys();
+
+	for (i = 0; i < numAlphaKeys; ++i)
+	{
+		m_Keys[i] = alphaKeys[i]->alpha;
+		m_AlphaTime[i] = alphaKeys[i]->time;
+	}
+
+	m_NumAlphaKeys = numAlphaKeys;
+
+	// Ensure sorted!
+	i = 0;
+	keyCount = m_NumAlphaKeys;
+	while ((i + 1) < keyCount)
+	{
+		if (m_AlphaTime[i] > m_AlphaTime[i + 1])
+		{
+			SwapAlphaKeys(i, i + 1);
+			if (i > 0)
+				i -= 2;
+		}
+		i++;
+	}
+
 	ValidateAlphaKeys();
 }
 

@@ -27,10 +27,18 @@ ColorModule::ColorModule () : ParticleSystemModule(false)
 
 void ColorModule::Init(ParticleSystemInitState* initState)
 {
-    m_Gradient.maxColor = initState->colorModuleMinMaxGradient->maxColor;
-    m_Gradient.minColor = initState->colorModuleMinMaxGradient->minColor;
-    m_Gradient.minMaxState = initState->colorModuleMinMaxGradient->minMaxState;
-    //m_Gradient.maxGradient.SetAlphaKeys()
+	SetEnabled(initState->colorModuleEnable);
+
+	if (GetEnabled())
+	{
+		m_Gradient.maxColor = initState->colorModuleMinMaxGradient->maxColor;
+		m_Gradient.minColor = initState->colorModuleMinMaxGradient->minColor;
+		m_Gradient.minMaxState = initState->colorModuleMinMaxGradient->minMaxState;
+		MonoGradient* maxGradient = initState->colorModuleMinMaxGradient->maxGradient;
+		m_Gradient.maxGradient.SetKeys(maxGradient->colorKeys, maxGradient->colorKeyCount, maxGradient->alphaKeys, maxGradient->alphaKeyCount);
+		MonoGradient* minGradient = initState->colorModuleMinMaxGradient->minGradient;
+		m_Gradient.minGradient.SetKeys(minGradient->colorKeys, minGradient->colorKeyCount, minGradient->alphaKeys, minGradient->alphaKeyCount);
+	}
 }
 
 void ColorModule::Update (const ParticleSystemParticles& ps, ColorRGBA32* colorTemp, size_t fromIndex, size_t toIndex)

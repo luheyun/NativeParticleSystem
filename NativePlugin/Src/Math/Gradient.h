@@ -44,6 +44,9 @@ struct OptimizedGradient
 	UInt32 keyCount;
 };
 
+class MonoColorKey;
+class MonoAlphaKey;
+
 // Work in progress (Rename NEW to something else when found..)
 class GradientNEW
 {
@@ -73,6 +76,7 @@ public:
 
 	void SetColorKeys (ColorKey* colorKeys, unsigned numKeys);
 	void SetAlphaKeys (AlphaKey* alphaKeys, unsigned numKeys);
+	void SetKeys(MonoColorKey** colorKeys, unsigned numColorKeys, MonoAlphaKey** alphaKeys, unsigned numAlphaKeys);
 
 	void SetNumColorKeys (int numColorKeys) { m_NumColorKeys = numColorKeys;};
 	void SetNumAlphaKeys (int numAlphaKeys) { m_NumAlphaKeys = numAlphaKeys; };

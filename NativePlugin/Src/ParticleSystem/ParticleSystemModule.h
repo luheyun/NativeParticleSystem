@@ -39,7 +39,7 @@ class MonoAlphaKey
 {
 public:
     int alpha;
-    int time;
+	int time;
 };
 
 class MonoGradient
