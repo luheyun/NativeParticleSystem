@@ -1,6 +1,13 @@
 #ifndef PLUGIN_PREFIX_H
 #define PLUGIN_PREFIX_H
 
+// Which platform we are on?
+#if _MSC_VER
+#define UNITY_WIN 1
+#else
+#define UNITY_OSX 1
+#endif
+
 // Platform dependent configuration before we do anything.
 // Can't depend on unity defines because they are not there yet!
 #ifdef _MSC_VER
@@ -17,6 +24,7 @@
 #endif
 
 #include "PrefixConfigure.h"
+#include "Configuration/UnityConfigure.h"
 
 #ifdef __cplusplus
 // Pull other frequently used stl headers
@@ -35,6 +43,11 @@
 using std::isfinite;
 #endif
 
+#include "Runtime/Utilities/Annotations.h"
+#include "Runtime/Math/FloatConversion.h"
+#include "Runtime/Utilities/Utility.h"
+#include "Runtime/Utilities/dynamic_array.h"
+#include "Runtime/Utilities/dense_hash_map.h"
 
 #ifdef _MSC_VER
 // Visual Studio

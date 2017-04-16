@@ -5,54 +5,84 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Src\GfxDevice">
-      <UniqueIdentifier>{167b6449-bca0-4268-89b3-d33a35460659}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\ParticleSystem">
-      <UniqueIdentifier>{4fcad079-127a-4035-a403-a4fc6c5835a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Graphics">
-      <UniqueIdentifier>{7a22fcb2-2fee-4a0e-b4cf-859cbc0e4d29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Include">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Src\GfxDevice\d3d">
-      <UniqueIdentifier>{81538d85-c806-4e21-a693-1cbe194dded6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Include\Precomplie">
       <UniqueIdentifier>{1fe18086-9d89-47bd-8b71-cf4cc19a3153}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Utilities">
-      <UniqueIdentifier>{b55cbc17-bd5f-4e1b-84ce-835f9b369dd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Allocator">
-      <UniqueIdentifier>{385e9d93-86f6-45ff-9e20-ac9e8a873b7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Math">
-      <UniqueIdentifier>{396d6fda-0541-436e-83be-845fcf5eddb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Math\Simd">
-      <UniqueIdentifier>{b300d897-5cf4-457a-bbab-a099da36eca9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Shaders">
-      <UniqueIdentifier>{2b435b30-3b1b-4100-ad48-003867afa86a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Graphics\Mesh">
-      <UniqueIdentifier>{a2e7e78c-8536-40cc-8ea7-6f13177ef013}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Input">
-      <UniqueIdentifier>{c5658546-2a66-492f-b2bc-428af16fd3cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Math\Random">
-      <UniqueIdentifier>{d381fa3b-3150-48ec-ab6f-c88040036514}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Mono">
       <UniqueIdentifier>{99d48e1d-8448-44cf-9889-ce21d738a488}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Log">
+    <Filter Include="Include\Configuration">
+      <UniqueIdentifier>{86ef8b2e-1de3-4508-94c5-b190e19be47c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime">
+      <UniqueIdentifier>{ab8cdb4b-16e1-4991-be1b-95d85304c530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Allocator">
+      <UniqueIdentifier>{385e9d93-86f6-45ff-9e20-ac9e8a873b7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Misc">
+      <UniqueIdentifier>{f8752369-1b7c-4347-9de7-c5154b00311a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\GfxDevice">
+      <UniqueIdentifier>{167b6449-bca0-4268-89b3-d33a35460659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\GfxDevice\d3d">
+      <UniqueIdentifier>{81538d85-c806-4e21-a693-1cbe194dded6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\GfxDevice\threaded">
+      <UniqueIdentifier>{765b215c-e647-4b49-990e-ee0a9cda2d00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Graphics">
+      <UniqueIdentifier>{7a22fcb2-2fee-4a0e-b4cf-859cbc0e4d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Graphics\Mesh">
+      <UniqueIdentifier>{a2e7e78c-8536-40cc-8ea7-6f13177ef013}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Input">
+      <UniqueIdentifier>{c5658546-2a66-492f-b2bc-428af16fd3cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Jobs">
+      <UniqueIdentifier>{7cb30263-514b-4395-ae9b-77cd162ca8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Jobs\Internal">
+      <UniqueIdentifier>{17478f86-0ade-4d2e-9d01-344c759e55bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Log">
       <UniqueIdentifier>{ba0c2aa2-e4ce-4a42-aad4-aec505681217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Math">
+      <UniqueIdentifier>{396d6fda-0541-436e-83be-845fcf5eddb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Math\Simd">
+      <UniqueIdentifier>{b300d897-5cf4-457a-bbab-a099da36eca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Math\Random">
+      <UniqueIdentifier>{d381fa3b-3150-48ec-ab6f-c88040036514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\ParticleSystem">
+      <UniqueIdentifier>{4fcad079-127a-4035-a403-a4fc6c5835a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Shaders">
+      <UniqueIdentifier>{2b435b30-3b1b-4100-ad48-003867afa86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Threads">
+      <UniqueIdentifier>{1cffde84-655c-4e2f-9cb5-5bbd302edb35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Threads\Winapi">
+      <UniqueIdentifier>{8b9b47eb-46d6-4dce-8d59-755a7bc837ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Runtime\Utilities">
+      <UniqueIdentifier>{b55cbc17-bd5f-4e1b-84ce-835f9b369dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\PlatformDependent">
+      <UniqueIdentifier>{25bf5fa8-d673-45f5-a673-6b5a7f1ce43b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\PlatformDependent\Win">
+      <UniqueIdentifier>{80e5b603-9346-49dd-8596-bfc4867974f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -68,209 +98,8 @@
     <ClInclude Include="..\..\Include\UnityPluginInterface.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Allocator\MemoryMacros.h">
-      <Filter>Src\Allocator</Filter>
-    </ClInclude>
-	<ClInclude Include="..\..\Src\Allocator\MemoryManager.h">
-      <Filter>Src\Allocator</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParams.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\BuiltinShaderParamsNames.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\ChannelAssigns.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\GfxBuffer.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\GfxDevice.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\GfxDeviceResources.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\GfxDeviceTypes.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\TransformState.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\VertexDeclaration.h">
-      <Filter>Src\GfxDevice</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Context.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Enumeration.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\ShaderConstantCacheD3D9.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Includes.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\D3D9Utils.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\GfxDeviceD3D9.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.h">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Renderer.h">
-      <Filter>Src\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\DynamicVBO.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\GenericDynamicVBO.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\Mesh.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\MeshVertexFormat.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\SharedMeshData.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\VertexData.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\FloatConversion.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Matrix3x3.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Matrix4x4.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Quaternion.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Vector3.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Vector4.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Simd\RotationOrder.h">
-      <Filter>Src\Math\Simd</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystem.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Shaders\GraphicsCaps.h">
-      <Filter>Src\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\algorithm_utility.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\BitUtility.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\LinkedList.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\UnionTuple.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\Utility.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\Word.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Mesh\ShaderChannels.h">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\GfxDevice\d3d\GraphicsCapsD3D9.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemModule.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Graphics\Transform.h">
-      <Filter>Src\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Input\TimeManager.h">
-      <Filter>Src\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ShapeModule.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\InitialModule.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemParticles.h">
       <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Random\rand.h">
-      <Filter>Src\Math\Random</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Utilities\dynamic_array.h">
-      <Filter>Src\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\EmissionModule.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemCurves.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\PolynomialCurve.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\AnimationCurve.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Polynomials.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemGradients.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Gradient.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Vector2.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Color.h">
-      <Filter>Src\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\Math\Random\Random.h">
-      <Filter>Src\Math\Random</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemCommon.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\RotationModule.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ParticleSystemUtils.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\ColorModule.h">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\SizeModule.h">
-      <Filter>Src\ParticleSystem</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Src\Mono\NativeUtil.h">
       <Filter>Src\Mono</Filter>
@@ -281,142 +110,454 @@
     <ClInclude Include="..\..\Src\Mono\ScriptingAPI.h">
       <Filter>Src\Mono</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\Log\Log.h">
-      <Filter>Src\Log</Filter>
+    <ClInclude Include="..\..\Include\Configuration\UnityConfigure.h">
+      <Filter>Include\Configuration</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Src\ParticleSystem\UVModule.h">
-      <Filter>Src\ParticleSystem</Filter>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\AllocationHeader.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\BaseAllocator.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\MemoryMacros.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\MemoryManager.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\D3D9Context.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\D3D9Enumeration.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\D3D9Includes.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\D3D9Utils.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\GfxDeviceD3D9.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\IndexBufferD3D9.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\ShaderConstantCacheD3D9.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\VertexBufferD3D9.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\d3d\VertexDeclarationD3D9.h">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\GfxCommands.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\GfxDeviceClient.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\GfxDeviceThreadedClientManager.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\GfxDeviceWorker.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\ThreadedBuffer.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\ThreadedDeviceStates.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\ThreadedDynamicVBO.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\threaded\ThreadedVertexDeclaration.h">
+      <Filter>Src\Runtime\GfxDevice\threaded</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\BuiltinShaderParams.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\BuiltinShaderParamsNames.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\ChannelAssigns.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\GeometryJob.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\GfxBuffer.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\GfxDevice.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\GfxDeviceResources.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\GfxDeviceTypes.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\TransformState.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\GfxDevice\VertexDeclaration.h">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\DynamicVBO.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\GenericDynamicVBO.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\Mesh.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\MeshVertexFormat.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\ShaderChannels.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\SharedMeshData.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Mesh\VertexData.h">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Renderer.h">
+      <Filter>Src\Runtime\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Graphics\Transform.h">
+      <Filter>Src\Runtime\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Input\TimeManager.h">
+      <Filter>Src\Runtime\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\Internal\JobGroupID.h">
+      <Filter>Src\Runtime\Jobs\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\Internal\JobQueue.h">
+      <Filter>Src\Runtime\Jobs\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\Internal\SingleThreadedJobQueue.h">
+      <Filter>Src\Runtime\Jobs\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\BatchedForEach.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\BlockRangeJob.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\JobBatchDispatcher.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\Jobs.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\JobSet.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\JobSystem.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Jobs\jobtypes.h">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Log\Log.h">
+      <Filter>Src\Runtime\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Random\rand.h">
+      <Filter>Src\Runtime\Math\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Random\Random.h">
+      <Filter>Src\Runtime\Math\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Simd\RotationOrder.h">
+      <Filter>Src\Runtime\Math\Simd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\AnimationCurve.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Color.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\FloatConversion.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Gradient.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Matrix3x3.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Matrix4x4.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Polynomials.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Quaternion.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Vector2.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Vector3.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Math\Vector4.h">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Misc\AllocatorLabelNames.h">
+      <Filter>Src\Runtime\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Misc\AllocatorLabels.h">
+      <Filter>Src\Runtime\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Misc\SystemInfo.h">
+      <Filter>Src\Runtime\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ColorModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\EmissionModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\InitialModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystem.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemCommon.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemCurves.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemGradients.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemParticles.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemRenderer.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemUtils.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\PolynomialCurve.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\RotationModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\ShapeModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\SizeModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\ParticleSystem\UVModule.h">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Shaders\GraphicsCaps.h">
+      <Filter>Src\Runtime\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Winapi\PlatformEvent.h">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Winapi\PlatformMutex.h">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Winapi\PlatformSemaphore.h">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Winapi\PlatformThread.h">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Winapi\PlatformThreadSpecificValue.h">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\AtomicNode.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\AtomicOps.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\AtomicQueue.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\AtomicRefCounter.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\CappedSemaphore.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ConcurrentContainers.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Event.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-arm.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-arm64.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-ppc.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-ppc64.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-webgl.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-x86.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicOps-x86-64.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ExtendedAtomicTypes.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\MultiWriterSingleReaderAtomicCircularBuffer.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Mutex.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\MutexLockedQueue.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\MutexLockedStack.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ProfilerMutex.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ReadWriteLock.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ReadWriteSpinLock.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Semaphore.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\SimpleLock.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\TaskChainProcessor.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\TaskQueue.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\Thread.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ThreadedStreamBuffer.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ThreadHelper.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ThreadSharedObject.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ThreadSpecificValue.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ThreadToCoreMappings.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Threads\ThreadUtility.h">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\algorithm_utility.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\BitUtility.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\dynamic_array.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\EnumFlags.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\FileStripped.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\LinkedList.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\NonCopyable.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\ThreadedFlag.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\TypeUtilities.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\UnionTuple.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\UniqueIDGenerator.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\Utility.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\Word.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\MemoryUtilities.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\DynamicHeapAllocator.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\LinearAllocator.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\StackAllocator.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Allocator\STLAllocator.h">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\dense_hash_map.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\densehashtable.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\type_traits.h">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Runtime\Utilities\Annotations.h">
+      <Filter>Src\Runtime\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParams.cpp">
-      <Filter>Src\GfxDevice</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\BuiltinShaderParamsNames.cpp">
-      <Filter>Src\GfxDevice</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\ChannelAssigns.cpp">
-      <Filter>Src\GfxDevice</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\GfxDevice.cpp">
-      <Filter>Src\GfxDevice</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\VertexDeclaration.cpp">
-      <Filter>Src\GfxDevice</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\d3d\D3D9Context.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\d3d\D3D9Utils.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\d3d\GfxDeviceD3D9.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\d3d\IndexBufferD3D9.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\d3d\VertexBufferD3D9.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\GfxDevice\d3d\VertexDeclarationD3D9.cpp">
-      <Filter>Src\GfxDevice\d3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\Renderer.cpp">
-      <Filter>Src\Graphics</Filter>
-    </ClCompile>
-	<ClCompile Include="..\..\Src\Allocator\MemoryManager.cpp">
-      <Filter>Src\Allocator</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\Mesh\DynamicVBO.cpp">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\Mesh\GenericDynamicVBO.cpp">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\Mesh\MeshVertexFormat.cpp">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\Mesh\VertexData.cpp">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Matrix3x3.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Matrix4x4.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Matrix4x4_REF.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Quaternion.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Vector3.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystem.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemRenderer.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Shaders\GraphicsCaps.cpp">
-      <Filter>Src\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Graphics\Mesh\ShaderChannels.cpp">
-      <Filter>Src\Graphics\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Src\RenderingPlugin.cpp">
       <Filter>Src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ShapeModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Vector2.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\InitialModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemParticles.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Random\rand.cpp">
-      <Filter>Src\Math\Random</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\EmissionModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemCurves.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\PolynomialCurve.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\AnimationCurve.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemGradients.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\Math\Gradient.cpp">
-      <Filter>Src\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\RotationModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ParticleSystemUtils.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\ColorModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\SizeModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Src\Mono\NativeUtil.cpp">
       <Filter>Src\Mono</Filter>
@@ -427,14 +568,221 @@
     <ClCompile Include="..\..\Src\Mono\ScriptingAPI.cpp">
       <Filter>Src\Mono</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Log\Log.cpp">
-      <Filter>Src\Log</Filter>
+    <ClCompile Include="..\..\Src\Runtime\Allocator\BaseAllocator.cpp">
+      <Filter>Src\Runtime\Allocator</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\Input\TimeManager.cpp">
-      <Filter>Src\Input</Filter>
+    <ClCompile Include="..\..\Src\Runtime\Allocator\MemoryManager.cpp">
+      <Filter>Src\Runtime\Allocator</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Src\ParticleSystem\UVModule.cpp">
-      <Filter>Src\ParticleSystem</Filter>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\D3D9Context.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\D3D9Utils.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\GfxDeviceD3D9.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\GraphicsCapsD3D9.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\IndexBufferD3D9.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\VertexBufferD3D9.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\d3d\VertexDeclarationD3D9.cpp">
+      <Filter>Src\Runtime\GfxDevice\d3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\BuiltinShaderParams.cpp">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\BuiltinShaderParamsNames.cpp">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\ChannelAssigns.cpp">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\GeometryJob.cpp">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\GfxDevice.cpp">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\GfxDevice\VertexDeclaration.cpp">
+      <Filter>Src\Runtime\GfxDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Graphics\Mesh\DynamicVBO.cpp">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Graphics\Mesh\GenericDynamicVBO.cpp">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Graphics\Mesh\MeshVertexFormat.cpp">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Graphics\Mesh\ShaderChannels.cpp">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Graphics\Mesh\VertexData.cpp">
+      <Filter>Src\Runtime\Graphics\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Graphics\Renderer.cpp">
+      <Filter>Src\Runtime\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Input\TimeManager.cpp">
+      <Filter>Src\Runtime\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\Internal\JobQueue.cpp">
+      <Filter>Src\Runtime\Jobs\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\Internal\SingleThreadedJobQueue.cpp">
+      <Filter>Src\Runtime\Jobs\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\BlockRangeJob.cpp">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\JobBatchDispatcher.cpp">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\Jobs.cpp">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\JobSet.cpp">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Jobs\JobSystem.cpp">
+      <Filter>Src\Runtime\Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Log\Log.cpp">
+      <Filter>Src\Runtime\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Random\rand.cpp">
+      <Filter>Src\Runtime\Math\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\AnimationCurve.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Gradient.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Matrix3x3.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Matrix4x4.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Matrix4x4_REF.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Quaternion.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Vector2.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Math\Vector3.cpp">
+      <Filter>Src\Runtime\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Misc\AllocatorLabels.cpp">
+      <Filter>Src\Runtime\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Misc\SystemInfo.cpp">
+      <Filter>Src\Runtime\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ColorModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\EmissionModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\InitialModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystem.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemCurves.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemGradients.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemParticles.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemRenderer.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ParticleSystemUtils.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\PolynomialCurve.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\RotationModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\ShapeModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\SizeModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\ParticleSystem\UVModule.cpp">
+      <Filter>Src\Runtime\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Shaders\GraphicsCaps.cpp">
+      <Filter>Src\Runtime\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\Winapi\PlatformMutex.cpp">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\Winapi\PlatformThread.cpp">
+      <Filter>Src\Runtime\Threads\Winapi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\AtomicQueue.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\MultiWriterSingleReaderAtomicCircularBuffer.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\Mutex.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\MutexLockedQueue.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\MutexLockedStack.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\Thread.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\ThreadedStreamBuffer.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\ThreadHelper.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Threads\ThreadSpecificValue.cpp">
+      <Filter>Src\Runtime\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Utilities\UniqueIDGenerator.cpp">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Utilities\MemoryUtilities.cpp">
+      <Filter>Src\Runtime\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\Runtime\Allocator\DynamicHeapAllocator.cpp">
+      <Filter>Src\Runtime\Allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Src\PlatformDependent\Win\WinSystemInfo.cpp">
+      <Filter>Src\PlatformDependent\Win</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
