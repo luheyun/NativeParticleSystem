@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using System;
 
 [StructLayoutAttribute(LayoutKind.Sequential)]
@@ -37,6 +38,9 @@ public class NativePlugin : MonoBehaviour
 
     private NativeUpdateData m_NativeUpdateData = new NativeUpdateData();
 
+    // todo 
+    public List<NativeParticleSystem> m_ParticleSystems = new List<NativeParticleSystem>();
+
 	void Awake ()
     {
         StartUp(functionPointer);	
@@ -51,6 +55,12 @@ public class NativePlugin : MonoBehaviour
         m_NativeUpdateData.frameTime = Time.time;
         m_NativeUpdateData.deltaTime = Time.deltaTime;
         Internal_Update(m_NativeUpdateData);
+    }
+
+    void OnPostRender()
+    {
+        for (int i = 0; i < m_ParticleSystems.Count; ++i)
+            m_ParticleSystems[i].Render();
     }
 
     void OnDestroy()

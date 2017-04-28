@@ -103,6 +103,8 @@ public class NativeParticleSystem : MonoBehaviour
     [SerializeField]
     Mesh m_Mesh;
 
+    public bool EnableCull = false;
+
     [MethodImplAttribute(MethodImplOptions.InternalCall)]
     private extern static int Internal_CreateParticleSystem(ParticleInitState initState);
 
@@ -113,7 +115,7 @@ public class NativeParticleSystem : MonoBehaviour
     private static extern void SetTextureFromUnity(System.IntPtr texture);
 
     [DllImport(NativePlugin.PluginName)]
-    private static extern void Render();
+    private static extern void Native_Render();
 
     private Coroutine m_Coroutine = null;
     public ParticleInitState InitState = new ParticleInitState();
@@ -152,14 +154,25 @@ public class NativeParticleSystem : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
             //GL.IssuePluginEvent(1);
-            m_Material.SetPass(0);
+            //m_Material.SetPass(0);
 
-            Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
-            //m_Material.GetMatrix();
-            m_UpdateData.worldMatrix = transform.localToWorldMatrix;
-            Internal_ParticleSystem_Update(m_UpdateData);
-            Render();
+            //Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
+            ////m_Material.GetMatrix();
+            //m_UpdateData.worldMatrix = transform.localToWorldMatrix;
+            //Internal_ParticleSystem_Update(m_UpdateData);
+            //Render();
             GL.IssuePluginEvent(0);
         }
+    }
+
+    public void Render()
+    {
+        m_Material.SetPass(0);
+
+        Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
+        //m_Material.GetMatrix();
+        m_UpdateData.worldMatrix = transform.localToWorldMatrix;
+        Internal_ParticleSystem_Update(m_UpdateData);
+        Native_Render();
     }
 }

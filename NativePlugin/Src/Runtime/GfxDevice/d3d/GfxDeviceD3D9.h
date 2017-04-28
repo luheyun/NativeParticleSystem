@@ -91,7 +91,7 @@ public:
 	GFX_API void SetStencilState(const DeviceStencilState* state, int stencilRef);
 
 	GFX_API void BeforeDrawCall();
-
+	GFX_API void InvalidateState();
 	GFX_API void* BeginBufferWrite(GfxBuffer* buffer, size_t offset = 0, size_t size = 0);
 	GFX_API void EndBufferWrite(GfxBuffer* buffer, size_t bytesWritten);
 	GFX_API void DeleteBuffer(GfxBuffer* buffer);
