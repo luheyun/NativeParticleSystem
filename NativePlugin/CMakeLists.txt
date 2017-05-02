@@ -14,6 +14,62 @@ SET(
 	"Include"
 	"Include/Precomplie"
 	"Src/Runtime"
+	"./"
+	)
+
+IF(WIN32)
+	SET(
+		PLATFORM_INCLUDE
+		"Include/Precomplie/VisualStudioPrefix.h"
+		)
+	
+	SET(
+		PLATFORM_SRC
+		"Src/Runtime/GfxDevice/d3d/D3D9Context.h"
+		"Src/Runtime/GfxDevice/d3d/D3D9Context.cpp"
+		"Src/Runtime/GfxDevice/d3d/D3D9Enumeration.h"
+		"Src/Runtime/GfxDevice/d3d/D3D9Includes.h"
+		"Src/Runtime/GfxDevice/d3d/D3D9Utils.h"
+		"Src/Runtime/GfxDevice/d3d/D3D9Utils.cpp"
+		"Src/Runtime/GfxDevice/d3d/GfxDeviceD3D9.h"
+		"Src/Runtime/GfxDevice/d3d/GfxDeviceD3D9.cpp"
+		"Src/Runtime/GfxDevice/d3d/GraphicsCapsD3D9.cpp"
+		"Src/Runtime/GfxDevice/d3d/IndexBufferD3D9.h"
+		"Src/Runtime/GfxDevice/d3d/IndexBufferD3D9.cpp"
+		"Src/Runtime/GfxDevice/d3d/ShaderConstantCacheD3D9.h"
+		"Src/Runtime/GfxDevice/d3d/VertexBufferD3D9.h"
+		"Src/Runtime/GfxDevice/d3d/VertexBufferD3D9.cpp"
+		"Src/Runtime/GfxDevice/d3d/VertexDeclarationD3D9.h"
+		"Src/Runtime/GfxDevice/d3d/VertexDeclarationD3D9.cpp"
+
+		"Src/Runtime/Threads/Winapi/PlatformEvent.h"
+		"Src/Runtime/Threads/Winapi/PlatformMutex.h"
+		"Src/Runtime/Threads/Winapi/PlatformMutex.cpp"
+		"Src/Runtime/Threads/Winapi/PlatformSemaphore.h"
+		"Src/Runtime/Threads/Winapi/PlatformThread.h"
+		"Src/Runtime/Threads/Winapi/PlatformThread.cpp"
+		"Src/Runtime/Threads/Winapi/PlatformThreadSpecificValue.h"
+
+		"Src/PlatformDependent/Win/WinSystemInfo.cpp"
+		)
+ELSE()
+	SET(
+		PLATFORM_SRC
+		""
+		)
+
+	SET(
+		PLATFORM_INCLUDE
+		""
+		)
+ENDIF()
+
+set(
+	LIB_INCLUDE
+	"Include/Configuration/UnityConfigure.h"
+	"Include/Precomplie/PluginPrefix.h"
+	"Include/Precomplie/PrefixConfigure.h"
+	"Include/UnityPluginInterface.h"
 	)
 
 set(
@@ -258,8 +314,9 @@ source_group_by_dir(all_files)
 set(LIBRARY_OUTPUT_PATH $(PROJECT_BINARY_DIR)/lib)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 include_directories(${ADDIT_INCLUDE_DIR})
-add_definitions(-DUSE_MONO -DNATIVEPARTICLESYSTEM_EXPORTS)
-add_library(NativeParticleSystem SHARED ${LIB_SRC})
+ADD_DEFINITIONS(-DUSE_MONO -DNATIVEPARTICLESYSTEM_EXPORTS)
+ADD_DEFINITIONS(-DUNICODE -D_UNICODE)
+add_library(NativeParticleSystem SHARED ${LIB_INCLUDE} ${LIB_SRC} ${PLATFORM_INCLUDE} ${PLATFORM_SRC})
 #add_library(NativeParticleSystem SHARED ${LIB_SRC}) 
 
 #set(LIB_SRC ../Src/Hello.c)
