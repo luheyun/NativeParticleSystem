@@ -339,6 +339,12 @@ void GfxDeviceD3D9::BeforeDrawCall()
 //	pscache.CommitPixelConstants();
 }
 
+void GfxDeviceD3D9::InvalidateState()
+{
+	IDirect3DDevice9* dev = GetD3DDevice();
+	dev->SetRenderState(D3DRS_LOCALVIEWER, true);
+}
+
 void* GfxDeviceD3D9::BeginBufferWrite(GfxBuffer* buffer, size_t offset, size_t size)
 {
 	if (buffer->GetTarget() == kGfxBufferTargetIndex)

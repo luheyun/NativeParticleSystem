@@ -69,6 +69,8 @@ public:
 	GFX_API void BeforeDrawCall() GFX_PURE;
 	GFX_API void AfterDrawCall() {};
 
+	GFX_API void InvalidateState() GFX_PURE;
+
 	//VertexStreamSource GetDefaultVertexBuffer(GfxDefaultVertexBufferType type, size_t size);
 
 protected:

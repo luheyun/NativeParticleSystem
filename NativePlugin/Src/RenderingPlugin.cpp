@@ -34,6 +34,7 @@ void Internal_Update(ScriptingObject* updateData)
 	SetFrameTime(pUpdateData->frameTime);
 	SetDeltaTime(pUpdateData->deltaTime);
 	GetGfxDevice().SetViewMatrix(pUpdateData->viewMatrix);
+	ParticleSystem::BeginUpdateAll();
 }
 
 static const char* s_RenderingPlugin_IcallNames[] =
@@ -120,7 +121,7 @@ extern "C"
 		g_TexturePointer = texturePtr;
 	}
 
-	void EXPORT_API Render()
+	void EXPORT_API Native_Render()
 	{
 		DoRender();
 	}
@@ -273,7 +274,7 @@ void DoRender()
 	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels()
 	, gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);*/
 
-	ParticleSystem::BeginUpdateAll();
+	//ParticleSystem::BeginUpdateAll();
 	ParticleSystem::EndUpdateAll();
 	ParticleSystem::Prepare();
 	ParticleSystem::Render();
