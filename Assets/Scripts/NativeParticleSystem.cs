@@ -161,7 +161,7 @@ public class NativeParticleSystem : MonoBehaviour
             //m_UpdateData.worldMatrix = transform.localToWorldMatrix;
             //Internal_ParticleSystem_Update(m_UpdateData);
             //Render();
-            GL.IssuePluginEvent(0);
+            //GL.IssuePluginEvent(0);
         }
     }
 
@@ -170,7 +170,6 @@ public class NativeParticleSystem : MonoBehaviour
         m_Material.SetPass(0);
 
         Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
-        //m_Material.GetMatrix();
         m_UpdateData.worldMatrix = transform.localToWorldMatrix;
         Internal_ParticleSystem_Update(m_UpdateData);
         Native_Render();

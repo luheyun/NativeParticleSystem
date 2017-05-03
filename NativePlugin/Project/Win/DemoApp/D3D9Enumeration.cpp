@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include "D3D9Enumeration.h"
 #include "GfxDevice/d3d/D3D9Utils.h"
 

@@ -14,6 +14,16 @@ class UVModule;
 class ShapeModule;
 class InitialModule;
 class EmissionModule;
+struct Job;
+
+struct ParticleSystemThreadScratchPad
+{
+	ParticleSystemThreadScratchPad()
+		: deltaTime(1.0f)
+	{}
+
+	float deltaTime;
+};
 
 class ParticleSystem
 {
@@ -36,6 +46,8 @@ public:
 	static void Render();
 	static void Update(ParticleSystem& system, float deltaTime, bool fixedTimeStep, bool useProcedural, int rayBudget = 0);
 	static void SyncJobs(bool syncRenderJobs = true);
+	static void UpdateFunction(ParticleSystem* system);
+	static bool CompareJobs(const Job& left, const Job& right);
 
 	ParticleSystem(ParticleSystemInitState* initState);
 	~ParticleSystem();
@@ -58,6 +70,7 @@ public:
 	static size_t EmitFromData(ParticleSystemEmissionState& emissionState, size_t& numContinuous, const ParticleSystemEmissionData& emissionData, const Vector3f velocity, float fromT, float toT, float dt, float length);
 
     void SetWorldMatrix(const Matrix4x4f& worldMatrix) { m_WorldMatrix = worldMatrix; }
+	ParticleSystemThreadScratchPad& GetThreadScratchPad() { return m_ThreadScratchpad; }
 
 private:
 	void ResetSeeds();
@@ -99,6 +112,7 @@ private:
 	UVModule* m_UVModule;
 	bool m_IsActive = true;
     Matrix4x4f m_WorldMatrix;
+	ParticleSystemThreadScratchPad	m_ThreadScratchpad;
 
 	friend class ParticleSystemRenderer;
 };

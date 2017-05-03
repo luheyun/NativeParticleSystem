@@ -21,6 +21,13 @@
 #include "Log/Log.h"
 #include "Shaders/GraphicsCaps.h"
 
+// todo
+#define ENABLE_MULTITHREADED_PARTICLES 1
+
+#if ENABLE_MULTITHREADED_PARTICLES
+#include "Jobs/Jobs.h"
+#endif
+
 struct ParticleSystemManager
 {
 	ParticleSystemManager()
@@ -31,6 +38,10 @@ struct ParticleSystemManager
 
 	std::vector<ParticleSystem*> activeEmitters;
 	std::vector<ParticleSystem*> particleSystems;
+
+#if ENABLE_MULTITHREADED_PARTICLES
+	JobFence jobGroup; // for any other collisions
+#endif
 
 	bool needSync;
 };
@@ -152,7 +163,26 @@ void ParticleSystem::BeginUpdateAll()
 	gParticleSystemManager->needSync = true;
 
 #if ENABLE_MULTITHREADED_PARTICLES
-	// todo
+	int activeCount = gParticleSystemManager->activeEmitters.size();
+
+	Job* jobs;
+	int jobsCount = 0;
+	ALLOC_TEMP(jobs, Job, activeCount);
+
+	for (int i = 0; i < activeCount; ++i)
+	{
+		ParticleSystem& system = *gParticleSystemManager->activeEmitters[i];
+		system.GetThreadScratchPad().deltaTime = deltaTime;
+		jobs[jobsCount++] = Job(ParticleSystem::UpdateFunction, &system);
+	}
+
+	// sort jobs with most particles to the front of the list, to try and avoid some worker threads going idle a long time before others, unless we have lots of systems, in which case don't waste time doing the sort
+	static const int kMaxJobsToSort = 64;
+
+	if (jobsCount <= kMaxJobsToSort)
+		std::sort(jobs, jobs + jobsCount, ParticleSystem::CompareJobs);
+
+	ScheduleDifferentJobsConcurrent(gParticleSystemManager->jobGroup, jobs, jobsCount);
 #else
 	for (size_t i = 0; i < gParticleSystemManager->activeEmitters.size(); ++i)
 	{
@@ -291,6 +321,21 @@ void ParticleSystem::SyncJobs(bool syncRenderJobs)
 	//if (syncRenderJobs)
 	//SyncRenderJobs();
 }
+
+#if ENABLE_MULTITHREADED_PARTICLES
+void ParticleSystem::UpdateFunction(ParticleSystem* system)
+{
+	ParticleSystem::Update1(*system, system->GetParticles(), system->GetThreadScratchPad().deltaTime, false, false);
+}
+
+bool ParticleSystem::CompareJobs(const Job& left, const Job& right)
+{
+	ParticleSystem* leftSystem = (ParticleSystem*)left.userData;
+	ParticleSystem* rightSystem = (ParticleSystem*)right.userData;
+
+	return leftSystem->GetParticleCount() > rightSystem->GetParticleCount();
+}
+#endif
 
 void ParticleSystem::ResetSeeds()
 {

@@ -2,6 +2,7 @@
 
 #include "Allocator/MemoryMacros.h"
 #include <memory> // std::uninitialized_fill
+#include "Misc/AllocatorLabels.h"
 
 // dynamic_array - simplified version of std::vector<T>
 //
@@ -52,6 +53,11 @@ public:
 
 	dynamic_array() : m_data(NULL), m_size(0), m_capacity(0)
 	{
+		m_label = MemLabelId(kMemDynamicArrayId);
+	}
+
+	dynamic_array(MemLabelId label) : m_data(0), m_label(label), m_size(0), m_capacity(0)
+	{
 	}
 
 	explicit dynamic_array (size_t size)
@@ -60,8 +66,8 @@ public:
 		m_data = allocate (size);
 	}
 
-	dynamic_array (size_t size, T const& init_value)
-	:	m_size (size), m_capacity (size)
+	dynamic_array(size_t size, T const& init_value, MemLabelRef label)
+		: m_label(label), m_size(size), m_capacity(size)
 	{
 		m_data = allocate (size);
 		std::uninitialized_fill (m_data, m_data + size, init_value);
@@ -73,7 +79,7 @@ public:
 			deallocate(m_data);
 	}
 
-	dynamic_array(const dynamic_array& other) : m_size(0), m_capacity(0)
+	dynamic_array(const dynamic_array& other) : m_label(other.m_label), m_size(0), m_capacity(0)
 	{
 		m_data = NULL;
 		assign(other.begin(), other.end());
@@ -297,21 +303,26 @@ private:
 	T* allocate (size_t size)
 	{
 		// If you are getting this error then you are trying to allocate memory for an incomplete type
-		return static_cast<T*> (malloc(size * sizeof(T)));
+		//return static_cast<T*> (malloc(size * sizeof(T)));
+		return static_cast<T*> (UNITY_MALLOC_ALIGNED(m_label, size * sizeof(T), align));
 	}
 
 	void deallocate (T* data)
 	{
-		delete data;
+		//delete data;
+		UNITY_FREE(m_label, data);
 	}
 
 	T* reallocate (T* data, size_t size)
 	{
 		// If you are getting this error then you are trying to allocate memory for an incomplete type
-		return static_cast<T*> (realloc(data, size * sizeof(T)));
+		//return static_cast<T*> (realloc(data, size * sizeof(T)));
+		int alignment = static_cast<int>(align);
+		return static_cast<T*> (UNITY_REALLOC_ALIGNED(m_label, data, size * sizeof(T), alignment));
 	}
 
 	T*          m_data;
+	MemLabelId  m_label;
 	size_t      m_size;
 	size_t      m_capacity;
 };

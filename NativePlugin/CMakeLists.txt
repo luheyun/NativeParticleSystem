@@ -316,7 +316,15 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 include_directories(${ADDIT_INCLUDE_DIR})
 ADD_DEFINITIONS(-DUSE_MONO -DNATIVEPARTICLESYSTEM_EXPORTS)
 ADD_DEFINITIONS(-DUNICODE -D_UNICODE)
+
 add_library(NativeParticleSystem SHARED ${LIB_INCLUDE} ${LIB_SRC} ${PLATFORM_INCLUDE} ${PLATFORM_SRC})
+if(MSVC)
+	set_target_properties(NativeParticleSystem PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
+	set_target_properties(NativeParticleSystem PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
+	add_custom_command(TARGET NativeParticleSystem POST_BUILD
+    COMMAND copy Build\\Debug\\NativeParticleSystem.dll ..\\..\\..\\Assets\\Plugins\\NativeParticleSystem.dll
+    ) 
+endif(MSVC)
 #add_library(NativeParticleSystem SHARED ${LIB_SRC}) 
 
 #set(LIB_SRC ../Src/Hello.c)

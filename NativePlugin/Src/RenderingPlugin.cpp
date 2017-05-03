@@ -14,6 +14,7 @@
 #include "Mono/NativeUtil.h"
 #include "Mono/ScriptingAPI.h"
 #include "Input/TimeManager.h"
+#include "Jobs/JobSystem.h"
 
 static void DoRender();
 void SetD3DDevice(IDirect3DDevice9* device, GfxDeviceEventType eventType);
@@ -107,6 +108,7 @@ extern "C"
 		DebugLog("Plugin Start Up!");
 		InitMonoSystem();
 		RegisterRenderingPluginBindings();
+		CreateJobSystem();
 		ParticleSystem::Init();
 	}
 
@@ -278,4 +280,5 @@ void DoRender()
 	ParticleSystem::EndUpdateAll();
 	ParticleSystem::Prepare();
 	ParticleSystem::Render();
+	GetGfxDevice().InvalidateState();
 }

@@ -342,7 +342,8 @@ void GfxDeviceD3D9::BeforeDrawCall()
 void GfxDeviceD3D9::InvalidateState()
 {
 	IDirect3DDevice9* dev = GetD3DDevice();
-	dev->SetRenderState(D3DRS_LOCALVIEWER, true);
+	D3D9_CALL(dev->SetRenderState(D3DRS_LOCALVIEWER, true));
+	//D3D9_CALL(dev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID));
 }
 
 void* GfxDeviceD3D9::BeginBufferWrite(GfxBuffer* buffer, size_t offset, size_t size)
