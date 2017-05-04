@@ -1,0 +1,7 @@
+﻿cmake_minimum_required(VERSION 3.8)
+add_executable( D3DApp D3D9Enumeration.h D3D9Enumeration.cpp MainApp.cpp )
+if(MSVC)
+	set_target_properties(D3DApp PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
+	set_target_properties(D3DApp PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
+ENDIF(MSVC)
+target_link_libraries( D3DApp NativeParticleSystem )

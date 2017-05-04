@@ -18,6 +18,12 @@ SET(
 	)
 
 IF(WIN32)
+SUBDIRS(Project/Win/D3DApp)
+SUBDIRS(Project/Win/OpenGLESApp
+	Project/Win/OpenGLESApp/Common)
+ENDIF(WIN32)
+
+IF(WIN32)
 	SET(
 		PLATFORM_INCLUDE
 		"Include/Precomplie/VisualStudioPrefix.h"
