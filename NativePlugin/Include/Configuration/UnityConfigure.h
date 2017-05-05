@@ -1,6 +1,8 @@
 #ifndef UNITYCONFIGURE_H
 #define UNITYCONFIGURE_H
 
+#include "config.h"
+
 // ADD_NEW_PLATFORM_HERE: review this file
 
 /// Increase this number by one if you want all users

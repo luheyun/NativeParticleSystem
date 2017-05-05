@@ -9,8 +9,11 @@ SET(
 include_directories(${ADDIT_INCLUDE_DIR})
 
 add_executable( OpenGLESApp MainApp.cpp )
-if(MSVC)
-	set_target_properties(OpenGLESApp PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
-	set_target_properties(OpenGLESApp PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
-ENDIF(MSVC)
 target_link_libraries( OpenGLESApp NativeParticleSystem Common)
+
+IF(MSVC)
+	add_custom_command(TARGET OpenGLESApp POST_BUILD
+	COMMAND Set COPYCMD=/Y
+    COMMAND xcopy ..\\..\\..\\..\\..\\Project\\Win\\OpenGLESApp\\libs ..\\..\\..\\Build\\Debug /s /e
+    ) 
+ENDIF(MSVC)

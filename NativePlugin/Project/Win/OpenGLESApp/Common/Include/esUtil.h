@@ -135,6 +135,12 @@ struct ESContext
    void ( ESCALLBACK *updateFunc ) ( ESContext *, float deltaTime );
 };
 
+///
+//  Global extern.  The application must declare this function
+//  that runs the application.
+//
+extern int esMain(ESContext *esContext);
+
 
 ///
 //  Public Functions

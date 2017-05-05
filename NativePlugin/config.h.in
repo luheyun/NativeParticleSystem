@@ -1,0 +1,2 @@
+#cmakedefine GFX_SUPPORTS_D3D9
+#cmakedefine GFX_SUPPORTS_OPENGL_UNIFIED

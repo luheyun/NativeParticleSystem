@@ -3,7 +3,7 @@
 MESSAGE(STATUS "This is CMAKE_SOURCE_DIR=" ${CMAKE_SOURCE_DIR})  
 MESSAGE(STATUS "This is CMAKE_CURRENT_SOURCE_DIR=" ${CMAKE_CURRENT_SOURCE_DIR})  
 PROJECT (NativeParticleSystem)
-include_directories(${})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/Build)
@@ -17,10 +17,25 @@ SET(
 	"./"
 	)
 
+SET(GFX_SUPPORTS_OPENGL_UNIFIED ON CACHE BOOL "Support Opengles")
+
+IF(GFX_SUPPORTS_OPENGL_UNIFIED)
+	SET(
+		OPENGLES_SRC
+		"Src/Runtime/GfxDevice/opengles/GfxDeviceGLES.h"
+		"Src/Runtime/GfxDevice/opengles/GfxDeviceGLES.cpp"
+		)	
+ELSE()
+	SET(OPENGLES_SRC "")
+ENDIF(GFX_SUPPORTS_OPENGL_UNIFIED)
+
 IF(WIN32)
-SUBDIRS(Project/Win/D3DApp)
-SUBDIRS(Project/Win/OpenGLESApp
-	Project/Win/OpenGLESApp/Common)
+	SUBDIRS(Project/Win/D3DApp)
+	SUBDIRS(Project/Win/OpenGLESApp
+		Project/Win/OpenGLESApp/Common)
+
+	SET(GFX_SUPPORTS_D3D9 ON CACHE BOOL "Support D3D9")
+	CONFIGURE_FILE(config.h.in config.h)
 ENDIF(WIN32)
 
 IF(WIN32)
@@ -323,7 +338,7 @@ include_directories(${ADDIT_INCLUDE_DIR})
 ADD_DEFINITIONS(-DUSE_MONO -DNATIVEPARTICLESYSTEM_EXPORTS)
 ADD_DEFINITIONS(-DUNICODE -D_UNICODE)
 
-add_library(NativeParticleSystem SHARED ${LIB_INCLUDE} ${LIB_SRC} ${PLATFORM_INCLUDE} ${PLATFORM_SRC})
+add_library(NativeParticleSystem SHARED ${LIB_INCLUDE} ${LIB_SRC} ${PLATFORM_INCLUDE} ${PLATFORM_SRC} ${OPENGLES_SRC})
 if(MSVC)
 	set_target_properties(NativeParticleSystem PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
 	set_target_properties(NativeParticleSystem PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")

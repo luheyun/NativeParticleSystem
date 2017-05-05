@@ -129,7 +129,7 @@ GLboolean WinCreate ( ESContext *esContext, const char *title )
    wndclass.lpfnWndProc   = ( WNDPROC ) ESWindowProc;
    wndclass.hInstance     = hInstance;
    wndclass.hbrBackground = ( HBRUSH ) GetStockObject ( BLACK_BRUSH );
-   wndclass.lpszClassName = "opengles3.0";
+   wndclass.lpszClassName = L"opengles3.0";
 
    if ( !RegisterClass ( &wndclass ) )
    {
@@ -150,7 +150,7 @@ GLboolean WinCreate ( ESContext *esContext, const char *title )
 
 
    esContext->eglNativeWindow = CreateWindow (
-                                   "opengles3.0",
+                                   L"opengles3.0",
                                    title,
                                    wStyle,
                                    0,
@@ -161,6 +161,8 @@ GLboolean WinCreate ( ESContext *esContext, const char *title )
                                    NULL,
                                    hInstance,
                                    NULL );
+
+   DWORD error = GetLastError();
 
    // Set the ESContext* to the GWL_USERDATA so that it is available to the
    // ESWindowProc
@@ -219,12 +221,6 @@ void WinLoop ( ESContext *esContext )
       }
    }
 }
-
-///
-//  Global extern.  The application must declare this function
-//  that runs the application.
-//
-extern int esMain ( ESContext *esContext );
 
 ///
 //  main()
