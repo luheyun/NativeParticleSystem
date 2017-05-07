@@ -16,7 +16,7 @@
 #include "Input/TimeManager.h"
 #include "Jobs/JobSystem.h"
 
-static void DoRender();
+static void DoRender(int index, char renderType);
 void SetD3DDevice(IDirect3DDevice9* device, GfxDeviceEventType eventType);
 static void InitMono();
 static void* g_TexturePointer;
@@ -29,12 +29,15 @@ public:
 	Matrix4x4f viewMatrix;
 };
 
+Matrix4x4f g_ViewMatrix;
+
 void Internal_Update(ScriptingObject* updateData)
 {
 	MonoUpdateData* pUpdateData = (MonoUpdateData*)GetLogicObjectMemoryLayout(updateData);
 	SetFrameTime(pUpdateData->frameTime);
 	SetDeltaTime(pUpdateData->deltaTime);
-	GetGfxDevice().SetViewMatrix(pUpdateData->viewMatrix);
+    g_ViewMatrix = pUpdateData->viewMatrix;
+	GetGfxDevice().SetViewMatrix(g_ViewMatrix);
 	ParticleSystem::BeginUpdateAll();
 }
 
@@ -123,9 +126,9 @@ extern "C"
 		g_TexturePointer = texturePtr;
 	}
 
-	void EXPORT_API Native_Render()
+	void EXPORT_API Native_Render(int index, char renderType)
 	{
-		DoRender();
+		DoRender(index, renderType);
 	}
 }
 
@@ -175,21 +178,12 @@ extern "C" void EXPORT_API UnitySetGraphicsDevice(void* device, int deviceType, 
 
 extern "C" void EXPORT_API UnityRenderEvent(int eventID)
 {
-	if (eventID == 1)
-		DoRender();
+	//if (eventID == 1)
+	//	DoRender();
 }
-
-struct MyVertex {
-	float x, y, z;
-	unsigned int color;
-};
 
 static void SetDefaultGraphicsState()
 {
-	g_D3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	//g_D3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-	//g_D3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	//g_D3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	GfxDevice& device = GetGfxDevice();
 	GfxDepthState depthState;
 	depthState.depthFunc = kFuncLEqual;
@@ -199,86 +193,97 @@ static void SetDefaultGraphicsState()
 
 static DefaultMeshVertexFormat gVertexFormat(VERTEX_FORMAT2(Vertex, Color));
 static float phi = 0;
+enum
+{
+    kFirstRender = 1,
+    kNormalRender = 1 << 2,
+    kLastRender = 1 << 3
+};
 
-void DoRender()
+void DoRender(int index, char renderType)
 {
 	DebugLog("Do Native Render!");
-	// A colored triangle. Note that colors will come out differently
-	// in D3D9/11 and OpenGL, for example, since they expect color bytes
-	// in different ordering.
-	MyVertex verts[3] = {
-		{ -0.5f, -0.25f, 0, 0xFFff0000 },
-		{ 0.5f, -0.25f, 0, 0xFF00ff00 },
-		{ 0, 0.5f, 0, 0xFF0000ff },
-	};
 
-	float cosPhi = cosf(phi);
-	float sinPhi = sinf(phi);
+	//float cosPhi = cosf(phi);
+	//float sinPhi = sinf(phi);
 
-	float worldMatrixArray[16] = {
-		cosPhi, -sinPhi, 0, 0,
-		sinPhi, cosPhi, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0.7f, 1,
-	};
+	//float worldMatrixArray[16] = {
+	//	cosPhi, -sinPhi, 0, 0,
+	//	sinPhi, cosPhi, 0, 0,
+	//	0, 0, 1, 0,
+	//	0, 0, 0.7f, 1,
+	//};
 
-	float viewMatrixArray[16] = {
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1,
-	};
-	float projectionMatrixArray[16] = {
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1,
-	};
+    if (renderType & kFirstRender)
+    {
+        float worldMatrixArray[16] = {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+        };
 
-	SetDefaultGraphicsState();
+        float viewMatrixArray[16] = {
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1,
+        };
+        float projectionMatrixArray[16] = {
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1,
+        };
 
-	Matrix4x4f worldMatrix(worldMatrixArray);
-	GetGfxDevice().SetWorldMatrix(worldMatrix);
+        SetDefaultGraphicsState();
 
-	Matrix4x4f viewMatrix(viewMatrixArray);
-	GetGfxDevice().SetViewMatrix(viewMatrix);
+        Matrix4x4f worldMatrix(worldMatrixArray);
+        GetGfxDevice().SetWorldMatrix(worldMatrix);
 
-	Matrix4x4f projectionMatrix(projectionMatrixArray);
-	GetGfxDevice().SetProjectionMatrix(projectionMatrix);
+        Matrix4x4f viewMatrix(viewMatrixArray);
+        GetGfxDevice().SetViewMatrix(viewMatrix);
 
-	Matrix4x4f mv;
-	MultiplyMatrices4x4(&viewMatrix, &worldMatrix, &mv);
-	Matrix4x4f mvp;
-	MultiplyMatrices4x4(&projectionMatrix, &mv, &mvp);
+        Matrix4x4f projectionMatrix(projectionMatrixArray);
+        GetGfxDevice().SetProjectionMatrix(projectionMatrix);
 
-	g_D3DDevice->SetVertexShaderConstantF(0, mvp.GetPtr(), 4);
+        Matrix4x4f mv;
+        MultiplyMatrices4x4(&viewMatrix, &worldMatrix, &mv);
+        Matrix4x4f mvp;
+        MultiplyMatrices4x4(&projectionMatrix, &mv, &mvp);
 
-	//g_D3DDevice->SetTransform(D3DTS_WORLD, (const D3DMATRIX*)worldMatrixArray);
-	//g_D3DDevice->SetTransform(D3DTS_VIEW, (const D3DMATRIX*)viewMatrixArray);
-	//g_D3DDevice->SetTransform(D3DTS_PROJECTION, (const D3DMATRIX*)projectionMatrixArray);
+        g_D3DDevice->SetVertexShaderConstantF(0, mvp.GetPtr(), 4);
 
-	//g_D3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-	//g_D3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_CURRENT);
-	//g_D3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
-	//g_D3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_CURRENT);
-	//g_D3DDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	//g_D3DDevice->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+        //g_D3DDevice->SetTransform(D3DTS_WORLD, (const D3DMATRIX*)worldMatrixArray);
+        //g_D3DDevice->SetTransform(D3DTS_VIEW, (const D3DMATRIX*)viewMatrixArray);
+        //g_D3DDevice->SetTransform(D3DTS_PROJECTION, (const D3DMATRIX*)projectionMatrixArray);
 
-	/*DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
-	DynamicVBOChunkHandle meshVBOChunk;
-	vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk);
-	ChannelAssigns* channel = new ChannelAssigns();
-	channel->Bind(kShaderChannelVertex, kVertexCompVertex);
-	channel->Bind(kShaderChannelColor, kVertexCompColor);
-	memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
-	DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
-	vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
-	vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels()
-	, gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);*/
+        //g_D3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+        //g_D3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_CURRENT);
+        //g_D3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+        //g_D3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_CURRENT);
+        //g_D3DDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+        //g_D3DDevice->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 
-	//ParticleSystem::BeginUpdateAll();
-	ParticleSystem::EndUpdateAll();
-	ParticleSystem::Prepare();
-	ParticleSystem::Render();
-	GetGfxDevice().InvalidateState();
+        /*DynamicVBO& vbo = GetGfxDevice().GetDynamicVBO();
+        DynamicVBOChunkHandle meshVBOChunk;
+        vbo.GetChunk(sizeof(MyVertex), sizeof(verts), 0, kPrimitiveTriangles, &meshVBOChunk);
+        ChannelAssigns* channel = new ChannelAssigns();
+        channel->Bind(kShaderChannelVertex, kVertexCompVertex);
+        channel->Bind(kShaderChannelColor, kVertexCompColor);
+        memcpy(meshVBOChunk.vbPtr, verts, sizeof(verts));
+        DynamicVBO::DrawParams params(sizeof(verts), 0, 3, 0, 0);
+        vbo.ReleaseChunk(meshVBOChunk, sizeof(verts), 0);
+        vbo.DrawChunk(meshVBOChunk, *channel, gVertexFormat.GetVertexFormat()->GetAvailableChannels()
+        , gVertexFormat.GetVertexFormat()->GetVertexDeclaration(channel->GetSourceMap()), &params);*/
+
+        //ParticleSystem::BeginUpdateAll();
+        ParticleSystem::EndUpdateAll();
+    }
+
+    ParticleSystem::Prepare(index);
+	ParticleSystem::Render(index);
+
+    if (renderType & kLastRender)
+	    GetGfxDevice().InvalidateState();
 }

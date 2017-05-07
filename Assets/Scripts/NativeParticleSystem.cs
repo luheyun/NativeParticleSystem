@@ -95,6 +95,14 @@ public class ParticleSystremUpdateData
 
 public class NativeParticleSystem : MonoBehaviour
 {
+    public enum ERenderType : byte
+    {
+        none = 0,
+        first = 1,
+        normal = 1 << 2,
+        last = 1 << 3 
+    }
+
     public const string PluginName = "NativeParticleSystem";
 
     [SerializeField]
@@ -115,7 +123,10 @@ public class NativeParticleSystem : MonoBehaviour
     private static extern void SetTextureFromUnity(System.IntPtr texture);
 
     [DllImport(NativePlugin.PluginName)]
-    private static extern void Native_Render();
+    private static extern void Native_Render(int index, byte renderType);
+
+    [DllImport(NativePlugin.PluginName)]
+    private static extern void Native_SetActive(int index, bool isActive);
 
     private Coroutine m_Coroutine = null;
     public ParticleInitState InitState = new ParticleInitState();
@@ -134,9 +145,19 @@ public class NativeParticleSystem : MonoBehaviour
         m_Coroutine = StartCoroutine(NativeUpdate());
     }
 
-    void Start()
+    //void Start()
+    //{
+    //    //SetTextureFromUnity(m_Material.GetTexture().GetNativeTexturePtr());
+    //}
+
+    private void OnEnable()
     {
-        //SetTextureFromUnity(m_Material.GetTexture().GetNativeTexturePtr());
+        Native_SetActive(m_UpdateData.index, true);
+    }
+
+    private void OnDisable()
+    {
+        Native_SetActive(m_UpdateData.index, false);
     }
 
     void OnDestroy()
@@ -165,13 +186,13 @@ public class NativeParticleSystem : MonoBehaviour
         }
     }
 
-    public void Render()
+    public void Render(ERenderType renderType)
     {
         m_Material.SetPass(0);
 
         Graphics.DrawMeshNow(m_Mesh, m_DefaultMeshPos, this.gameObject.transform.rotation);
         m_UpdateData.worldMatrix = transform.localToWorldMatrix;
         Internal_ParticleSystem_Update(m_UpdateData);
-        Native_Render();
+        Native_Render(m_UpdateData.index, (byte)renderType);
     }
 }

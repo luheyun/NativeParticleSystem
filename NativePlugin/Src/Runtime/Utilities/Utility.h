@@ -1,6 +1,8 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include "Allocator/MemoryMacros.h"
+
 template <class DataType>
 inline bool CompareArrays(const DataType *lhs, const DataType *rhs, size_t arraySize)
 {
@@ -10,6 +12,36 @@ inline bool CompareArrays(const DataType *lhs, const DataType *rhs, size_t array
             return false;
     }
     return true;
+}
+
+template <size_t ElementSize, size_t Alignment>
+inline bool CompareFixedSizeAndAlignment(const void* lhs, const void* rhs, size_t elementCount)
+{
+    // We check at compile time if it's safe to cast data to native integer types
+    if (UNITY_64 && Alignment >= ALIGN_OF(UInt64) && (ElementSize % sizeof(UInt64)) == 0)
+    {
+        return CompareArrays(reinterpret_cast<const UInt64*>(lhs), reinterpret_cast<const UInt64*>(rhs), ElementSize / sizeof(UInt64) * elementCount);
+    }
+    else if (Alignment >= ALIGN_OF(UInt32) && (ElementSize % sizeof(UInt32)) == 0)
+    {
+        return CompareArrays(reinterpret_cast<const UInt32*>(lhs), reinterpret_cast<const UInt32*>(rhs), ElementSize / sizeof(UInt32) * elementCount);
+    }
+    else if (Alignment >= ALIGN_OF(UInt16) && (ElementSize % sizeof(UInt16)) == 0)
+    {
+        return CompareArrays(reinterpret_cast<const UInt16*>(lhs), reinterpret_cast<const UInt16*>(rhs), ElementSize / sizeof(UInt16) * elementCount);
+    }
+    else
+        return !memcmp(lhs, rhs, ElementSize * elementCount);
+}
+
+template <class DataType>
+inline bool CompareMemory(const DataType& lhs, const DataType& rhs)
+{
+#ifdef ALIGN_OF
+    return CompareFixedSizeAndAlignment<sizeof(DataType), ALIGN_OF(DataType)>(&lhs, &rhs, 1);
+#else
+    return CompareFixedSizeAndAlignment<sizeof(DataType), 1>(&lhs, &rhs, 1);
+#endif
 }
 
 template <class T>

@@ -20,9 +20,7 @@
 #include "Mono/ScriptingAPI.h"
 #include "Log/Log.h"
 #include "Shaders/GraphicsCaps.h"
-
-// todo
-#define ENABLE_MULTITHREADED_PARTICLES 1
+#include "UnityPluginInterface.h"
 
 #if ENABLE_MULTITHREADED_PARTICLES
 #include "Jobs/Jobs.h"
@@ -86,6 +84,17 @@ static const void* s_ParticleSystem_IcallFuncs[] =
 	(const void*)&Internal_ParticleSystem_Update,
 	NULL
 };
+
+extern "C"
+{
+    EXPORT_API void Native_SetActive(int index, bool isActive)
+    {
+        if (index < gParticleSystemManager->particleSystems.size())
+        {
+            gParticleSystemManager->particleSystems[index]->SetActive(isActive);
+        }
+    }
+}
 
 static void RegisterParticleSystemBindings()
 {
@@ -224,7 +233,6 @@ ParticleSystem::ParticleSystem(ParticleSystemInitState* initState)
 {
 	m_InitState = new ParticleSystemInitState();
 	m_InitState->InitFromMono(initState);
-	gParticleSystemManager->activeEmitters.push_back(this);
 	m_Renderer = new ParticleSystemRenderer();
 	m_State = new ParticleSystemState();
 
@@ -281,12 +289,24 @@ void ParticleSystem::Prepare()
 		(*it)->PrepareForRender();
 }
 
+void ParticleSystem::Prepare(int index)
+{
+    if (index < gParticleSystemManager->particleSystems.size())
+        gParticleSystemManager->particleSystems[index]->PrepareForRender();
+}
+
 void ParticleSystem::Render()
 {
 	auto it = gParticleSystemManager->activeEmitters.begin();
 
 	for (; it != gParticleSystemManager->activeEmitters.end(); ++it)
 		(*it)->m_Renderer->RenderMultiple(**it);
+}
+
+void ParticleSystem::Render(int index)
+{
+    if (index < gParticleSystemManager->particleSystems.size())
+        gParticleSystemManager->particleSystems[index]->m_Renderer->RenderMultiple(*gParticleSystemManager->particleSystems[index]);
 }
 
 void ParticleSystem::Update(ParticleSystem& system, float deltaTime, bool fixedTimeStep, bool useProcedural, int rayBudget)

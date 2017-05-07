@@ -86,6 +86,8 @@ protected:
 	BuiltinShaderParamValues	m_BuiltinParamValues;
 	TransformState		m_TransformState;
 	bool				m_InvertProjectionMatrix;
+    // Immutable data
+    GfxDeviceRenderer	m_Renderer;
 
 private:
 	DynamicVBO*			m_DynamicVBO;

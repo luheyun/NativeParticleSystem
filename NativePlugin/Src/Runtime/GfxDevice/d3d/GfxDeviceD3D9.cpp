@@ -126,7 +126,7 @@ GfxThreadableDevice* CreateD3D9GfxDevice(bool forceREF)
 
 GfxDeviceD3D9::GfxDeviceD3D9()
 {
-
+    m_Renderer = kGfxRendererD3D9;
 }
 
 GfxDeviceD3D9::~GfxDeviceD3D9()
@@ -264,6 +264,7 @@ void GfxDeviceD3D9::SetDepthState(const DeviceDepthState* state)
 
 void GfxDeviceD3D9::SetStencilState(const DeviceStencilState* state, int stencilRef)
 {
+    // todo
 }
 
 // Compute/Update any deferred state before each draw call

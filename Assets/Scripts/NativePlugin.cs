@@ -60,7 +60,17 @@ public class NativePlugin : MonoBehaviour
     void OnPostRender()
     {
         for (int i = 0; i < m_ParticleSystems.Count; ++i)
-            m_ParticleSystems[i].Render();
+        {
+            NativeParticleSystem.ERenderType renderType = NativeParticleSystem.ERenderType.normal;
+
+            if (i == 0)
+                renderType |= NativeParticleSystem.ERenderType.first;
+
+            if (i == m_ParticleSystems.Count - 1)
+                renderType |= NativeParticleSystem.ERenderType.last;
+
+            m_ParticleSystems[i].Render(renderType);
+        }
     }
 
     void OnDestroy()

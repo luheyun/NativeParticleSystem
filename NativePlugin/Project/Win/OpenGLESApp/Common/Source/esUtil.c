@@ -141,7 +141,6 @@ EGLint GetContextRenderableType ( EGLDisplay eglDisplay )
 //
 GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char *title, GLint width, GLint height, GLuint flags )
 {
-#ifndef __APPLE__
    EGLConfig config;
    EGLint majorVersion;
    EGLint minorVersion;
@@ -152,15 +151,8 @@ GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char *title, G
       return GL_FALSE;
    }
 
-#ifdef ANDROID
-   // For Android, get the width/height from the window rather than what the
-   // application requested.
-   esContext->width = ANativeWindow_getWidth ( esContext->eglNativeWindow );
-   esContext->height = ANativeWindow_getHeight ( esContext->eglNativeWindow );
-#else
    esContext->width = width;
    esContext->height = height;
-#endif
 
    if ( !WinCreate ( esContext, title ) )
    {
@@ -208,16 +200,6 @@ GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char *title, G
       }
    }
 
-
-#ifdef ANDROID
-   // For Android, need to get the EGL_NATIVE_VISUAL_ID and set it using ANativeWindow_setBuffersGeometry
-   {
-      EGLint format = 0;
-      eglGetConfigAttrib ( esContext->eglDisplay, config, EGL_NATIVE_VISUAL_ID, &format );
-      ANativeWindow_setBuffersGeometry ( esContext->eglNativeWindow, 0, 0, format );
-   }
-#endif // ANDROID
-
    // Create a surface
    esContext->eglSurface = eglCreateWindowSurface ( esContext->eglDisplay, config, 
                                                     esContext->eglNativeWindow, NULL );
@@ -242,8 +224,6 @@ GLboolean ESUTIL_API esCreateWindow ( ESContext *esContext, const char *title, G
    {
       return GL_FALSE;
    }
-
-#endif // #ifndef __APPLE__
 
    return GL_TRUE;
 }

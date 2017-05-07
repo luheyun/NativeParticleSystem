@@ -3,6 +3,10 @@
 
 #include "config.h"
 
+#ifndef UNITY_64
+#define UNITY_64 0
+#endif
+
 // ADD_NEW_PLATFORM_HERE: review this file
 
 /// Increase this number by one if you want all users

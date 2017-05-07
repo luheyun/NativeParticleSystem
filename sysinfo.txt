@@ -21,224 +21,252 @@ User locale: zh-CN
 System locale: zh-CN
 
 Running processes:
-TPONSCR.EXE (4776)
-    path: C:\PROGRA~1\Lenovo\HOTKEY\TPONSCR.EXE
-    company:  Lenovo Group Limited
-    product:  On Screen Display
-    filedesc: On screen display drawer
-    filever:  8.7.4.0
-    prodver:  8.7.4.0
-QQPYService.exe (5332)
+QQPYService.exe (4760)
     path: C:\Program Files (x86)\Tencent\QQPinyin\5.4.3311.400\QQPYService.exe
     company:  Sogou
     product:  QQ拼音服务程序
     filedesc: QQ拼音服务程序
     filever:  5.4.3311.400
     prodver:  5.4.3311.400
-TpKnrres.exe (5344)
-    path: C:\Program Files\Lenovo\Communications Utility\TpKnrres.exe
-    company:  Lenovo Group Limited
-    product:  Lenovo Communications Utility
-    filedesc: Communications Utility launcher
-    filever:  3.1.18.0
-    prodver:  3.1.18.0
-QQPCTray.exe (5372)
+QQPCTray.exe (4840)
     path: D:\Program Files (x86)\Tencent\QQPCMgr\12.2.18329.219\QQPCTray.exe
     company:  Tencent
     product:  电脑管家
     filedesc: 电脑管家
     filever:  12.2.18329.219
     prodver:  12.2.18329.219
-iusb3mon.exe (5956)
+TpKnrres.exe (4956)
+    path: C:\Program Files\Lenovo\Communications Utility\TpKnrres.exe
+    company:  Lenovo Group Limited
+    product:  Lenovo Communications Utility
+    filedesc: Communications Utility launcher
+    filever:  3.1.18.0
+    prodver:  3.1.18.0
+TPONSCR.EXE (5752)
+    path: C:\PROGRA~1\Lenovo\HOTKEY\TPONSCR.EXE
+    company:  Lenovo Group Limited
+    product:  On Screen Display
+    filedesc: On screen display drawer
+    filever:  8.7.4.0
+    prodver:  8.7.4.0
+iusb3mon.exe (3712)
     path: C:\Program Files (x86)\Intel\Intel(R) USB 3.0 eXtensible Host Controller Driver\Application\iusb3mon.exe
     company:  Intel Corporation
     product:  Intel(R) USB 3.0 Monitor
     filedesc: iusb3mon
     filever:  4.0.2.42
     prodver:  4.0.2.42
-chrome.exe (6244)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-chrome.exe (6328)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-chrome.exe (6564)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-QQPCNetFlow.exe (6728)
+QQ.exe (6332)
+    path: D:\Program Files\Tencent\QQ\Bin\QQ.exe
+    company:  Tencent
+    product:  腾讯QQ
+    filedesc: 腾讯QQ
+    filever:  8.9.1.20453
+    prodver:  8.9.1.20453
+QQPCNetFlow.exe (3332)
     path: D:\Program Files (x86)\Tencent\QQPCMgr\12.2.18329.219\plugins\QMNetMon\QQPCNetFlow.exe
     company:  Tencent
     product:  电脑管家
     filedesc: 电脑管家-网络流量监控
     filever:  12.2.18329.219
     prodver:  12.2.18329.219
-chrome.exe (6836)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-QQPCRealTimeSpeedup.exe (6996)
+TXPlatform.exe (3732)
+    path: D:\Program Files\Tencent\QQ\Bin\TXPlatform.exe
+    company:  Tencent
+    product:  腾讯QQ8.9.1
+    filedesc: 腾讯QQ多客户端管理服务
+    filever:  8.9.1.20453
+    prodver:  8.9.1.20453
+QQPCRealTimeSpeedup.exe (2256)
     path: D:\Program Files (x86)\Tencent\QQPCMgr\12.2.18329.219\QQPCRealTimeSpeedup.exe
     company:  Tencent
     product:  电脑管家-小火箭
     filedesc: 电脑管家-小火箭
     filever:  12.2.18329.219
     prodver:  12.2.18329.219
-QQ.exe (6300)
-    path: D:\Program Files\Tencent\QQ\Bin\QQ.exe
+qmdl.exe (7240)
+    path: D:\Program Files (x86)\Tencent\QQPCMgr\12.2.18329.219\qmdl.exe
     company:  Tencent
-    product:  腾讯QQ
-    filedesc: 腾讯QQ
-    filever:  8.9.20026.0
-    prodver:  8.9.20026.0
-TXPlatform.exe (8068)
-    path: D:\Program Files\Tencent\QQ\Bin\TXPlatform.exe
-    company:  Tencent
-    product:  腾讯QQ8.9
-    filedesc: 腾讯QQ多客户端管理服务
-    filever:  8.9.20026.0
-    prodver:  8.9.20026.0
-chrome.exe (7744)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-chrome.exe (7904)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-ScmClient.exe (6188)
+    product:  电脑管家
+    filedesc: 电脑管家-下载中心
+    filever:  12.2.18329.219
+    prodver:  12.2.18329.219
+GitHub.exe (2004)
+    path: C:\Users\Administrator\AppData\Local\Apps\2.0\0Q5WGRE9.313\2OXDXGOO.ERT\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14\GitHub.exe
+    company:  GitHub, Inc.
+    product:  GitHub Desktop
+    filedesc: GitHub
+    filever:  3.3.4.0
+    prodver:  3.3.4.0
+ScmClient.exe (5240)
     path: C:\Program Files (x86)\ScmClient\ScmClient.exe
     company:  Tencent Technology(Shenzhen) Company Limited
     product:  ScmClient Application
     filedesc: ScmClient Application
     filever:  3.0.2013.883
     prodver:  3.0.2013.883
-ScmClient_User.EXE (1112)
+CefSharp.BrowserSubprocess.exe (8304)
+    path: C:\Users\Administrator\AppData\Local\Apps\2.0\0Q5WGRE9.313\2OXDXGOO.ERT\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14\CefSharp.BrowserSubprocess.exe
+    company:  The CefSharp Authors
+    product:  CefSharp
+    filedesc: CefSharp.BrowserSubprocess
+    filever:  39.0.0.2
+    prodver:  39.0.0.2
+ScmClient_User.EXE (8720)
     path: C:\Program Files (x86)\ScmClient\ScmClient_User.EXE
     company:  Tencent Technology(Shenzhen) Company Limited
     product:  ScmClient_UserApp Application
     filedesc: ScmClient_UserApp Application
     filever:  3.0.2013.883
     prodver:  3.0.2013.883
-clover.exe (5532)
+ssh-agent.exe (8876)
+    path: C:\Users\Administrator\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin\ssh-agent.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+CefSharp.BrowserSubprocess.exe (4148)
+    path: C:\Users\Administrator\AppData\Local\Apps\2.0\0Q5WGRE9.313\2OXDXGOO.ERT\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14\CefSharp.BrowserSubprocess.exe
+    company:  The CefSharp Authors
+    product:  CefSharp
+    filedesc: CefSharp.BrowserSubprocess
+    filever:  39.0.0.2
+    prodver:  39.0.0.2
+chrome.exe (9520)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  55.0.2883.87
+    prodver:  55.0.2883.87
+chrome.exe (9536)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  55.0.2883.87
+    prodver:  55.0.2883.87
+chrome.exe (9624)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  55.0.2883.87
+    prodver:  55.0.2883.87
+chrome.exe (9772)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  55.0.2883.87
+    prodver:  55.0.2883.87
+chrome.exe (9804)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  55.0.2883.87
+    prodver:  55.0.2883.87
+chrome.exe (8532)
+    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
+    company:  Google Inc.
+    product:  Google Chrome
+    filedesc: Google Chrome
+    filever:  55.0.2883.87
+    prodver:  55.0.2883.87
+clover.exe (2980)
     path: C:\Program Files (x86)\Clover\clover.exe
     company:  www.ejie.me
     product:  Clover
     filedesc: Clover
-    filever:  3.3.2.3031
-    prodver:  3.3.2.3031
-devenv.exe (7380)
+    filever:  3.3.4.4141
+    prodver:  3.3.4.4141
+VCTIP.EXE (6724)
+    path: D:\SoftWare\VS2015\VC\bin\VCTIP.EXE
+    company:  Microsoft Corporation
+    product:  Microsoft? Visual Studio? 2015
+    filedesc: Microsoft? VC compiler and tools experience improvement data uploader
+    filever:  14.0.24210.0
+    prodver:  14.0.24210.0
+mspdbsrv.exe (7440)
+    path: D:\SoftWare\VS2015\VC\bin\mspdbsrv.exe
+    company:  Microsoft Corporation
+    product:  Microsoft? Visual Studio? 2015
+    filedesc: Microsoft? Program Database
+    filever:  14.0.24210.0
+    prodver:  14.0.24210.0
+devenv.exe (8236)
     path: D:\SoftWare\VS2015\Common7\IDE\devenv.exe
     company:  Microsoft Corporation
     product:  Microsoft? Visual Studio? 2015
     filedesc: Microsoft Visual Studio 2015
     filever:  14.0.25420.1
     prodver:  14.0.25420.1
-vshub.exe (9628)
+vshub.exe (1400)
     path: C:\Program Files (x86)\Common Files\Microsoft Shared\VsHub\1.0.0.0\vshub.exe
     company:  Microsoft Corporation
     product:  Microsoft? Visual Studio? 2015
     filedesc: VsHub.exe
     filever:  14.0.25420.1
     prodver:  14.0.25420.1
-Microsoft.VsHub.Server.HttpHost.exe (9852)
+Microsoft.VsHub.Server.HttpHost.exe (1716)
     path: C:\Program Files (x86)\Common Files\Microsoft Shared\VsHub\1.0.0.0\Microsoft.VsHub.Server.HttpHost.exe
     company:  Microsoft Corporation
     product:  Microsoft? Visual Studio? 2015
     filedesc: Microsoft.VsHub.Server.HttpHost.exe
     filever:  14.0.25420.1
     prodver:  14.0.25420.1
-devenv.exe (7860)
-    path: D:\SoftWare\VS2015\Common7\IDE\devenv.exe
+MSBuild.exe (3824)
+    path: C:\Program Files (x86)\MSBuild\14.0\bin\MSBuild.exe
     company:  Microsoft Corporation
-    product:  Microsoft? Visual Studio? 2015
-    filedesc: Microsoft Visual Studio 2015
+    product:  Microsoft? Build Tools? 2015
+    filedesc: MSBuild.exe
     filever:  14.0.25420.1
     prodver:  14.0.25420.1
-chrome.exe (12316)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-DllHost.exe (10328)
-    path: C:\Windows\SysWOW64\DllHost.exe
-    company:  Microsoft Corporation
-    product:  Microsoft? Windows? Operating System
-    filedesc: COM Surrogate
-    filever:  6.1.7600.16385
-    prodver:  6.1.7600.16385
-chrome.exe (12796)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-chrome.exe (6588)
-    path: C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe
-    company:  Google Inc.
-    product:  Google Chrome
-    filedesc: Google Chrome
-    filever:  55.0.2883.87
-    prodver:  55.0.2883.87
-VCPkgSrv.exe (12052)
+VCPkgSrv.exe (9236)
     path: D:\SoftWare\VS2015\VC\vcpackages\VCPkgSrv.exe
     company:  Microsoft Corporation
     product:  Microsoft? Visual Studio? 2015
     filedesc: Microsoft (R) Visual C++ Package Server
     filever:  14.0.25431.1
     prodver:  14.0.25431.1
-VCPkgSrv.exe (9584)
-    path: D:\SoftWare\VS2015\VC\vcpackages\VCPkgSrv.exe
-    company:  Microsoft Corporation
-    product:  Microsoft? Visual Studio? 2015
-    filedesc: Microsoft (R) Visual C++ Package Server
-    filever:  14.0.25431.1
-    prodver:  14.0.25431.1
-VCPkgSrv.exe (5380)
-    path: D:\SoftWare\VS2015\VC\vcpackages\VCPkgSrv.exe
-    company:  Microsoft Corporation
-    product:  Microsoft? Visual Studio? 2015
-    filedesc: Microsoft (R) Visual C++ Package Server
-    filever:  14.0.25431.1
-    prodver:  14.0.25431.1
-VCPkgSrv.exe (5752)
-    path: D:\SoftWare\VS2015\VC\vcpackages\VCPkgSrv.exe
-    company:  Microsoft Corporation
-    product:  Microsoft? Visual Studio? 2015
-    filedesc: Microsoft (R) Visual C++ Package Server
-    filever:  14.0.25431.1
-    prodver:  14.0.25431.1
-VCPkgSrv.exe (12172)
-    path: D:\SoftWare\VS2015\VC\vcpackages\VCPkgSrv.exe
-    company:  Microsoft Corporation
-    product:  Microsoft? Visual Studio? 2015
-    filedesc: Microsoft (R) Visual C++ Package Server
-    filever:  14.0.25431.1
-    prodver:  14.0.25431.1
-UnityBugReporter.exe (12228)
+YoudaoNote.exe (8988)
+    path: D:\SoftWare\YoudaoNote\YoudaoNote.exe
+    company:  NetEase
+    product:  有道云笔记
+    filedesc: 有道云笔记
+    filever:  5.5.0.1
+    prodver:  5.5.0.1
+YNoteCefRender.exe (9832)
+    path: D:\SoftWare\YoudaoNote\YNoteCefRender.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+YNoteCefRender.exe (10280)
+    path: D:\SoftWare\YoudaoNote\YNoteCefRender.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+YNoteCefRender.exe (10292)
+    path: D:\SoftWare\YoudaoNote\YNoteCefRender.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+YNoteCefRender.exe (10536)
+    path: D:\SoftWare\YoudaoNote\YNoteCefRender.exe
+    company:  
+    product:  
+    filedesc: 
+    filever:  0.0.0.0
+    prodver:  0.0.0.0
+UnityBugReporter.exe (10744)
     path: D:\SoftWare\Unity\Editor\UnityBugReporter.exe
     company:  Unity Technologies ApS
     product:  Unity Bug Reporter

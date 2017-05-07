@@ -220,6 +220,56 @@ enum GfxPrimitiveType
 	kPrimitiveForce32BitInt = 0x7fffffff // force 32 bit enum size
 };
 
+// Graphics device identifiers in Unity
+enum GfxDeviceRenderer
+{
+    kGfxRendererOpenGL = 0,          // OpenGL
+    kGfxRendererD3D9,                // Direct3D 9
+    kGfxRendererD3D11,               // Direct3D 11
+    kGfxRendererGCM,                 // Sony PlayStation 3 GCM
+    kGfxRendererNull,                // "null" device (used in batch mode)
+    kGfxRendererHollywood,           // Nintendo Wii
+    kGfxRendererXenon,               // Xbox 360
+    kGfxRendererOpenGLES,            // OpenGL ES 1.1
+    kGfxRendererOpenGLES20Mobile,    // OpenGL ES 2.0 mobile variant
+    kGfxRendererMolehill,            // Flash 11 Stage3D
+    kGfxRendererOpenGLES20Desktop,   // OpenGL ES 2.0 desktop variant (i.e. NaCl)
+    kGfxRendererOpenGLES30 = 11,
+    kGfxRendererMetal = 16,
+    kGfxRendererOpenGLCore = 17, // OpenGL 3.x/4.x
+    kGfxRendererCount
+};
+
+#if GFX_SUPPORTS_OPENGL_UNIFIED
+
+// These enums have 2 usages: for context creation telling what kind of context and which version it should be,
+// and for emulation levels to clamp features to match certain GL (/ES) version
+// For normal (non-emulated) usage both values can be set to kGfxLevelMax(ES/Desktop)
+enum GfxDeviceLevelGL
+{
+    kGfxLevelUninitialized = 0, // Initial value, should never be used. Marks that caps have not been initialized yet.
+    kGfxLevelES2, kGfxLevelFirst = kGfxLevelES2, kGfxLevelESFirst = kGfxLevelES2, kGfxLevelES2First = kGfxLevelES2, kGfxLevelES2Last = kGfxLevelES2,
+    kGfxLevelES3, kGfxLevelES3First = kGfxLevelES3,
+    kGfxLevelES31,
+    kGfxLevelES31AEP, kGfxLevelESLast = kGfxLevelES31AEP, kGfxLevelES3Last = kGfxLevelES31AEP,
+    kGfxLevelLegacy, // Default GL context that is given to us by the OS. ONLY USED BY THE LEGACY GL renderer
+    kGfxLevelCore32, kGfxLevelCoreFirst = kGfxLevelCore32,
+    kGfxLevelCore33,
+    kGfxLevelCore40,
+    kGfxLevelCore41,
+    kGfxLevelCore42,
+    kGfxLevelCore43,
+    kGfxLevelCore44,
+    kGfxLevelCore45, kGfxLevelLast = kGfxLevelCore45, kGfxLevelCoreLast = kGfxLevelCore45
+};
+
+enum
+{
+    kGfxLevelCount = kGfxLevelLast - kGfxLevelFirst + 1
+};
+#endif//GFX_SUPPORTS_OPENGL_UNIFIED
+
+
 enum GfxDefaultVertexBufferType
 {
 	kGfxDefaultVertexBufferBlackWhite,

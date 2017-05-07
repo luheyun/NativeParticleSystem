@@ -18,12 +18,45 @@ SET(
 	)
 
 SET(GFX_SUPPORTS_OPENGL_UNIFIED ON CACHE BOOL "Support Opengles")
+SET(ENABLE_MULTITHREADED_PARTICLES ON CACHE BOOL "Support multi-thread particles")
 
 IF(GFX_SUPPORTS_OPENGL_UNIFIED)
 	SET(
 		OPENGLES_SRC
 		"Src/Runtime/GfxDevice/opengles/GfxDeviceGLES.h"
 		"Src/Runtime/GfxDevice/opengles/GfxDeviceGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/ApiEnumGLES.h"
+		"Src/Runtime/GfxDevice/opengles/ApiEnumGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/ApiFuncGLES.h"
+		"Src/Runtime/GfxDevice/opengles/ApiFuncGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/ApiGLES.h"
+		"Src/Runtime/GfxDevice/opengles/ApiGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/ApiTranslateGLES.h"
+		"Src/Runtime/GfxDevice/opengles/ApiTranslateGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/ApiTypeGLES.h"
+		"Src/Runtime/GfxDevice/opengles/BuffersGLES.h"
+		"Src/Runtime/GfxDevice/opengles/AssertGLES.h"
+		"Src/Runtime/GfxDevice/opengles/AssertGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/DeviceStateGLES.h"
+		"Src/Runtime/GfxDevice/opengles/DeviceStateGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/ApiConstantsGLES.h"
+		"Src/Runtime/GfxDevice/opengles/GraphicsCapsGLES.h"
+		"Src/Runtime/GfxDevice/opengles/GraphicsCapsGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/GfxContextGLES.h"
+		"Src/Runtime/GfxDevice/opengles/GfxContextGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/GfxGetProcAddressGLES.h"
+		"Src/Runtime/GfxDevice/opengles/GfxGetProcAddressGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/HandleGLES.h"
+		"Src/Runtime/GfxDevice/opengles/VertexDeclarationGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/VertexDeclarationGLES.h"
+		"Src/Runtime/GfxDevice/opengles/DataBuffersGLES.h"
+		"Src/Runtime/GfxDevice/opengles/DataBuffersGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/FrameBufferGLES.h"
+		"Src/Runtime/GfxDevice/opengles/FrameBufferGLES.cpp"
+		"Src/Runtime/GfxDevice/opengles/GfxDeviceResourcesGLES.h"
+
+		"Src/Runtime/GfxDevice/GfxDeviceConfigure.h"
+		"Src/Runtime/Utilities/fixed_array.h"
 		)	
 ELSE()
 	SET(OPENGLES_SRC "")
@@ -203,6 +236,7 @@ set(
 	"Src/Runtime/Math/Random/rand.cpp"
 	"Src/Runtime/Math/Random/Random.h"
 	"Src/Runtime/Math/Simd/RotationOrder.h"
+	"Src/Runtime/Math/Rect.h"
 
 	"Src/Runtime/Misc/AllocatorLabelNames.h"
 	"Src/Runtime/Misc/AllocatorLabels.h"
@@ -309,6 +343,7 @@ set(
 	"Src/Runtime/Utilities/UniqueIDGenerator.cpp"
 	"Src/Runtime/Utilities/Utility.h"
 	"Src/Runtime/Utilities/Word.h"
+	"Src/Runtime/Utilities/ArrayUtility.h"
 	)
 
 macro(source_group_by_dir source_files)

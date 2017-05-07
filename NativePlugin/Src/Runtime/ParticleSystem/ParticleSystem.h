@@ -43,7 +43,9 @@ public:
 	static void BeginUpdateAll();
 	static void EndUpdateAll();
 	static void Prepare();
+	static void Prepare(int index);
 	static void Render();
+	static void Render(int index);
 	static void Update(ParticleSystem& system, float deltaTime, bool fixedTimeStep, bool useProcedural, int rayBudget = 0);
 	static void SyncJobs(bool syncRenderJobs = true);
 	static void UpdateFunction(ParticleSystem* system);
@@ -58,6 +60,7 @@ public:
 	void Clear(UInt32 flags);
 	ParticleSystemParticles& GetParticles();
 	bool IsActive() { return m_IsActive; }
+    void SetActive(bool isActive) { m_IsActive = isActive; }
 	void PrepareForRender();
 	void AutoPrewarm();
 	void SetUsesAxisOfRotation();

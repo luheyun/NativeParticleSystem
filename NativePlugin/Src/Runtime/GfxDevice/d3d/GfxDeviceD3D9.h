@@ -22,11 +22,6 @@ struct DeviceStateD3D
 	D3DCULL			d3dculling;
 	bool			appBackfaceMode;
 	bool			wireframe;
-	int				scissor;
-
-	bool			requestedSRGBWrite;
-	int				actualSRGBWrite; // 0/1 or -1
-	int				renderTargetsAreLinear; // 0/1 or -1
 
 	// [0] is front, [1] is back, unless invertProjMatrix is true
 	D3DCMPFUNC		stencilFunc[2];
