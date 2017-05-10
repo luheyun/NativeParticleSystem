@@ -52,7 +52,7 @@ struct ParticleSystemParticles;
 struct ParticleSystemGeomConstInputData;
 struct ParticleSystemParticlesTempData;
 
-class ParticleSystemRenderer : Renderer
+class ParticleSystemRenderer : public Renderer
 {
 public:
     struct DrawCallData
@@ -72,6 +72,8 @@ public:
 
 	// For mesh we use world space rotation, else screen space
 	bool GetScreenSpaceRotation() const { return m_Data.renderMode != kSRMMesh; };
+
+    friend class ParticleSystemGeometryJob;
 
 private:
 	void GenerateParticleGeometry(ParticleSystemVertex* vbPtr, const ParticleSystemGeomConstInputData& constData

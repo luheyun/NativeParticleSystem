@@ -17,7 +17,7 @@ SET(
 	"./"
 	)
 
-SET(GFX_SUPPORTS_OPENGL_UNIFIED ON CACHE BOOL "Support Opengles")
+#SET(GFX_SUPPORTS_OPENGL_UNIFIED ON CACHE BOOL "Support Opengles")
 SET(ENABLE_MULTITHREADED_PARTICLES ON CACHE BOOL "Support multi-thread particles")
 
 IF(GFX_SUPPORTS_OPENGL_UNIFIED)
@@ -276,6 +276,8 @@ set(
 	"Src/Runtime/ParticleSystem/SizeModule.cpp"
 	"Src/Runtime/ParticleSystem/UVModule.h"
 	"Src/Runtime/ParticleSystem/UVModule.cpp"
+	"Src/Runtime/ParticleSystem/ParticleSystemGeometryJob.h"
+	"Src/Runtime/ParticleSystem/ParticleSystemGeometryJob.cpp"
 
 	"Src/Runtime/Shaders/GraphicsCaps.h"
 	"Src/Runtime/Shaders/GraphicsCaps.cpp"

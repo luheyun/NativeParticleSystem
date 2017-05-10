@@ -25,6 +25,8 @@ struct ParticleSystemThreadScratchPad
 	float deltaTime;
 };
 
+class Renderer;
+
 class ParticleSystem
 {
 public:
@@ -74,6 +76,7 @@ public:
 
     void SetWorldMatrix(const Matrix4x4f& worldMatrix) { m_WorldMatrix = worldMatrix; }
 	ParticleSystemThreadScratchPad& GetThreadScratchPad() { return m_ThreadScratchpad; }
+    ParticleSystemRenderer* GetRenderer() { return m_Renderer; }
 
 private:
 	void ResetSeeds();

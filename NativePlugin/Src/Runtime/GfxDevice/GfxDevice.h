@@ -71,6 +71,9 @@ public:
 
 	GFX_API void InvalidateState() GFX_PURE;
 
+    // Allocates a GeometryJobFence. Must be passed to GeometryJobInstruction.
+    GeometryJobFence	CreateGeometryJobFence() { return m_GeometryFenceAllocator.CreateID(); }
+
 	//VertexStreamSource GetDefaultVertexBuffer(GfxDefaultVertexBufferType type, size_t size);
 
 protected:
@@ -88,6 +91,8 @@ protected:
 	bool				m_InvertProjectionMatrix;
     // Immutable data
     GfxDeviceRenderer	m_Renderer;
+
+    UniqueIDGenerator	m_GeometryFenceAllocator;
 
 private:
 	DynamicVBO*			m_DynamicVBO;

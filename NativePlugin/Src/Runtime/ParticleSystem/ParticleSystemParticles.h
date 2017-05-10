@@ -61,6 +61,7 @@ struct ParticleSystemParticles
 
 struct ParticleSystemParticlesTempData
 {
+    ParticleSystemParticlesTempData(UInt32 numParticles, bool needsSheet, bool needs3DSize);
 	ParticleSystemParticlesTempData();
 	void element_swap(size_t i, size_t j);
 

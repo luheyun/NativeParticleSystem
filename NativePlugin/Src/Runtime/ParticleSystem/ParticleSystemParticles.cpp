@@ -57,6 +57,50 @@ void ParticleSystemParticles::SetUsesRotationalSpeed()
         rotationalSpeed[i] = 0.0f;
 }
 
+ParticleSystemParticlesTempData::ParticleSystemParticlesTempData(UInt32 numParticles, bool needsSheet, bool needs3DSize)
+    : color(NULL)
+    , sheetIndex(NULL)
+    , particleCount(numParticles)
+{
+    size[0] = size[1] = size[2] = NULL;
+
+    if (numParticles)
+    {
+        size_t numParticlesRounded = RoundUpMultiple<size_t>(numParticles, math::simd_width);	// round up to SIMD boundary
+        size_t memSize = numParticlesRounded * sizeof(ColorRGBA32);
+        memSize += numParticlesRounded * sizeof(float) * (needs3DSize ? 3 : 1);
+        if (needsSheet)
+            memSize += numParticlesRounded * sizeof(float);
+        float* mem = (float*)UNITY_MALLOC_ALIGNED(kMemTempJobAlloc, memSize, kDefaultMemoryAlignment);
+
+        color = (ColorRGBA32*)mem;
+        mem += numParticlesRounded;
+
+        size[0] = mem;
+        mem += numParticlesRounded;
+
+        if (needs3DSize)
+        {
+            size[1] = mem;
+            mem += numParticlesRounded;
+
+            size[2] = mem;
+            mem += numParticlesRounded;
+        }
+        else
+        {
+            size[1] = size[0];
+            size[2] = size[0];
+        }
+
+        if (needsSheet)
+        {
+            sheetIndex = mem;
+            mem += numParticlesRounded;
+        }
+    }
+}
+
 ParticleSystemParticlesTempData::ParticleSystemParticlesTempData()
 	:color(0)
 	, size(0)
